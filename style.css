@@ -11,23 +11,19 @@
 .range {
     width:200px;
     height:10px;
-    background: #00ffc8;
+    background: #fff;
     border-radius: 5px;
     position: relative;
 }
 
 .field_range {
-    background: #fff;
-    width:100%;
+    background: #00ffc8;
     height:10px;
     border-radius: 5px;
     position: absolute;
-    right:0;
 }
 
 .thumb {
-    width:18px;
-    height:18px;
     background:#00ffc8;
     border-radius: 50%;
     position: absolute;
