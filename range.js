@@ -27,7 +27,7 @@ var module = {
         
 
         function nowMouseMove(event) {
-            let newPos = event.clientX - shiftX - 34;
+            let newPos = event.clientX - shiftX;
             let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
             thumbLeft.style.left = newPos + 'px';
 
@@ -42,16 +42,13 @@ var module = {
 
             thumbLeft.style.left = newPos + 'px';
 
-
-           
         }
 
         function changeWidth() {
             let widthThumb = parseInt(thumb.style.width);
-            // const MOVE = field_range.style.width;
-
             var leftPositionThumbLeft = parseInt(thumbLeft.style.left);
             var leftPositionThumbRight = parseInt(thumbRight.style.left);
+
             field_range.style.left = leftPositionThumbLeft + 'px';
             field_range.style.width = leftPositionThumbRight - leftPositionThumbLeft + widthThumb + 'px';
         }
@@ -75,7 +72,7 @@ var module = {
 
     
         function nowMouseMove(event) {
-            var newPos = event.clientX - shiftX - 34;
+            var newPos = event.clientX - shiftX;
 
             if (newPos < 0) {
                 newPos = 0;
@@ -93,7 +90,6 @@ var module = {
             let widthThumb = parseInt(thumb.style.width);
             let leftPositionThumbLeft = parseInt(thumbLeft.style.left);
             let leftPositionThumbRight = parseInt(thumbRight.style.left);
-            const MOVE = field_range.style.width;
 
             field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'px';
             field_range.style.left = leftPositionThumbLeft + 'px';
