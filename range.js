@@ -13,8 +13,8 @@ var module = {
         document.addEventListener('mouseup', nowMouseUp);
 
         function nowMouseMove(event) {
-            var newPos = event.clientX - shiftX;
-            // console.log(newPos);
+            var newPos = event.clientX - shiftX - 34;
+            console.log(newPos);
             thumbLeft.style.left = newPos + 'px';
 
             if (newPos < 0) {
