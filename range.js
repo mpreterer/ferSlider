@@ -9,7 +9,11 @@ const containerRange = document.querySelector('.container_range');
 // var View = {
 
 // }
-
+let widthThumb = parseInt(thumb.style.width);
+var p = parseInt(thumbLeft.style.left);
+var p1 = parseInt(thumbRight.style.left);
+field_range.style.left = p + 'px';
+field_range.style.width = p1 - p + widthThumb + 'px';
 
 var module = {
     eventThumbLeft: thumbLeft.onmousedown = function(event) {
@@ -46,7 +50,6 @@ var module = {
             let widthThumb = parseInt(thumb.style.width);
             // const MOVE = field_range.style.width;
 
-            var WIDTH = field_range.style.width;
             var leftPositionThumbLeft = parseInt(thumbLeft.style.left);
             var leftPositionThumbRight = parseInt(thumbRight.style.left);
             field_range.style.left = leftPositionThumbLeft + 'px';
