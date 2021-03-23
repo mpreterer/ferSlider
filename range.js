@@ -3,8 +3,8 @@ const field_range = document.querySelector('.field_range');
 const range = document.querySelector('.range');
 const containerRange = document.querySelector('.container_range');
 
-var module = {
 
+var module = {
     eventRange: thumbLeft.onmousedown = function(event) {
         event.preventDefault();
         let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left;
@@ -29,12 +29,16 @@ var module = {
         }
         function changeWidth() {
             let x = parseInt(thumbLeft.style.left);
-            console.log(field_range);
+            const MOVE = field_range.style.width;
+            field_range.style.width = x + 'px';
+            console.log(field_range.style.width);
+            console.log(x)
         }
 
         function nowMouseUp() {
             document.removeEventListener('mouseup' , nowMouseUp);
             document.removeEventListener('mousemove', nowMouseMove);
+            document.removeEventListener('mousemove', changeWidth);
         }
     }
 }
