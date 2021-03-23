@@ -2,6 +2,7 @@ const thumbLeft = document.getElementById('thumbLeft');
 const field_range = document.querySelector('.field_range');
 const range = document.querySelector('.range');
 const containerRange = document.querySelector('.container_range');
+const thumb = document.querySelector('.thumb');
 
 
 var module = {
@@ -27,10 +28,12 @@ var module = {
             thumbLeft.style.left = newPos + 'px';
            
         }
+
         function changeWidth() {
+            let widthThumb = parseInt(thumb.style.width);
             let x = parseInt(thumbLeft.style.left);
             const MOVE = field_range.style.width;
-            field_range.style.width = x + 'px';
+            field_range.style.width = x + widthThumb +'px';
             console.log(field_range.style.width);
             console.log(x)
         }
