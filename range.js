@@ -6,21 +6,21 @@ const range = document.querySelector('.range');
 const containerRange = document.querySelector('.container_range');
 
 
-// var View = {
-
-// }
+let offLeft = containerRange.offsetLeft;
 let widthThumb = parseInt(thumb.style.width);
-var p = parseInt(thumbLeft.style.left);
-var p1 = parseInt(thumbRight.style.left);
-field_range.style.left = p + 'px';
-field_range.style.width = p1 - p + widthThumb + 'px';
+var valueLeft = parseInt(thumbLeft.style.left);
+var valueRight = parseInt(thumbRight.style.left);
+field_range.style.left = valueLeft + 'px';
+field_range.style.width = valueRight - valueLeft + widthThumb + 'px';
 
 
-var module = {
+
+var controller = {
     eventThumbLeft:
+        
         thumbLeft.addEventListener('mousedown', (event)=>  {
         event.preventDefault();
-        let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left;
+        let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left;        
 
         document.addEventListener('mousemove', nowMouseMove);
         document.addEventListener('mousemove', changeWidth);
@@ -30,8 +30,7 @@ var module = {
         function nowMouseMove(event) {
             let newPos = event.clientX - shiftX;
             let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
-            thumbLeft.style.left = newPos + 'px';
-
+            
             if (newPos < 0) {
                 newPos = 0;
               }
@@ -40,9 +39,20 @@ var module = {
                 newPos = rightEdge;
               }
 
+            if(parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
+                thumbLeft.style.left = thumbRight.style.left - 1 + 'px';
+                document.removeEventListener('mouseup' , nowMouseUp);
+                document.removeEventListener('mousemove', nowMouseMove);
+                document.removeEventListener('mousemove', changeWidth);
+            } else {
+                document.addEventListener('mousemove', nowMouseMove);
+                document.addEventListener('mousemove', changeWidth);
+                document.addEventListener('mouseup', nowMouseUp);
+                thumbLeft.style.left = newPos + 'px';
+            }
 
-            thumbLeft.style.left = newPos + 'px';
-              console.log(event.tagName)
+
+           
             //  var _this = inputLeft,
 		    // min = parseInt(_this.min),
 		    // max = parseInt(_this.max);
@@ -91,7 +101,17 @@ var module = {
                 newPos = rightEdge;
               }
 
-              thumbRight.style.left = newPos + 'px';
+            if (parseInt(thumbRight.style.left) <= parseInt(thumbLeft.style.left)) {
+                thumbRight.style.left = parseInt(thumbLeft.style.left) + 1 + 'px';
+                document.removeEventListener('mouseup' , nowMouseUp);
+                document.removeEventListener('mousemove', nowMouseMove);
+                document.removeEventListener('mousemove', changeWidth);
+            } else {
+                thumbRight.style.left = newPos + 'px';
+                document.addEventListener('mouseup' , nowMouseUp);
+                document.addEventListener('mousemove', nowMouseMove);
+                document.addEventListener('mousemove', changeWidth);
+            }
            
         }
 

@@ -28,6 +28,7 @@
     background:#00ffc8;
     border-radius: 50%;
     position: absolute;
-    top:-3px;
+    top:-4px;
     cursor: pointer;
+    border: 2px solid #fff;
 }
