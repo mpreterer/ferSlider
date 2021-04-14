@@ -4,6 +4,7 @@ const thumbRight = document.querySelector('.thumbRight');
 const field_range = document.querySelector('.field_range');
 const range = document.querySelector('.range');
 const containerRange = document.querySelector('.container_range');
+const valueOutputLeft = document.getElementById('valueLeft');
 
 
 let offLeft = containerRange.offsetLeft;
@@ -17,7 +18,7 @@ field_range.style.width = valueRight - valueLeft + widthThumb + 'px';
 
 var controller = {
     eventThumbLeft:
-        
+
         thumbLeft.addEventListener('mousedown', (event)=>  {
         event.preventDefault();
         let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left;        
@@ -80,7 +81,9 @@ var controller = {
 
     }),
 
-    eventThumbRight: thumbRight.onmousedown = function(event) {
+    eventThumbRight:
+
+     thumbRight.onmousedown = function(event) {
         event.preventDefault();
 
         let shiftX = event.clientX - thumbRight.getBoundingClientRect().left;
@@ -131,4 +134,5 @@ var controller = {
             document.removeEventListener('mousemove', changeWidth);
         }
     },
+
 }
