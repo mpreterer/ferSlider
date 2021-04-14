@@ -15,8 +15,9 @@ var p1 = parseInt(thumbRight.style.left);
 field_range.style.left = p + 'px';
 field_range.style.width = p1 - p + widthThumb + 'px';
 
+
 var module = {
-    eventThumbLeft: document.querySelectorAll('.thumbLeft').forEach(thumbLeft => { 
+    eventThumbLeft:
         thumbLeft.addEventListener('mousedown', (event)=>  {
         event.preventDefault();
         let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left;
@@ -67,8 +68,7 @@ var module = {
             document.removeEventListener('mousemove', changeWidth);
         }
 
-    });
-}),
+    }),
 
     eventThumbRight: thumbRight.onmousedown = function(event) {
         event.preventDefault();
