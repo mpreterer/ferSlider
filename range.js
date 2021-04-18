@@ -54,18 +54,10 @@ var controller = {
                 document.addEventListener('mouseup', nowMouseUp);
                 thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%'
             }
+        // Заполнение инпутов. преобразуем из % в целые значения инпутов
+        valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeft.max) / 100);
 
-          valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 100)); // преобразуем в значения
-            
-
-
-           
-            //  var _this = inputLeft,
-		    // min = parseInt(_this.min),
-		    // max = parseInt(_this.max);
-        	// _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 1);
-        	// var percent = ((_this.value - min) / (max - min)) * 100;
-	        // thumbLeft.style.left = percent + "%";
+        
 
         }
 
@@ -77,19 +69,6 @@ var controller = {
 
             field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
             field_range.style.left = leftPositionThumbLeft + '%';
-
-            // _thisL = valueOutputLeft;
-            // _thisR = valueOutputRight;
-
-            // min = _thisL.min;
-            // max = _thisL.max;
-            // _thisL.value = Math.min(parseInt(_thisL.value), parseInt(valueOutputRight.value) - 1);
-            // percent = _thisL.value / (max - min) * 100;
-            // percentWidth = _thisR.value - _thisL.value / _thisL.max * 100;
-
-            
-            // field_range.style.left = percent + '%';
-            // field_range.style.width = percentWidth + '%';
 
 
         }
@@ -137,8 +116,8 @@ var controller = {
 
                 thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
             }
-            // value add
-          valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 100)); // преобразуем в значения
+           // преобразуем в значения
+          valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
 
            
         }
@@ -162,15 +141,40 @@ var controller = {
 
     enterInputLeft: valueOutputLeft.oninput = function() {
         // Выстраиваем числовые значения в инпутах
-        thumbLeft.style.left = (valueOutputLeft.value/valueOutputLeft.max) * 100 + '%';
+        // 92 и 5 т.к. field range заполняется всего на 92 процента
+        thumbLeft.style.left = (valueOutputLeft.value/valueOutputLeft.max) * 92.5 + '%';
         field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
         field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+        // Если значение введено больше максимального 
+        if (parseInt(valueOutputLeft.value) > parseInt(valueOutputLeft.max)) {
+            valueOutputLeft.value = parseInt(valueOutputLeft.max);
+            thumbRight.style.left = (valueOutputRight.value/valueOutputRight.max) * 92.5 + '%';
+            field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+        }
+        // Если правая сторна больше левой или в левой ''
+        if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value) || valueOutputLeft.value === '') {
+            thumbLeft.style.left = (valueOutputRight.value/valueOutputRight.max) * 80 + '%';
+            field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+            field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+        }
      },
 
     enterInputRight: valueOutputRight.oninput = function() {
-        thumbRight.style.left = valueOutputRight.value + 'px';
-        field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb +'px';
-        field_range.style.left = parseInt(thumbLeft.style.left) + 'px';
+        thumbRight.style.left = (valueOutputRight.value/valueOutputRight.max) * 92.5 + '%';
+        field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+        field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+        field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+        // Если значение введено больше максимального 
+        if (parseInt(valueOutputRight.value) > parseInt(valueOutputRight.max)) {
+            valueOutputRight.value = parseInt(valueOutputRight.max);
+            thumbRight.style.left = (valueOutputRight.value/valueOutputRight.max) * 92.5 + '%';
+            field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+        }
+        // Если левая сторна больше правой или в правой ''
+        if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value) || valueOutputRight.value === '') {
+            thumbRight.style.left = (valueOutputLeft.value/valueOutputLeft.max) * 100 + '%';
+            field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+        }
      },
        
         
