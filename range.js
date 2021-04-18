@@ -10,11 +10,11 @@ const valueOutputRight = document.getElementById('valueRight');
 var steps = 1; // шаг
 let leftDifference = parseInt(getComputedStyle(containerRange).marginLeft); // чтобы не смещались ползунки
 let offLeft = containerRange.offsetLeft;
-let widthThumb = parseInt(thumb.style.width); 
+let widthThumb = parseInt(thumb.style.width) / 10; 
 var valueLeft = parseInt(thumbLeft.style.left);
 var valueRight = parseInt(thumbRight.style.left);
-field_range.style.left = valueLeft + 'px';
-field_range.style.width = valueRight - valueLeft + widthThumb + 'px';
+field_range.style.left = valueLeft + '%';
+field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 
 
 
@@ -30,19 +30,7 @@ var controller = {
         
 
         function nowMouseMove(event) {
-            let newPos = event.clientX - shiftX - leftDifference;
-
-            _thisL = valueOutputLeft;
-            _thisR = valueOutputRight;
-
-            min = _thisL.min;
-            max = _thisL.max;
-            _thisL.value = Math.min(parseInt(_thisL.value), parseInt(valueOutputRight.value) - 1);
-            percent = _thisL.value / (max - min) * 100;
-            percentWidth = _thisR.value - _thisL.value / _thisL.max * 100;
-            thumbLeft.style.left  = percent + '%';
-            field_range.style.left = percent + '%';
-            field_range.style.width = percentWidth + '%';
+            let newPos = event.clientX - shiftX - leftDifference;            
 
 
             let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
@@ -56,7 +44,7 @@ var controller = {
               }
 
             if(parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
-                thumbLeft.style.left = parseInt(thumbLeft.style.left) - 5 + 'px';
+                thumbLeft.style.left = parseInt(thumbLeft.style.left) - 1 + '%';
                 document.removeEventListener('mouseup' , nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
                 document.removeEventListener('mousemove', changeWidth);
@@ -64,10 +52,11 @@ var controller = {
                 document.addEventListener('mousemove', nowMouseMove);
                 document.addEventListener('mousemove', changeWidth);
                 document.addEventListener('mouseup', nowMouseUp);
-                thumbLeft.style.left = newPos + 'px';
+                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%'
             }
 
-        // valueOutputLeft.value = parseFloat(thumbLeft.style.left);
+          valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 100)); // преобразуем в значения
+            
 
 
            
@@ -82,12 +71,27 @@ var controller = {
 
 
         function changeWidth() {
-            // let widthThumb = parseInt(thumb.style.width);
-            // var leftPositionThumbLeft = parseInt(thumbLeft.style.left);
-            // var leftPositionThumbRight = parseInt(thumbRight.style.left);
+            let widthThumb = parseInt(thumb.style.width) / 10;
+            var leftPositionThumbLeft = parseInt(thumbLeft.style.left);
+            var leftPositionThumbRight = parseInt(thumbRight.style.left);
 
-            // field_range.style.left = leftPositionThumbLeft + 'px';
-            // field_range.style.width = leftPositionThumbRight - leftPositionThumbLeft + widthThumb + 'px';
+            field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
+            field_range.style.left = leftPositionThumbLeft + '%';
+
+            // _thisL = valueOutputLeft;
+            // _thisR = valueOutputRight;
+
+            // min = _thisL.min;
+            // max = _thisL.max;
+            // _thisL.value = Math.min(parseInt(_thisL.value), parseInt(valueOutputRight.value) - 1);
+            // percent = _thisL.value / (max - min) * 100;
+            // percentWidth = _thisR.value - _thisL.value / _thisL.max * 100;
+
+            
+            // field_range.style.left = percent + '%';
+            // field_range.style.width = percentWidth + '%';
+
+
         }
 
         function nowMouseUp() {
@@ -122,29 +126,30 @@ var controller = {
               }
 
             if (parseInt(thumbRight.style.left) <= parseInt(thumbLeft.style.left)) {
-                thumbRight.style.left = parseInt(thumbLeft.style.left) + 1 + 'px';
+                thumbRight.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
                 document.removeEventListener('mouseup' , nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
                 document.removeEventListener('mousemove', changeWidth);
             } else {
-                thumbRight.style.left = newPos + 'px';
                 document.addEventListener('mouseup' , nowMouseUp);
                 document.addEventListener('mousemove', nowMouseMove);
                 document.addEventListener('mousemove', changeWidth);
+
+                thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
             }
             // value add
-          valueOutputRight.value = newPos;
+          valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 100)); // преобразуем в значения
 
            
         }
 
         function changeWidth() {
-            let widthThumb = parseInt(thumb.style.width);
+            let widthThumb = parseInt(thumb.style.width) / 10;
             let leftPositionThumbLeft = parseInt(thumbLeft.style.left);
             let leftPositionThumbRight = parseInt(thumbRight.style.left);
 
-            field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'px';
-            field_range.style.left = leftPositionThumbLeft + 'px';
+            field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
+            field_range.style.left = leftPositionThumbLeft + '%';
             
         }
 
@@ -156,16 +161,10 @@ var controller = {
     },
 
     enterInputLeft: valueOutputLeft.oninput = function() {
-        thumbLeft.style.left = valueOutputLeft.value + 'px';
-        field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb +'px';
-        field_range.style.left = parseInt(thumbLeft.style.left) + 'px';
-
-        // Оттакливаемся от значений в input
-        // _this = valueOutputLeft;
-        // min = _this.min;
-        // max = _this.max;
-
-        // inputValue = _this.value / (max - min) * 100;
+        // Выстраиваем числовые значения в инпутах
+        thumbLeft.style.left = (valueOutputLeft.value/valueOutputLeft.max) * 100 + '%';
+        field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+        field_range.style.left = parseInt(thumbLeft.style.left) + '%';
      },
 
     enterInputRight: valueOutputRight.oninput = function() {
