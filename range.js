@@ -7,7 +7,7 @@ const containerRange = document.querySelector('.container_range');
 const valueOutputLeft = document.getElementById('valueLeft');
 const valueOutputRight = document.getElementById('valueRight');
 const valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
-const valueTopR = document.querySelector('.valueTopLeft'); // цифры сверху
+const valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
 
 
 var steps = 1; // шаг
@@ -20,10 +20,20 @@ field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 
 
+valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+valueTopL.innerHTML = valueOutputLeft.value;
+
+valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+valueTopR.innerHTML = valueOutputRight.value;
+
 var tip = {
     valueTopL: 
-
         thumbLeft.addEventListener('mousemove', (event) => {
+        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+        valueTopL.innerHTML = valueOutputLeft.value;
+    }),
+    valueTopL:
+        thumbLeft.addEventListener('mousedown', (event) => {
         valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
         valueTopL.innerHTML = valueOutputLeft.value;
     }),
@@ -31,7 +41,27 @@ var tip = {
         thumbLeft.addEventListener('mouseup', (event) => {
         valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
         valueTopL.innerHTML = valueOutputLeft.value;
-    })
+        thumbLeft.removeEventListener('mousedown');
+        thumbLeft.removeEventListener('mousemove');
+    }),
+
+    valueTopR:
+        thumbRight.addEventListener('mousemove', (event) => {
+        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+        valueTopR.innerHTML = valueOutputRight.value;
+    }),
+    valueTopR:
+        thumbRight.addEventListener('mousedown', (event) => {
+        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+        valueTopR.innerHTML = valueOutputRight.value;
+    }),
+    valueTopR:
+        thumbRight.addEventListener('mouseup', (event) => {
+        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+        valueTopR.innerHTML = valueOutputRight.value;
+        thumbRight.removeEventListener('mousedown');
+        thumbRight.removeEventListener('mousemove');
+    }),
 }
 
 
