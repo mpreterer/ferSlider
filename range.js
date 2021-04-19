@@ -6,6 +6,9 @@ const range = document.querySelector('.range');
 const containerRange = document.querySelector('.container_range');
 const valueOutputLeft = document.getElementById('valueLeft');
 const valueOutputRight = document.getElementById('valueRight');
+const valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
+const valueTopR = document.querySelector('.valueTopLeft'); // цифры сверху
+
 
 var steps = 1; // шаг
 let leftDifference = parseInt(getComputedStyle(containerRange).marginLeft); // чтобы не смещались ползунки
@@ -16,6 +19,20 @@ var valueRight = parseInt(thumbRight.style.left);
 field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 
+
+var tip = {
+    valueTopL: 
+
+        thumbLeft.addEventListener('mousemove', (event) => {
+        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+        valueTopL.innerHTML = valueOutputLeft.value;
+    }),
+    valueTopL:
+        thumbLeft.addEventListener('mouseup', (event) => {
+        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+        valueTopL.innerHTML = valueOutputLeft.value;
+    })
+}
 
 
 var controller = {
@@ -43,7 +60,7 @@ var controller = {
                 newPos = rightEdge;
               }
 
-            if(parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
+            if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
                 thumbLeft.style.left = parseInt(thumbLeft.style.left) - 1 + '%';
                 document.removeEventListener('mouseup' , nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
@@ -56,9 +73,6 @@ var controller = {
             }
         // Заполнение инпутов. преобразуем из % в целые значения инпутов
         valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeft.max) / 100);
-
-        
-
         }
 
 
