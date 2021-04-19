@@ -8,6 +8,7 @@ const valueOutputLeft = document.getElementById('valueLeft');
 const valueOutputRight = document.getElementById('valueRight');
 const valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
 const valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
+const btnTip = document.getElementById('btnTip') // Кнопка для tip
 
 
 var steps = 1; // шаг
@@ -41,8 +42,6 @@ var tip = {
         thumbLeft.addEventListener('mouseup', (event) => {
         valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
         valueTopL.innerHTML = valueOutputLeft.value;
-        thumbLeft.removeEventListener('mousedown');
-        thumbLeft.removeEventListener('mousemove');
     }),
 
     valueTopR:
@@ -59,9 +58,21 @@ var tip = {
         thumbRight.addEventListener('mouseup', (event) => {
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
         valueTopR.innerHTML = valueOutputRight.value;
-        thumbRight.removeEventListener('mousedown');
-        thumbRight.removeEventListener('mousemove');
     }),
+
+    // вкл/выкл 
+    buttonTip:
+      btnTip.addEventListener('click', (event) => {
+        if (valueTopL.classList.contains('hidden')) {
+            valueTopR.classList.remove('hidden');
+            valueTopL.classList.remove('hidden');
+        }
+        else {
+            valueTopR.classList.add('hidden');
+            valueTopL.classList.add('hidden');
+        }
+        
+      })
 }
 
 

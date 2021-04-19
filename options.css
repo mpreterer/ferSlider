@@ -1,0 +1,23 @@
+.options {
+    width: 500px;
+    height: 250px;
+    border: 1px solid grey;
+    margin-left: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: left;
+    border-radius: 5px;
+}
+
+.options div {
+    margin-left: 20px;
+    display: flex;
+    height:60px;
+}
+
+
+.options span{
+    background: #333;
+    padding: 10px;
+    color:#fff;
+}
