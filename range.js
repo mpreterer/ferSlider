@@ -26,36 +26,19 @@ valueTopL.innerHTML = valueOutputLeft.value;
 
 valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
 valueTopR.innerHTML = valueOutputRight.value;
+var oneRange = {
+    
+}
 
 var tip = {
     valueTopL: 
-        thumbLeft.addEventListener('mousemove', (event) => {
-        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
-        valueTopL.innerHTML = valueOutputLeft.value;
-    }),
-    valueTopL:
-        thumbLeft.addEventListener('mousedown', (event) => {
-        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
-        valueTopL.innerHTML = valueOutputLeft.value;
-    }),
-    valueTopL:
-        thumbLeft.addEventListener('mouseup', (event) => {
+        valueOutputLeft.addEventListener('keyup', () => {
         valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
         valueTopL.innerHTML = valueOutputLeft.value;
     }),
 
-    valueTopR:
-        thumbRight.addEventListener('mousemove', (event) => {
-        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
-        valueTopR.innerHTML = valueOutputRight.value;
-    }),
-    valueTopR:
-        thumbRight.addEventListener('mousedown', (event) => {
-        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
-        valueTopR.innerHTML = valueOutputRight.value;
-    }),
-    valueTopR:
-        thumbRight.addEventListener('mouseup', (event) => {
+    valueTopR: 
+        valueOutputRight.addEventListener('keyup', () => {
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
         valueTopR.innerHTML = valueOutputRight.value;
     }),
@@ -77,6 +60,26 @@ var tip = {
 
 
 var controller = {
+    clickRange: 
+        range.addEventListener('click', (event) => {
+            let widthRange = parseInt(getComputedStyle(containerRange).width);
+            let nowValue = event.clientX - leftDifference - widthThumb;
+            let valueLeftClick = (nowValue/widthRange - 0.02) * 100;
+
+            if (valueLeftClick > 93) {
+                valueLeftClick = 93;
+            }
+            else if (valueLeftClick < 0) {
+                valueLeftClick = 0;
+            }
+
+            thumbRight.style.left = valueLeftClick + '%'; // позиция правого ползунка
+            field_range.style.width = (valueLeftClick - parseInt(thumbLeft.style.left) + widthThumb) + '%'; // шкала заполнения
+            valueOutputRight.value = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение max
+            valueTopR.innerHTML = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение top
+            valueTopR.style.left = valueLeftClick + '%'; // позиция значения top
+        }),
+
     eventThumbLeft:
 
         thumbLeft.addEventListener('mousedown', (event)=>  {
@@ -114,8 +117,10 @@ var controller = {
             }
         // Заполнение инпутов. преобразуем из % в целые значения инпутов
         valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeft.max) / 100);
+        // Верхние значения
+        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+        valueTopL.innerHTML = valueOutputLeft.value;
         }
-
 
         function changeWidth() {
             let widthThumb = parseInt(thumb.style.width) / 10;
@@ -173,7 +178,9 @@ var controller = {
             }
            // преобразуем в значения
           valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
-
+          // Значения сверху
+          valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+          valueTopR.innerHTML = valueOutputRight.value;
            
         }
 
@@ -231,8 +238,4 @@ var controller = {
             field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
      },
-       
-        
-    
-
 }

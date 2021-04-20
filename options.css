@@ -5,14 +5,14 @@
     margin-left: 50px;
     padding: 20px;
     display: flex;
-    justify-content: left;
     border-radius: 5px;
+    flex-wrap: wrap;
 }
 
 .options div {
     margin-left: 20px;
-    display: flex;
     height:60px;
+    display: flex;
 }
 
 

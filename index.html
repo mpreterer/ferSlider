@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
     <link href="options.css" rel="stylesheet">
+    <link href="rangeVertical.css" rel="stylesheet">
     <title>TypeScript</title>
 </head>
 <body>
@@ -21,18 +22,34 @@
             <div class="valueTop valueTopRight" style="left:20%;"></div>
             <div class="thumb thumbRight" style="width:18px;
             height:18px; left:40%;"></div>
-            
         </div>
     </div>
+
+    <div class="container_range_vertical">
+        <div class="rangeVertical">
+            <div class="field_range_vertical" style="height:0%; left:0;"></div>
+            <div class="steps"></div>
+            <div class="thumbVertical thumbTop" style="top:1%;" value></div>
+            <!-- <div class="thumb thumbDown" style="width:18px;
+            height:18px; left:40%;"></div> -->
+        </div>
+    </div>
+    
+
+    
 
     <div class="options">
         <div class="tip">
             <span>tip: </span>
             <button id = "btnTip">Вкл/Выкл</button>
         </div>
-        <div class="min"></div>
+        <div class="typeRange">
+            <span>range/double range</span>
+            <button id="typeRange">Вкл/выкл</button>
+        </div>
+        <!-- <div class="min"></div>
         <div class="max"></div>
-        <div class="steps"></div>
+        <div class="steps"></div> -->
         <div class="from">
             <div class="output outputLeft">
                 <span>from: </span>
@@ -45,6 +62,7 @@
                 <input type = "number" id = "valueRight" max="15000" min="0" maxlength="5" size="6" value="0">
             </div>
         </div>
+        
     </div>
 
     <!-- <div class="container_range">
