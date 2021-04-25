@@ -10,7 +10,6 @@
 }
 
 .options div {
-    margin-left: 20px;
     height:60px;
     display: flex;
 }
@@ -21,3 +20,4 @@
     padding: 10px;
     color:#fff;
 }
+

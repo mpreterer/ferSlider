@@ -47,19 +47,33 @@
             <span>range/double range</span>
             <button id="typeRange">Вкл/выкл</button>
         </div>
-        <!-- <div class="min"></div>
-        <div class="max"></div>
-        <div class="steps"></div> -->
+        <div class="container_mm">
+            <div class="min">
+                <span>Минимум: </span>
+                <input type="number" id="minimum" min="0" value="0">
+            </div>
+            <div class="max">
+                <span>Максимум: </span>
+                <input type="number" id="maximum" max="1" value="1">
+            </div>
+        </div>
+        <!-- <div class="steps"></div> -->
         <div class="from">
             <div class="output outputLeft">
                 <span>from: </span>
-                <input type = "number" id = "valueLeft" max="15000" min="0" maxlength="5" size="6" value="0">
+                <input type = "number" id = "valueLeft" max="15000" min="0" maxlength="5" size="6" value="0" step="1">
             </div>
         </div>
         <div class="to">
             <div class="output outputRight">
                 <span>to: </span>
-                <input type = "number" id = "valueRight" max="15000" min="0" maxlength="5" size="6" value="0">
+                <input type = "number" id = "valueRight" max="15000" min="0" maxlength="5" size="6" value="0" step="1">
+            </div>
+        </div>
+        <div class="container_steps">
+            <div class="steps">
+                <span id="instep">steps:</span>
+                <input type="number" id="valueSteps">
             </div>
         </div>
         

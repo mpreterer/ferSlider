@@ -9,6 +9,9 @@ const valueOutputRight = document.getElementById('valueRight');
 const valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
 const valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
 const btnTip = document.getElementById('btnTip') // Кнопка для tip
+const minimum = document.getElementById('minimum'); // минимум
+const maximum = document.getElementById('maximum'); // максимум
+
 
 
 var steps = 1; // шаг
@@ -26,9 +29,7 @@ valueTopL.innerHTML = valueOutputLeft.value;
 
 valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
 valueTopR.innerHTML = valueOutputRight.value;
-var oneRange = {
-    
-}
+
 
 var tip = {
     valueTopL: 
@@ -60,25 +61,73 @@ var tip = {
 
 
 var controller = {
-    clickRange: 
-        range.addEventListener('click', (event) => {
-            let widthRange = parseInt(getComputedStyle(containerRange).width);
-            let nowValue = event.clientX - leftDifference - widthThumb;
-            let valueLeftClick = (nowValue/widthRange - 0.02) * 100;
 
-            if (valueLeftClick > 93) {
-                valueLeftClick = 93;
-            }
-            else if (valueLeftClick < 0) {
-                valueLeftClick = 0;
+    enterMinumum:
+        minimum.addEventListener('input', () => {
+            let minimumChange = parseInt(minimum.value);
+
+            valueOutputLeft.min = minimumChange;
+            valueOutputLeft.value = minimumChange;
+            valueOutputRight.min = minimumChange;
+
+            if (minimum.value == NaN || minimum.value == '') {
+                valueOutputLeft.min = 0;
             }
 
-            thumbRight.style.left = valueLeftClick + '%'; // позиция правого ползунка
-            field_range.style.width = (valueLeftClick - parseInt(thumbLeft.style.left) + widthThumb) + '%'; // шкала заполнения
-            valueOutputRight.value = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение max
-            valueTopR.innerHTML = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение top
-            valueTopR.style.left = valueLeftClick + '%'; // позиция значения top
         }),
+
+    enterMaximum:
+        maximum.addEventListener('input', () => {
+            let maximumChange = parseInt(maximum.value);
+
+            valueOutputLeft.max = maximumChange;
+            valueOutputRight.max = maximumChange;
+            
+            // if (maximum.value == NaN || maximum.value == '') {
+            //     valueOutputRight.max = 0;
+            // }
+
+        }),
+
+
+    oneRange:
+        //одинарный слайдер
+        typeRange.addEventListener('click', () => {
+            thumbLeft.style.left = 0 + '%';
+            field_range.style.width = thumbRight.style.left - thumbLeft.style.left;
+            // Убираем левый ползунок и заполняем field range else добавляем ползунок обратно
+            if (thumbLeft.classList.contains('hidden')) {
+                thumbLeft.classList.remove('hidden');
+                valueTopL.classList.remove('hidden');
+            } else {
+                thumbLeft.classList.add('hidden');
+                valueTopL.classList.add('hidden');
+                field_range.style.width = parseInt(thumbRight.style.left) + 2 + '%';
+                field_range.style.left = 0 + '%';
+            }
+            
+        }),
+
+
+    // clickRange: 
+    //     range.addEventListener('click', (event) => {
+    //         let widthRange = parseInt(getComputedStyle(containerRange).width);
+    //         let nowValue = event.clientX - leftDifference - widthThumb;
+    //         let valueLeftClick = (nowValue/widthRange - 0.02) * 100;
+
+    //         if (valueLeftClick > 93) {
+    //             valueLeftClick = 93;
+    //         }
+    //         else if (valueLeftClick < 0) {
+    //             valueLeftClick = 0;
+    //         }
+
+    //         thumbRight.style.left = valueLeftClick + '%'; // позиция правого ползунка
+    //         field_range.style.width = (valueLeftClick - parseInt(thumbLeft.style.left) + widthThumb) + '%'; // шкала заполнения
+    //         valueOutputRight.value = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение max
+    //         valueTopR.innerHTML = Math.round((valueLeftClick * parseInt(valueOutputRight.max) / 93)); // значение top
+    //         valueTopR.style.left = valueLeftClick + '%'; // позиция значения top
+    //     }),
 
     eventThumbLeft:
 
@@ -92,12 +141,11 @@ var controller = {
 
         function nowMouseMove(event) {
             let newPos = event.clientX - shiftX - leftDifference;            
-
-
             let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
             // сделаем чтобы не выходили за рамки ползунки
-            if (newPos < 0) {
-                newPos = 0;
+
+            if (newPos < parseInt(valueOutputLeft.min)) {
+                newPos = parseInt(valueOutputLeft.min);
               }
 
             if (newPos > rightEdge) {
