@@ -11,6 +11,8 @@ const valueTopR = document.querySelector('.valueTopRight'); // цифры све
 const btnTip = document.getElementById('btnTip') // Кнопка для tip
 const minimum = document.getElementById('minimum'); // минимум
 const maximum = document.getElementById('maximum'); // максимум
+const thumbTop = document.querySelector('.thumbTop'); // верхний ползунок вертикального слайдера
+const containerVR = document.querySelector('.container_range_vertical'); // вертикальный слайдер
 
 
 
@@ -49,8 +51,19 @@ var tip = {
     buttonTip:
       btnTip.addEventListener('click', () => {
         if (valueTopL.classList.contains('hidden')) {
-            valueTopR.classList.remove('hidden');
-            valueTopL.classList.remove('hidden');
+            if (thumbLeft.classList.contains('hidden')) {
+                valueTopR.classList.add('hidden');
+            }
+
+            else if ((thumbLeft.classList.contains('hidden')) && (valueTopR.classList.contains('hidden'))) {
+                valueTopR.classList.remove('hidden');
+            }
+
+            else if (!thumbLeft.classList.contains('hidden') && !thumbRight.classList.contains('hidden')) {
+                valueTopR.classList.remove('hidden');
+                valueTopL.classList.remove('hidden');
+            }
+
         }
         else {
             valueTopR.classList.add('hidden');
@@ -103,6 +116,7 @@ var controller = {
             if (thumbLeft.classList.contains('hidden')) {
                 thumbLeft.classList.remove('hidden');
                 valueTopL.classList.remove('hidden');
+                valueTopR.classList.remove('hidden');
             } else {
                 thumbLeft.classList.add('hidden');
                 valueTopL.classList.add('hidden');
@@ -254,7 +268,7 @@ var controller = {
             let leftPositionThumbRight = parseInt(thumbRight.style.left);
 
             field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
-            field_range.style.left = leftPositionThumbLeft + 0.5 + '%';
+            field_range.style.left = leftPositionThumbLeft + 0.9 + '%';
             
         }
 
@@ -302,4 +316,50 @@ var controller = {
             field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
      },
+}
+
+
+
+var verticalRange = {
+
+    thumbTop: 
+        thumbTop.addEventListener('mousedown', (event) => {
+            let shiftY = thumbTop.getBoundingClientRect().top;
+
+            document.addEventListener('mousemove', nowMouseMove);
+            document.addEventListener('mouseup', nowMouseUp);
+
+            // document.addEventListener('mousemove', changeWidth);
+
+            function nowMouseMove(event) {
+                var newPosVertical = event.clientY - shiftY;
+            
+
+    
+                if (newPosVertical < 0) {
+                    newPosVertical = 0;
+                  }
+
+                let downEdge = verticalRange.offsetWidth - thumbTop.offsetWidth;
+
+                if (newPosVertical > downEdge) {
+                    newPosVertical = downEdge;
+                  }
+    
+               // преобразуем в значения
+            
+              thumbTop.style.top = (newPosVertical / parseInt(getComputedStyle(containerVR).height)) * 100 + '%' // переводим в % range
+              console.log(parseInt(getComputedStyle(containerVR).height))
+              valueOutputRight.value = Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 107.53) * (valueOutputRight.max) / 100);
+              // Значения сверху
+            }
+
+            function nowMouseUp() {
+                document.removeEventListener('mouseup' , nowMouseUp);
+                document.removeEventListener('mousemove', nowMouseMove);
+                // document.removeEventListener('mousemove', changeWidth);
+            }
+
+
+    })
 }
