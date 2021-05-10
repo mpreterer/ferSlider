@@ -20,6 +20,7 @@ let offLeft = containerRange.offsetLeft;
 let widthThumb = parseInt(thumb.style.width) / 10; 
 var valueLeft = parseInt(thumbLeft.style.left);
 var valueRight = parseInt(thumbRight.style.left);
+const stopMax = parseInt(valueOutputRight.max);
 field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 
@@ -46,7 +47,7 @@ var tip = {
 
     // вкл/выкл 
     buttonTip:
-      btnTip.addEventListener('click', (event) => {
+      btnTip.addEventListener('click', () => {
         if (valueTopL.classList.contains('hidden')) {
             valueTopR.classList.remove('hidden');
             valueTopL.classList.remove('hidden');
@@ -75,13 +76,16 @@ var controller = {
             }
 
         }),
-
+    
     enterMaximum:
         maximum.addEventListener('input', () => {
             let maximumChange = parseInt(maximum.value);
-
             valueOutputLeft.max = maximumChange;
             valueOutputRight.max = maximumChange;
+
+            if (maximum.value == '' || maximum.value == NaN) {
+                valueOutputRight.max = stopMax;
+            }
             
             // if (maximum.value == NaN || maximum.value == '') {
             //     valueOutputRight.max = 0;
@@ -133,11 +137,19 @@ var controller = {
 
         thumbLeft.addEventListener('mousedown', (event)=>  {
         event.preventDefault();
-        let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left; // смещение позиции мыши клиента     
+        let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left; // смещение позиции мыши клиента  
+
         document.addEventListener('mousemove', nowMouseMove);
         document.addEventListener('mousemove', changeWidth);
         document.addEventListener('mouseup', nowMouseUp);
-        
+
+        document.addEventListener('touchmove', nowMouseMove);
+        document.addEventListener('touchmove', changeWidth);
+        document.addEventListener('touchend', nowMouseUp)
+
+        // Делаем ползунок выше в завимисоти от выбора
+        thumbLeft.style.zIndex = 2;
+        thumbRight.style.zIndex = 0;
 
         function nowMouseMove(event) {
             let newPos = event.clientX - shiftX - leftDifference;            
@@ -153,7 +165,7 @@ var controller = {
               }
 
             if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
-                thumbLeft.style.left = parseInt(thumbLeft.style.left) - 1 + '%';
+                thumbLeft.style.left = parseInt(thumbLeft.style.left) - 0.1 + '%';
                 document.removeEventListener('mouseup' , nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
                 document.removeEventListener('mousemove', changeWidth);
@@ -161,12 +173,13 @@ var controller = {
                 document.addEventListener('mousemove', nowMouseMove);
                 document.addEventListener('mousemove', changeWidth);
                 document.addEventListener('mouseup', nowMouseUp);
-                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%'
+               
+                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%';
             }
         // Заполнение инпутов. преобразуем из % в целые значения инпутов
         valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeft.max) / 100);
         // Верхние значения
-        valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+        valueTopL.style.left = parseInt(thumbLeft.style.left) + 0.1 + '%';
         valueTopL.innerHTML = valueOutputLeft.value;
         }
 
@@ -176,7 +189,7 @@ var controller = {
             var leftPositionThumbRight = parseInt(thumbRight.style.left);
 
             field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
-            field_range.style.left = leftPositionThumbLeft + '%';
+            field_range.style.left = leftPositionThumbLeft + 0.7 + '%';
 
 
         }
@@ -200,6 +213,9 @@ var controller = {
         document.addEventListener('mousemove', changeWidth);
         document.addEventListener('mouseup', nowMouseUp);
 
+        // Делаем ползунок выше в завимисоти от выбора
+        thumbRight.style.zIndex = 2;
+        thumbLeft.style.zIndex = 0;
     
         function nowMouseMove(event) {
             var newPos = event.clientX - shiftX - leftDifference;
@@ -238,7 +254,7 @@ var controller = {
             let leftPositionThumbRight = parseInt(thumbRight.style.left);
 
             field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
-            field_range.style.left = leftPositionThumbLeft + '%';
+            field_range.style.left = leftPositionThumbLeft + 0.5 + '%';
             
         }
 
