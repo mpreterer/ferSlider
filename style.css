@@ -54,6 +54,17 @@ body {
     display: none;
 }
 
+.steps {
+    display: flex;
+    flex: 1 1 auto;
+    width:300px;
+    height:15px;
+    background: red;
+    margin-top: 20px;
+    justify-content: space-around;
+    align-items: center;
+}
+
 
 /* .steps {
     width: 100%;

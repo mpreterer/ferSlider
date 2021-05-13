@@ -15,7 +15,6 @@
     <div class="container_range">
         <div class="range">
             <div class="field_range" style="width:0%; left:0;"></div>
-            <div class="steps"></div>
             <div class="valueTop valueTopLeft" style="left:20%;"></div>
             <div class="thumb thumbLeft" style="width:18px;
             height:18px; left:1%;" value></div>
@@ -23,12 +22,14 @@
             <div class="thumb thumbRight" style="width:18px;
             height:18px; left:40%;"></div>
         </div>
+        <div class="steps">
+
+        </div>
     </div>
 
     <div class="container_range_vertical">
         <div class="rangeVertical">
             <div class="field_range_vertical" style="height:10%; left:0;"></div>
-            <div class="steps"></div>
             <div class="thumbVertical thumbTop" style="top:1%;" value></div>
             <!-- <div class="thumb thumbDown" style="width:18px;
             height:18px; left:40%;"></div> -->
@@ -61,17 +62,17 @@
         <div class="from">
             <div class="output outputLeft">
                 <span>from: </span>
-                <input type = "number" id = "valueLeft" max="1500" min="0" maxlength="5" size="6" value="0" step="1">
+                <input type = "number" id = "valueLeft" max="100" min="0" maxlength="5" size="6" value="0" step="1">
             </div>
         </div>
         <div class="to">
             <div class="output outputRight">
                 <span>to: </span>
-                <input type = "number" id = "valueRight" max="1500" min="0" maxlength="5" size="6" value="0" step="1">
+                <input type = "number" id = "valueRight" max="100" min="0" maxlength="5" size="6" value="0" step="1">
             </div>
         </div>
         <div class="container_steps">
-            <div class="steps">
+            <div class="steps1">
                 <span id="instep">steps:</span>
                 <input type="number" id="valueSteps">
             </div>

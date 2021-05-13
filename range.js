@@ -13,10 +13,12 @@ const minimum = document.getElementById('minimum'); // минимум
 const maximum = document.getElementById('maximum'); // максимум
 const thumbTop = document.querySelector('.thumbTop'); // верхний ползунок вертикального слайдера
 const containerVR = document.querySelector('.container_range_vertical'); // вертикальный слайдер
+const fieldRangeVR = document.querySelector('.field_range_vertical'); // внутри вертикального салйдера
+const step = document.getElementById('valueSteps'); //шаг
+const filedSteps = document.querySelector('.steps');
 
 
 
-var steps = 1; // шаг
 let leftDifference = parseInt(getComputedStyle(containerRange).marginLeft); // чтобы не смещались ползунки
 let offLeft = containerRange.offsetLeft;
 let widthThumb = parseInt(thumb.style.width) / 10; 
@@ -71,6 +73,28 @@ var tip = {
         }
         
       })
+}
+
+
+var steps = {
+    enterSteps:
+        step.addEventListener('input', (event) => {
+            let maxValue = parseInt(valueOutputRight.max);
+            let steps = parseInt(step.value);
+            var valueLabel = maxValue/steps;
+            filedSteps.innerHTML = '';
+
+            if (valueLabel != Infinity || valueLabel != NaN) {
+                filedSteps.insertAdjacentHTML('beforeend',`<label>0</label>`);
+                for(let j = 0, i=0; j < valueLabel; j++) {
+    
+                    i += steps;
+                    console.log(i)
+                    filedSteps.insertAdjacentHTML('beforeend',`<label>${i}</label>`);
+
+                    }
+                }
+        })
 }
 
 
@@ -233,7 +257,6 @@ var controller = {
     
         function nowMouseMove(event) {
             var newPos = event.clientX - shiftX - leftDifference;
-
             if (newPos < 0) {
                 newPos = 0;
               }
@@ -255,7 +278,7 @@ var controller = {
                 thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
             }
            // преобразуем в значения
-          valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
+          valueOutputRight.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.5) * (valueOutputRight.max) / 100);
           // Значения сверху
           valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
           valueTopR.innerHTML = valueOutputRight.value;
@@ -316,6 +339,8 @@ var controller = {
             field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
      },
+
+
 }
 
 
@@ -324,15 +349,15 @@ var verticalRange = {
 
     thumbTop: 
         thumbTop.addEventListener('mousedown', (event) => {
-            let shiftY = thumbTop.getBoundingClientRect().top;
-
+            event.preventDefault();
+            let shiftY = event.clientY - thumbTop.getBoundingClientRect().top;
             document.addEventListener('mousemove', nowMouseMove);
             document.addEventListener('mouseup', nowMouseUp);
+            document.addEventListener('mousemove', changeWidth);
 
-            // document.addEventListener('mousemove', changeWidth);
 
             function nowMouseMove(event) {
-                var newPosVertical = event.clientY - shiftY;
+                var newPosVertical = event.clientY - shiftY - containerVR.getBoundingClientRect().top;
             
 
     
@@ -340,7 +365,7 @@ var verticalRange = {
                     newPosVertical = 0;
                   }
 
-                let downEdge = verticalRange.offsetWidth - thumbTop.offsetWidth;
+                let downEdge = containerVR.offsetHeight - thumbTop.offsetHeight;
 
                 if (newPosVertical > downEdge) {
                     newPosVertical = downEdge;
@@ -349,16 +374,25 @@ var verticalRange = {
                // преобразуем в значения
             
               thumbTop.style.top = (newPosVertical / parseInt(getComputedStyle(containerVR).height)) * 100 + '%' // переводим в % range
+              valueOutputRight.value = Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 109.9) * (valueOutputRight.max) / 100);
               console.log(parseInt(getComputedStyle(containerVR).height))
-              valueOutputRight.value = Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 107.53) * (valueOutputRight.max) / 100);
               // Значения сверху
             }
 
-            function nowMouseUp() {
+            
+        function changeWidth() {
+            let topPosThumbTop = parseInt(thumbTop.style.top);
+            fieldRangeVR.style.height = topPosThumbTop + widthThumb + '%';
+        }
+        
+
+        function nowMouseUp() {
                 document.removeEventListener('mouseup' , nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
-                // document.removeEventListener('mousemove', changeWidth);
+                document.removeEventListener('mousemove', changeWidth);
             }
+
+            
 
 
     })
