@@ -15,7 +15,12 @@ const thumbTop = document.querySelector('.thumbTop'); // верхний полз
 const containerVR = document.querySelector('.container_range_vertical'); // вертикальный слайдер
 const fieldRangeVR = document.querySelector('.field_range_vertical'); // внутри вертикального салйдера
 const step = document.getElementById('valueSteps'); //шаг
-const filedSteps = document.querySelector('.steps');
+const filedSteps = document.querySelector('.stepsIn');
+const fieldStepsOut = document.querySelector('.steps');
+const startStep = document.querySelector('.startStep');
+const endStep = document.querySelector('.endStep');
+
+
 
 
 
@@ -25,13 +30,13 @@ let widthThumb = parseInt(thumb.style.width) / 10;
 var valueLeft = parseInt(thumbLeft.style.left);
 var valueRight = parseInt(thumbRight.style.left);
 const stopMax = parseInt(valueOutputRight.max);
+
+
 field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 
-
 valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
 valueTopL.innerHTML = valueOutputLeft.value;
-
 valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
 valueTopR.innerHTML = valueOutputRight.value;
 
@@ -76,24 +81,32 @@ var tip = {
 }
 
 
+// Шаги
+
 var steps = {
     enterSteps:
         step.addEventListener('input', (event) => {
-            let maxValue = parseInt(valueOutputRight.max);
-            let steps = parseInt(step.value);
-            var valueLabel = maxValue/steps;
-            filedSteps.innerHTML = '';
+            let maxValue = parseInt(valueOutputRight.max); // максимум 
+            let steps = parseInt(step.value); // заданный шаг
+            var valueLabel = maxValue/steps; // кол-во делений
+            filedSteps.innerHTML = ''; // очишаем прошлые шаги
+            startStep.innerHTML = '';
+            endStep.innerHTML = '';
 
+
+
+            // добавляем шаги
             if (valueLabel != Infinity || valueLabel != NaN) {
-                filedSteps.insertAdjacentHTML('beforeend',`<label>0</label>`);
-                for(let j = 0, i=0; j < valueLabel; j++) {
+                startStep.insertAdjacentHTML('beforeend',`<label>0</label>`);
+                for(let j = 0, i=0; j < valueLabel-1; j++) {
     
                     i += steps;
-                    console.log(i)
                     filedSteps.insertAdjacentHTML('beforeend',`<label>${i}</label>`);
 
                     }
                 }
+                endStep.insertAdjacentHTML('beforeend',`<label>${maxValue}</label>`);
+
         })
 }
 
@@ -105,8 +118,9 @@ var controller = {
             let minimumChange = parseInt(minimum.value);
 
             valueOutputLeft.min = minimumChange;
-            valueOutputLeft.value = minimumChange;
             valueOutputRight.min = minimumChange;
+
+            valueOutputLeft.value = minimumChange;
 
             if (minimum.value == NaN || minimum.value == '') {
                 valueOutputLeft.min = 0;
@@ -212,7 +226,7 @@ var controller = {
                 document.addEventListener('mousemove', changeWidth);
                 document.addEventListener('mouseup', nowMouseUp);
                
-                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%';
+                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width))  * 100 + '%';
             }
         // Заполнение инпутов. преобразуем из % в целые значения инпутов
         valueOutputLeft.value = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeft.max) / 100);
@@ -258,8 +272,9 @@ var controller = {
         function nowMouseMove(event) {
             var newPos = event.clientX - shiftX - leftDifference;
             if (newPos < 0) {
-                newPos = 0;
+                thumbLeft.left = 0 + '%';
               }
+
               let rightEdge = range.offsetWidth - thumbRight.offsetWidth;
               if (newPos > rightEdge) {
                 newPos = rightEdge;

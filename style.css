@@ -55,14 +55,25 @@ body {
 }
 
 .steps {
-    display: flex;
-    flex: 1 1 auto;
     width:300px;
     height:15px;
-    background: red;
     margin-top: 20px;
-    justify-content: space-around;
+    display: flex;
+}
+
+.stepsIn {
+    display: flex;
+    flex: 1 1 auto;
     align-items: center;
+    justify-content: space-around;
+}
+
+.startStep {
+    margin-right: 5px;
+}
+
+.endStep {
+    margin-right: -5px;
 }
 
 
