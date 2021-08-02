@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-    <link href="options.css" rel="stylesheet">
-    <link href="rangeVertical.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/options.css" rel="stylesheet">
+    <link href="css/rangeVertical.css" rel="stylesheet">
     <title>TypeScript</title>
 </head>
 <body>
@@ -16,10 +16,10 @@
         <div class="range">
             <div class="field_range" style="width:0%; left:0;"></div>
             <div class="valueTop valueTopLeft" style="left:20%;"></div>
-            <div class="thumb thumbLeft" style="width:18px;
+            <div class="thumb thumbLeft" style="width:10px;
             height:18px; left:1%;" value></div>
             <div class="valueTop valueTopRight" style="left:20%;"></div>
-            <div class="thumb thumbRight" style="width:18px;
+            <div class="thumb thumbRight" style="width:10px;
             height:18px; left:40%;"></div>
         </div>
         <div class="steps">
@@ -43,15 +43,21 @@
     
 
     <div class="options">
-        <div class="tip">
-            <span>tip: </span>
-            <button id = "btnTip">Вкл/Выкл</button>
+        <div class="buttons_container">
+            <div class="tip">
+                <span>Tip: </span>
+                <button id = "btnTip">Вкл/Выкл</button>
+            </div>
+            <div class="typeRange">
+                <span>Range / Double range</span>
+                <button id="typeRange">Вкл/выкл</button>
+            </div>
+            <div class="container_bar">
+                <span id="spanBar"> Bar</span>
+                <button id="bar">Вкл/Выкл</button>
+            </div>
         </div>
-        <div class="typeRange">
-            <span>range/double range</span>
-            <button id="typeRange">Вкл/выкл</button>
-        </div>
-        <div class="container_mm">
+        <div class="output_container">
             <div class="min">
                 <span>Минимум: </span>
                 <input type="number" id="minimum" min="0" value="0">
@@ -60,30 +66,19 @@
                 <span>Максимум: </span>
                 <input type="number" id="maximum" max="1" value="1">
             </div>
-        </div>
-        <!-- <div class="steps"></div> -->
-        <div class="from">
-            <div class="output outputLeft">
+            <!-- <div class="steps"></div> -->
+            <div class="from">
                 <span>from: </span>
                 <input type = "number" id = "valueLeft" max="5000" min="0" maxlength="5" size="6" value="0" step="1">
             </div>
-        </div>
-        <div class="to">
-            <div class="output outputRight">
+            <div class="to">
                 <span>to: </span>
                 <input type = "number" id = "valueRight" max="5000" min="0" maxlength="5" size="6" value="0" step="1">
             </div>
-        </div>
-        <div class="container_steps">
             <div class="steps1">
                 <span id="instep">steps:</span>
                 <input type="number" id="valueSteps">
             </div>
-        </div>
-
-        <div class="container_bar">
-            <span id="spanBar"> Bar</span>
-            <button id="bar">Вкл/Выкл</button>
         </div>
         
     </div>

@@ -100,37 +100,36 @@ var barClick = {
 
 // Шаги
 
-var moveClick = {
-    //Перемещение по клику мыши
-    moveThumbler:
-    containerRange.addEventListener('click', (event) => {
-        let pos = event.clientX - leftDifference - widthThumb // позиция клика
-        thumbRight.style.left = pos + 'px';
-        let leftPositionThumbLeft1 = parseInt(thumbLeft.style.left);
-        let leftPositionThumbRight1 = parseInt(thumbRight.style.left);
+// var moveClick = {
+//     moveThumbler:
+//     containerRange.addEventListener('click', (event) => {
+//         let pos = event.clientX - leftDifference - widthThumb // позиция клика
+//         thumbRight.style.left = pos + 'px';
+//         let leftPositionThumbLeft1 = parseInt(thumbLeft.style.left);
+//         let leftPositionThumbRight1 = parseInt(thumbRight.style.left);
         
-        // Пребразование позиции левого ползунка в число
-        let found = thumbLeft.style.left.match(/[0-9/.]+/);
-        let str = found.join('');
-        let num1 = Math.round(Number(str));
-        let leftPosTemp = (num1 * parseInt(getComputedStyle(range).width)) / 100
+//         // Пребразование позиции левого ползунка в число
+//         let found = thumbLeft.style.left.match(/[0-9/.]+/);
+//         let str = found.join('');
+//         let num1 = Math.round(Number(str));
+//         let leftPosTemp = (num1 * parseInt(getComputedStyle(range).width)) / 100
 
-        // if (pos>leftPosTemp) {
-        //     valueTopR.style.left = parseInt(thumbRight.style.left) + 'px';
-        //     valueTopR.innerHTML = valueOutputRight.value;
-        //     field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
-        //     field_range.style.left = leftPositionThumbLeft1 + 'px';
-        //     valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
+//         if (pos>leftPosTemp) {
+//             valueTopR.style.left = parseInt(thumbRight.style.left) + 'px';
+//             valueTopR.innerHTML = valueOutputRight.value;
+//             field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
+//             field_range.style.left = leftPositionThumbLeft1 + 'px';
+//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
 
-        // } else {
-        //     valueTopR.style.left = parseInt(thumbLeft.style.left) + 1 + 'px';
-        //     valueTopR.innerHTML = valueOutputRight.value;
-        //     field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
-        //     field_range.style.left = leftPositionThumbLeft1 + 1 + 'px';
-        //     valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
-        // }
-    })
-}
+//         } else {
+//             valueTopR.style.left = parseInt(thumbLeft.style.left) + 1 + 'px';
+//             valueTopR.innerHTML = valueOutputRight.value;
+//             field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
+//             field_range.style.left = leftPositionThumbLeft1 + 1 + 'px';
+//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRight.max) / 100);
+//         }
+//     })
+// }
 
 var steps = {
     enterSteps:
@@ -220,6 +219,7 @@ var controller = {
     eventThumbLeft:
 
         thumbLeft.addEventListener('mousedown', (event)=>  {
+
         event.preventDefault();
         let shiftX = event.clientX - thumbLeft.getBoundingClientRect().left; // смещение позиции мыши клиента  
             
@@ -280,6 +280,9 @@ var controller = {
             document.removeEventListener('mousemove', changeWidth);
         }
         
+        thumbLeft.ondragstart = function() {
+            return false;
+          };
     }),
 
 
@@ -389,8 +392,13 @@ var controller = {
 
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
         valueTopR.innerHTML = valueOutputRight.value;
+
+        thumbRight.ondragstart = function() {
+            return false;
+            };
      },
 
+        
 
 }
 
