@@ -173,12 +173,12 @@
     
         enterMinumum:
             minimumEvent.addEventListener('input', () => {
-                let minimumChange = minimum;
+                let minimumChange = parseInt((<HTMLInputElement>document.getElementById('minimum')).value);
     
-                valueOutputLeftMin = minimumChange;
-                valueOutputRightMin = minimumChange;
+                (<HTMLInputElement>document.getElementById('valueLeft')).min = `${minimumChange}`;
+                (<HTMLInputElement>document.getElementById('valueRight')).min = `${minimumChange}`;
     
-                valueOutputLeft = minimumChange;
+                (<HTMLInputElement>document.getElementById('valueLeft')).value = `${minimumChange}`;
     
                 if (minimum == NaN || minimum == null) {
                     valueOutputLeftMin = 0;
@@ -188,9 +188,9 @@
         
         enterMaximum:
             maximumEvent.addEventListener('input', () => {
-                let maximumChange = maximum;
-                valueOutputLeftMax = maximumChange;
-                valueOutputRightMax = maximumChange;
+                let maximumChange = parseInt((<HTMLInputElement>document.getElementById('maximum')).value);
+                (<HTMLInputElement>document.getElementById('valueLeft')).max = `${maximumChange}`;
+                (<HTMLInputElement>document.getElementById('valueRight')).max = `${maximumChange}`;
     
                 if (maximum == null || maximum == NaN) {
                     valueOutputRightMax = stopMax;
