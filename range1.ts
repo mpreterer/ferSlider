@@ -1,23 +1,22 @@
 // ;(function($) {
 
     const thumb = <HTMLElement>document.querySelector('.thumb');
-    var thumbLeftZ:number = parseInt((<HTMLElement>document.querySelector('.thumbLeft')).style.zIndex);
-    var thumbRightZ:number = parseInt((<HTMLElement>document.querySelector('.thumbRight')).style.zIndex);
     const thumbLeft = <HTMLElement>document.querySelector('.thumbLeft');
     const thumbRight = <HTMLElement>document.querySelector('.thumbRight');
     const field_range = <HTMLElement>document.querySelector('.field_range');
+    const fieldOneRange = <HTMLElement>document.querySelector('.field_range');
     const range = <HTMLElement>document.querySelector('.range');
     const containerRange = <HTMLElement>document.querySelector('.container_range');
-    const valueOutputLeftHTML = <HTMLElement>document.getElementById('valueLeft');
-    const valueOutputRightHTML = <HTMLElement>document.getElementById('valueRight');
-    var valueOutputLeftSteps:number = parseInt((<HTMLInputElement>document.getElementById('valueLeft')).step);
-    var valueOutputRightSteps:number = parseInt((<HTMLInputElement>document.getElementById('valueLeft')).step);
+    var valueOutputLeftHTML = <HTMLElement>document.getElementById('valueLeft');
+    var valueOutputRightHTML = <HTMLElement>document.getElementById('valueRight');
+    // var valueOutputLeftSteps:number = parseInt((<HTMLInputElement>document.getElementById('valueLeft')).step);
+    // var valueOutputRightSteps:number = parseInt((<HTMLInputElement>document.getElementById('valueRight')).step);
     var valueOutputLeft = parseFloat((<HTMLInputElement>document.getElementById('valueLeft')).value);
     var valueOutputRight = parseFloat((<HTMLInputElement>document.getElementById('valueRight')).value);
     var valueOutputLeftMax = parseInt((<HTMLInputElement>document.getElementById('valueLeft')).max);
     var valueOutputLeftMin = parseFloat((<HTMLInputElement>document.getElementById('valueLeft')).min);
-    var valueOutputRightMax = parseInt((<HTMLInputElement>document.getElementById('valueLeft')).max);
-    var valueOutputRightMin = parseFloat((<HTMLInputElement>document.getElementById('valueLeft')).min);
+    var valueOutputRightMax = parseInt((<HTMLInputElement>document.getElementById('valueRight')).max);
+    var valueOutputRightMin = parseFloat((<HTMLInputElement>document.getElementById('valueRight')).min);
     var valueTopL = <HTMLInputElement>document.querySelector('.valueTopLeft'); // цифры сверху
     var valueTopR = <HTMLInputElement>document.querySelector('.valueTopRight'); // цифры сверху
     const btnTip = <HTMLElement>document.getElementById('btnTip'); // Кнопка для tip
@@ -35,7 +34,7 @@
     const fieldStepsOut = <HTMLElement>document.querySelector('.steps');
     const startStep = <HTMLElement>document.querySelector('.startStep');
     const endStep = <HTMLElement>document.querySelector('.endStep');
-    
+    const typeRange = <HTMLElement>document.querySelector('.typeRange');
     
     let leftDifference = parseInt(getComputedStyle(containerRange).marginLeft); // чтобы не смещались ползунки
     let offLeft = containerRange.offsetLeft;
@@ -49,9 +48,9 @@
     field_range.style.width = valueRight - valueLeft + widthThumb + '%';
     
     valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
-    valueTopL.value = `${valueOutputLeft}`;
+    valueTopL.innerHTML = `${valueOutputLeft}`;
     valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
-    valueTopR.value = `${valueOutputRight}`;
+    valueTopR.innerHTML = `${valueOutputRight}`;
     
     
     
@@ -60,13 +59,13 @@
         valueTopL: 
             valueOutputLeftHTML.addEventListener('keyup', () => {
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
-            valueTopL.value = `${valueOutputLeft}`;
+            valueTopL.innerHTML = `${valueOutputLeft}`;
         }),
     
         valueTopR: 
             valueOutputRightHTML.addEventListener('keyup', () => {
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
-            valueTopR.value = `${valueOutputRight}`;
+            valueTopR.innerHTML = `${valueOutputRight}`;
         }),
     
         // вкл/выкл 
@@ -145,13 +144,13 @@
         enterSteps:
             stepEvent.addEventListener('input', (event) => {
                 let maxValue = valueOutputRightMax; // максимум 
-                let steps = step; // заданный шаг
+                let steps = parseInt((<HTMLInputElement>document.getElementById('valueSteps')).value); // заданный шаг
                 var valueLabel = maxValue/steps; // кол-во делений
                 filedSteps.innerHTML = ''; // очишаем прошлые шаги
                 startStep.innerHTML = '';
                 endStep.innerHTML = '';
-                valueOutputLeftSteps = step;
-                valueOutputRightSteps = step;
+                (<HTMLInputElement>document.getElementById('valueLeft')).step = `${step}`;
+                (<HTMLInputElement>document.getElementById('valueRight')).step = `${step}`;
     
     
     
@@ -204,24 +203,24 @@
             }),
     
     
-        // oneRange:
-        //     //одинарный слайдер
-        //     typeRange.addEventListener('click', () => {
-        //         thumbLeft.style.left = 0 + '%';
-        //         field_range.style.width = thumbRight.style.left - thumbLeft.style.left;
-        //         // Убираем левый ползунок и заполняем field range else добавляем ползунок обратно
-        //         if (thumbLeft.classList.contains('hidden')) {
-        //             thumbLeft.classList.remove('hidden');
-        //             valueTopL.classList.remove('hidden');
-        //             valueTopR.classList.remove('hidden');
-        //         } else {
-        //             thumbLeft.classList.add('hidden');
-        //             valueTopL.classList.add('hidden');
-        //             field_range.style.width = parseInt(thumbRight.style.left) + 2 + '%';
-        //             field_range.style.left = 0 + '%';
-        //         }
+        oneRange:
+            //одинарный слайдер
+            typeRange.addEventListener('click', () => {
+                thumbLeft.style.left = 0 + '%';
+                field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left)}`;
+                // Убираем левый ползунок и заполняем field range else добавляем ползунок обратно
+                if (thumbLeft.classList.contains('hidden')) {
+                    thumbLeft.classList.remove('hidden');
+                    valueTopL.classList.remove('hidden');
+                    valueTopR.classList.remove('hidden');
+                } else {
+                    thumbLeft.classList.add('hidden');
+                    valueTopL.classList.add('hidden');
+                    field_range.style.width = parseInt(thumbRight.style.left) + 2 + '%';
+                    field_range.style.left = 0 + '%';
+                }
                 
-        //     }),
+            }),
     
     
     
@@ -237,8 +236,8 @@
             document.addEventListener('mouseup', nowMouseUp);
     
             // Делаем ползунок выше в завимисоти от выбора
-            thumbLeftZ = 2;
-            thumbRightZ = 0;
+            thumbLeft.style.zIndex = '2';
+            thumbRight.style.zIndex = '0';
     
             function nowMouseMove(event:MouseEvent) {
                 let newPos = event.clientX - shiftX - leftDifference;            
@@ -269,7 +268,7 @@
             valueOutputLeft = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeftMax) / 100);
             // Верхние значения
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
-            valueTopL.value = `${valueOutputLeft}`;
+            valueTopL.innerHTML = `${valueOutputLeft}`;
             }
     
             function changeWidth() {
@@ -304,8 +303,8 @@
             document.addEventListener('mouseup', nowMouseUp);
     
             // Делаем ползунок выше в завимисоти от выбора
-            thumbRightZ = 2;
-            thumbLeftZ = 0;
+            thumbRight.style.zIndex = '2';
+            thumbLeft.style.zIndex = '0';
         
             function nowMouseMove(event:MouseEvent) {
                 let newPos = event.clientX - shiftX - leftDifference;
@@ -334,7 +333,7 @@
               valueOutputRight = Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRightMax) / 100);
               // Значения сверху
               valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
-              valueTopR.value = `${valueOutputRight}`;
+              valueTopR.innerHTML = `${valueOutputRight}`;
             
                
             }
