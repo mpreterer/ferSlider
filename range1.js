@@ -99,13 +99,13 @@ var barClick = {
 //             valueTopR.innerHTML = valueOutputRight.value;
 //             field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
 //             field_range.style.left = leftPositionThumbLeft1 + 'px';
-//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRigh) / 100);
+//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 104.168) * (valueOutputRigh) / 100);
 //         } else {
 //             valueTopR.style.left = parseInt(thumbLeft.style.left) + 1 + 'px';
 //             valueTopR.innerHTML = valueOutputRight.value;
 //             field_range.style.width = (leftPositionThumbRight1-leftPositionThumbLeft1) + widthThumb + 'px';
 //             field_range.style.left = leftPositionThumbLeft1 + 1 + 'px';
-//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRigh) / 100);
+//             valueOutputRight.value = Math.round((pos / parseInt(getComputedStyle(range).width) * 104.168) * (valueOutputRigh) / 100);
 //         }
 //     })
 // }
@@ -117,7 +117,7 @@ var steps = {
         filedSteps.innerHTML = ''; // очишаем прошлые шаги
         startStep.innerHTML = '';
         endStep.innerHTML = '';
-        document.getElementById('valueLeft').step = "" + step;
+        valueOutputLeft.step = "" + step;
         document.getElementById('valueRight').step = "" + step;
         // добавляем шаги
         if (valueLabel != Infinity || valueLabel != NaN) {
@@ -142,7 +142,7 @@ var controller = {
     }),
     enterMaximum: maximumEvent.addEventListener('input', function () {
         var maximumChange = parseInt(document.getElementById('maximum').value);
-        document.getElementById('valueLeft').max = "" + maximumChange;
+        valueOutputLeft.max = "" + maximumChange;
         document.getElementById('valueRight').max = "" + maximumChange;
         if (document.getElementById('maximum').value == null || parseInt(document.getElementById('maximum').value) == NaN) {
             document.getElementById('valueRight').max = "" + stopMax;
@@ -182,17 +182,20 @@ var controller = {
             var newPos = event.clientX - shiftX - leftDifference;
             var rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
             // сделаем чтобы не выходили за рамки ползунки
-            if (newPos < parseFloat(document.getElementById('valueLeft').min)) {
-                newPos = parseFloat(document.getElementById('valueLeft').min);
+            if (newPos < parseFloat(valueOutputLeft.min)) {
+                newPos = parseFloat(valueOutputLeft.min);
             }
             if (newPos > rightEdge) {
                 newPos = rightEdge;
             }
             if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
-                thumbLeft.style.left = parseInt(thumbLeft.style.left) - 0.1 + '%';
+                thumbLeft.style.left = parseInt(thumbRight.style.left) - 1 + '%';
                 document.removeEventListener('mouseup', nowMouseUp);
                 document.removeEventListener('mousemove', nowMouseMove);
                 document.removeEventListener('mousemove', changeWidth);
+                valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 103) * (parseInt(valueOutputLeft.max)) / 97);
+                field_range.style.width = (parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left)) + widthThumb + '%';
+                field_range.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
             }
             else {
                 document.addEventListener('mousemove', nowMouseMove);
@@ -201,7 +204,7 @@ var controller = {
                 thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%';
             }
             // Заполнение инпутов. преобразуем из % в целые значения инпутов
-            document.getElementById('valueLeft').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (parseInt(valueOutputLeft.max)) / 100);
+            valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputLeft.max)) / 100);
             // Верхние значения
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
             valueTopL.innerHTML = "" + parseFloat(document.getElementById('valueLeft').value);
@@ -250,7 +253,7 @@ var controller = {
                 thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%'; // переводим в % range
             }
             // преобразуем в значения
-            document.getElementById('valueRight').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (parseInt(valueOutputRight.max)) / 100);
+            valueOutputRight.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputRight.max)) / 100);
             // Значения сверху
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = "" + parseFloat(document.getElementById('valueRight').value);

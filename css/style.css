@@ -45,7 +45,8 @@ body {
     top:-45px;
     text-align: center;
     padding: 5px;
-    font-weight: bold;;
+    font-weight: bold;
+    border-radius: 5px 5px 5px 0px;
 }
 
 .valueTopRight {
