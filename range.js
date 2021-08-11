@@ -25,8 +25,6 @@ const endStep = document.querySelector('.endStep');
 
 
 
-
-
 let leftDifference = parseInt(getComputedStyle(containerRange).marginLeft); // чтобы не смещались ползунки
 let offLeft = containerRange.offsetLeft;
 let widthThumb = parseInt(thumb.style.width) / 10; 
