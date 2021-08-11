@@ -12,10 +12,6 @@ var valueOutputRightHTML = document.getElementById('valueRight');
 // var valueOutputRightSteps:number = parseInt((<HTMLInputElement>document.getElementById('valueRight')).step);
 var valueOutputLeft = document.getElementById('valueLeft');
 var valueOutputRight = document.getElementById('valueRight');
-var valueOutputLeftMax = parseInt(document.getElementById('valueLeft').max);
-var valueOutputLeftMin = parseFloat(document.getElementById('valueLeft').min);
-var valueOutputRightMax = parseInt(document.getElementById('valueRight').max);
-var valueOutputRightMin = parseFloat(document.getElementById('valueRight').min);
 var valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
 var valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
 var btnTip = document.getElementById('btnTip'); // Кнопка для tip
@@ -39,7 +35,7 @@ var offLeft = containerRange.offsetLeft;
 var widthThumb = parseInt(thumb.style.width) / 10;
 var valueLeft = parseInt(thumbLeft.style.left);
 var valueRight = parseInt(thumbRight.style.left);
-var stopMax = valueOutputRightMax;
+var stopMax = parseInt(document.getElementById('valueRight').max);
 field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
@@ -115,7 +111,7 @@ var barClick = {
 // }
 var steps = {
     enterSteps: stepEvent.addEventListener('input', function (event) {
-        var maxValue = valueOutputRightMax; // максимум 
+        var maxValue = parseInt(document.getElementById('valueRight').max); // максимум 
         var steps = parseInt(document.getElementById('valueSteps').value); // заданный шаг
         var valueLabel = maxValue / steps; // кол-во делений
         filedSteps.innerHTML = ''; // очишаем прошлые шаги
@@ -137,19 +133,19 @@ var steps = {
 var controller = {
     enterMinumum: minimumEvent.addEventListener('input', function () {
         var minimumChange = parseInt(document.getElementById('minimum').value);
-        document.getElementById('valueLeft').min = "" + minimumChange;
-        document.getElementById('valueRight').min = "" + minimumChange;
-        document.getElementById('valueLeft').value = "" + minimumChange;
+        valueOutputLeft.min = "" + minimumChange;
+        valueOutputRight.min = "" + minimumChange;
+        valueOutputLeft.value = "" + minimumChange;
         if (minimum == NaN || minimum == null) {
-            valueOutputLeftMin = 0;
+            valueOutputLeft.min = "" + 0;
         }
     }),
     enterMaximum: maximumEvent.addEventListener('input', function () {
         var maximumChange = parseInt(document.getElementById('maximum').value);
         document.getElementById('valueLeft').max = "" + maximumChange;
         document.getElementById('valueRight').max = "" + maximumChange;
-        if (maximum == null || maximum == NaN) {
-            valueOutputRightMax = stopMax;
+        if (document.getElementById('maximum').value == null || parseInt(document.getElementById('maximum').value) == NaN) {
+            document.getElementById('valueRight').max = "" + stopMax;
         }
         // if (maximum.value == NaN || maximum.value == '') {
         //     valueOutputRigh = 0;
@@ -180,14 +176,14 @@ var controller = {
         document.addEventListener('mousemove', changeWidth);
         document.addEventListener('mouseup', nowMouseUp);
         // Делаем ползунок выше в завимисоти от выбора
-        thumbLeft.style.zIndex = '2';
+        thumbLeft.style.zIndex = '99';
         thumbRight.style.zIndex = '0';
         function nowMouseMove(event) {
             var newPos = event.clientX - shiftX - leftDifference;
             var rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
             // сделаем чтобы не выходили за рамки ползунки
-            if (newPos < valueOutputLeftMin) {
-                newPos = valueOutputLeftMin;
+            if (newPos < parseFloat(document.getElementById('valueLeft').min)) {
+                newPos = parseFloat(document.getElementById('valueLeft').min);
             }
             if (newPos > rightEdge) {
                 newPos = rightEdge;
@@ -205,7 +201,7 @@ var controller = {
                 thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%';
             }
             // Заполнение инпутов. преобразуем из % в целые значения инпутов
-            document.getElementById('valueLeft').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputLeftMax) / 100);
+            document.getElementById('valueLeft').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (parseInt(valueOutputLeft.max)) / 100);
             // Верхние значения
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
             valueTopL.innerHTML = "" + parseFloat(document.getElementById('valueLeft').value);
@@ -230,7 +226,7 @@ var controller = {
         document.addEventListener('mousemove', changeWidth);
         document.addEventListener('mouseup', nowMouseUp);
         // Делаем ползунок выше в завимисоти от выбора
-        thumbRight.style.zIndex = '2';
+        thumbRight.style.zIndex = '99';
         thumbLeft.style.zIndex = '0';
         function nowMouseMove(event) {
             var newPos = event.clientX - shiftX - leftDifference;
@@ -254,7 +250,7 @@ var controller = {
                 thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%'; // переводим в % range
             }
             // преобразуем в значения
-            document.getElementById('valueRight').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (valueOutputRightMax) / 100);
+            document.getElementById('valueRight').value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 107.53) * (parseInt(valueOutputRight.max)) / 100);
             // Значения сверху
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = "" + parseFloat(document.getElementById('valueRight').value);
@@ -276,18 +272,18 @@ var controller = {
     enterInputLeft: valueOutputLeftHTML.oninput = function () {
         // Выстраиваем числовые значения в инпутах
         // 92 и 5 т.к. field range заполняется всего на 92 процента
-        thumbLeft.style.left = (parseFloat(valueOutputLeft.value) / valueOutputLeftMax) * 92.5 + '%';
+        thumbLeft.style.left = (parseFloat(valueOutputLeft.value) / parseInt(valueOutputLeft.max)) * 92.5 + '%';
         field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         field_range.style.left = parseInt(thumbLeft.style.left) + '%';
         // Если значение введено больше максимального 
-        if ((parseFloat(valueOutputLeft.value)) > valueOutputLeftMax) {
-            valueOutputLeft.value = "" + valueOutputLeftMax;
-            thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / valueOutputRightMax) * 92.5 + '%';
+        if ((parseFloat(valueOutputLeft.value)) > parseInt(valueOutputLeft.max)) {
+            valueOutputLeft.value = "" + parseInt(valueOutputLeft.max);
+            thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 92.5 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
         // Если правая сторна больше левой или в левой ''
         if (valueOutputLeft > valueOutputRight || valueOutputLeft === null) {
-            thumbLeft.style.left = ((parseFloat(valueOutputRight.value)) / valueOutputRightMax) * 80 + '%';
+            thumbLeft.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 80 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
             field_range.style.left = parseInt(thumbLeft.style.left) + '%';
         }
@@ -295,18 +291,18 @@ var controller = {
         valueTopL.innerHTML = "" + (parseFloat(valueOutputLeft.value));
     },
     enterInputRight: valueOutputRightHTML.oninput = function () {
-        thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / valueOutputRightMax) * 92.5 + '%';
+        thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 92.5 + '%';
         field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         field_range.style.left = parseInt(thumbLeft.style.left) + '%';
         // Если значение введено больше максимального 
-        if ((parseFloat(valueOutputRight.value)) > valueOutputRightMax) {
-            valueOutputRight.value = "" + valueOutputRightMax;
-            thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / valueOutputRightMax) * 92.5 + '%';
+        if ((parseFloat(valueOutputRight.value)) > parseInt(valueOutputRight.max)) {
+            valueOutputRight.value = "" + parseInt(valueOutputRight.max);
+            thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 92.5 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
         // Если левая сторна больше правой или в правой ''
         if (valueOutputLeft > valueOutputRight || valueOutputRight === null) {
-            thumbRight.style.left = ((parseFloat(valueOutputLeft.value)) / valueOutputLeftMax) * 100 + '%';
+            thumbRight.style.left = ((parseFloat(valueOutputLeft.value)) / parseInt(valueOutputLeft.max)) * 100 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
@@ -331,7 +327,7 @@ var verticalRange = {
             }
             // преобразуем в значения
             thumbTop.style.top = (newPosVertical / parseInt(getComputedStyle(containerVR).height)) * 100 + '%'; // переводим в % range
-            valueOutputRight.value = '' + Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 109.9) * (valueOutputRightMax) / 100);
+            valueOutputRight.value = '' + Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 109.9) * (parseInt(valueOutputRight.max)) / 100);
             console.log(parseInt(getComputedStyle(containerVR).height));
             // Значения сверху
         }
