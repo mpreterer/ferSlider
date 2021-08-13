@@ -187,8 +187,8 @@ var controller = {
                 newPos = parseInt(valueOutputLeft.min);
             }
             if (newPos / parseFloat(getComputedStyle(range).width) * 100 >= parseFloat(thumbRight.style.left) || parseInt(valueOutputLeft.value) >= parseInt(valueOutputRight.value)) {
-                newPos = (parseFloat(thumbRight.style.left) * parseFloat(getComputedStyle(range).width)) / 100;
-                valueOutputLeft.value = "" + valueOutputRight.value;
+                newPos = ((parseFloat(thumbRight.style.left) * parseFloat(getComputedStyle(range).width)) / 100) - 0.1;
+                valueOutputLeft.value = "" + (parseInt(valueOutputRight.value) - 0.1);
             }
             if (newPos > rightEdge) {
                 newPos = rightEdge;
