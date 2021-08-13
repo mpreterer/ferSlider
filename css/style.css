@@ -11,7 +11,7 @@ body {
     
 }
 
-.range {
+.range_horizontal {
     width:100%;
     height:10px;
     background: rgb(175, 175, 175, 0.5);

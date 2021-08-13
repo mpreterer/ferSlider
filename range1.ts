@@ -231,6 +231,9 @@
     
             // Делаем ползунок выше в завимисоти от выбора
             thumbLeft.style.zIndex = '99';
+            valueTopL.style.zIndex = '99';
+
+            valueTopR.style.zIndex = '98';
             thumbRight.style.zIndex = '0';
     
             function nowMouseMove(event:MouseEvent) {
@@ -238,21 +241,22 @@
                 let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
                 // сделаем чтобы не выходили за рамки ползунки
     
-                if (parseInt(valueOutputLeft.value) < parseInt(valueOutputLeft.min)) {
-                    valueOutputLeft.value = `${parseInt(valueOutputLeft.min)}`;
-                  }
-
-                console.log(valueOutputLeft.value)
-                
-                console.log(valueOutputRight.value)
-
-                if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
-                    valueOutputLeft.value = `${valueOutputRight.value}`
+                if (newPos < parseInt(valueOutputLeft.min)) {
+                    newPos = parseInt(valueOutputLeft.min);
                 }
-    
+
+                if (newPos / parseFloat(getComputedStyle(range).width) * 100 >= parseFloat(thumbRight.style.left) || parseInt(valueOutputLeft.value) >= parseInt(valueOutputRight.value)) {
+                    newPos = (parseFloat(thumbRight.style.left) * parseFloat(getComputedStyle(range).width)) / 100
+                    valueOutputLeft.value = `${valueOutputRight.value}`
+                 }
+
                 if (newPos > rightEdge) {
                     newPos = rightEdge;
                   }
+                
+                // if (newPos > parseInt(valueOutputRight.value)) {
+                // newPos = rightEdge;
+                // }
     
                 if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
                     thumbLeft.style.left = parseInt(thumbRight.style.left) - 1 + '%';
@@ -310,6 +314,9 @@
     
             // Делаем ползунок выше в завимисоти от выбора
             thumbRight.style.zIndex = '99';
+            valueTopR.style.zIndex = '99';
+
+            valueTopL.style.zIndex = '98';
             thumbLeft.style.zIndex = '0';
         
             function nowMouseMove(event:MouseEvent) {

@@ -1,3 +1,4 @@
+"use strict";
 // ;(function($) {
 var thumb = document.querySelector('.thumb');
 var thumbLeft = document.querySelector('.thumbLeft');
@@ -320,7 +321,7 @@ var controller = {
         }
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
         valueTopR.innerHTML = "" + (parseFloat(valueOutputRight.value));
-    }
+    },
 };
 var verticalRange = {
     thumbTop: thumbTop.addEventListener('mousedown', function (event) {
