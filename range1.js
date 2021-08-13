@@ -16,7 +16,7 @@ var valueTopL = document.querySelector('.valueTopLeft'); // цифры свер�
 var valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
 var btnTip = document.getElementById('btnTip'); // Кнопка для tip
 var bar = document.getElementById('bar');
-var minimum = parseInt(document.getElementById('minimum').value); // минимум
+var minimum = document.getElementById('minimum'); // минимум
 var minimumEvent = document.getElementById('minimum'); // минимум
 var maximum = parseInt(document.getElementById('maximum').value); // максимум
 var maximumEvent = document.getElementById('maximum'); // максимум
@@ -54,15 +54,18 @@ var tip = {
     // вкл/выкл 
     buttonTip: btnTip.addEventListener('click', function () {
         if (valueTopL.classList.contains('hidden')) {
-            if (thumbLeft.classList.contains('hidden')) {
-                valueTopR.classList.add('hidden');
-            }
-            else if ((thumbLeft.classList.contains('hidden')) && (valueTopR.classList.contains('hidden'))) {
+            if (thumbLeft.classList.contains('hidden') && valueTopR.classList.contains('hidden')) {
                 valueTopR.classList.remove('hidden');
+                range.setAttribute('tip', 'on');
+            }
+            else if (thumbLeft.classList.contains('hidden')) {
+                valueTopR.classList.add('hidden');
+                range.setAttribute('tip', 'off');
             }
             else if (!thumbLeft.classList.contains('hidden') && !thumbRight.classList.contains('hidden')) {
                 valueTopR.classList.remove('hidden');
                 valueTopL.classList.remove('hidden');
+                range.setAttribute('tip', 'on');
             }
         }
         else {
@@ -132,11 +135,10 @@ var steps = {
 };
 var controller = {
     enterMinumum: minimumEvent.addEventListener('input', function () {
-        var minimumChange = parseInt(document.getElementById('minimum').value);
-        valueOutputLeft.min = "" + minimumChange;
-        valueOutputRight.min = "" + minimumChange;
-        valueOutputLeft.value = "" + minimumChange;
-        if (minimum == NaN || minimum == null) {
+        valueOutputLeft.min = "" + parseInt(minimum.value);
+        valueOutputRight.min = "" + parseInt(minimum.value);
+        valueOutputLeft.value = "" + parseInt(minimum.value);
+        if (parseInt(minimum.value) == NaN || minimum.value == null) {
             valueOutputLeft.min = "" + 0;
         }
     }),
@@ -147,9 +149,6 @@ var controller = {
         if (document.getElementById('maximum').value == null || parseInt(document.getElementById('maximum').value) == NaN) {
             document.getElementById('valueRight').max = "" + stopMax;
         }
-        // if (maximum.value == NaN || maximum.value == '') {
-        //     valueOutputRigh = 0;
-        // }
     }),
     oneRange: 
     //одинарный слайдер
@@ -182,8 +181,13 @@ var controller = {
             var newPos = event.clientX - shiftX - leftDifference;
             var rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
             // сделаем чтобы не выходили за рамки ползунки
-            if (newPos < parseFloat(valueOutputLeft.min)) {
-                newPos = parseFloat(valueOutputLeft.min);
+            if (parseInt(valueOutputLeft.value) < parseInt(valueOutputLeft.min)) {
+                valueOutputLeft.value = "" + parseInt(valueOutputLeft.min);
+            }
+            console.log(valueOutputLeft.value);
+            console.log(valueOutputRight.value);
+            if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
+                valueOutputLeft.value = "" + valueOutputRight.value;
             }
             if (newPos > rightEdge) {
                 newPos = rightEdge;

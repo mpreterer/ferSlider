@@ -17,7 +17,7 @@
     var valueTopR = <HTMLInputElement>document.querySelector('.valueTopRight'); // цифры сверху
     const btnTip = <HTMLElement>document.getElementById('btnTip'); // Кнопка для tip
     const bar = <HTMLElement>document.getElementById('bar');
-    var minimum = parseInt((<HTMLInputElement>document.getElementById('minimum')).value); // минимум
+    var minimum = <HTMLInputElement>document.getElementById('minimum'); // минимум
     var minimumEvent = <HTMLElement>document.getElementById('minimum'); // минимум
     var maximum = parseInt((<HTMLInputElement>document.getElementById('maximum')).value); // максимум
     var maximumEvent = <HTMLElement>document.getElementById('maximum'); // максимум
@@ -68,17 +68,21 @@
         buttonTip:
           btnTip.addEventListener('click', () => {
             if (valueTopL.classList.contains('hidden')) {
-                if (thumbLeft.classList.contains('hidden')) {
-                    valueTopR.classList.add('hidden');
-                }
-    
-                else if ((thumbLeft.classList.contains('hidden')) && (valueTopR.classList.contains('hidden'))) {
+                
+                if (thumbLeft.classList.contains('hidden') && valueTopR.classList.contains('hidden')) {
                     valueTopR.classList.remove('hidden');
+                    range.setAttribute('tip','on')
                 }
-    
+
+                else if (thumbLeft.classList.contains('hidden')) {
+                    valueTopR.classList.add('hidden');
+                    range.setAttribute('tip','off') 
+                }
+
                 else if (!thumbLeft.classList.contains('hidden') && !thumbRight.classList.contains('hidden')) {
                     valueTopR.classList.remove('hidden');
                     valueTopL.classList.remove('hidden');
+                    range.setAttribute('tip','on')
                 }
     
             }
@@ -169,14 +173,13 @@
     
         enterMinumum:
             minimumEvent.addEventListener('input', () => {
-                let minimumChange = parseInt((<HTMLInputElement>document.getElementById('minimum')).value);
+                
+                valueOutputLeft.min = `${parseInt(minimum.value)}`;
+                valueOutputRight.min = `${parseInt(minimum.value)}`;
     
-                valueOutputLeft.min = `${minimumChange}`;
-                valueOutputRight.min = `${minimumChange}`;
+                valueOutputLeft.value = `${parseInt(minimum.value)}`;
     
-                valueOutputLeft.value = `${minimumChange}`;
-    
-                if (minimum == NaN || minimum == null) {
+                if (parseInt(minimum.value) == NaN || minimum.value == null) {
                     valueOutputLeft.min = "" + 0;
                 }
     
@@ -191,11 +194,6 @@
                 if ((<HTMLInputElement>document.getElementById('maximum')).value == null || parseInt((<HTMLInputElement>document.getElementById('maximum')).value) == NaN) {
                     (<HTMLInputElement>document.getElementById('valueRight')).max = "" + stopMax;
                 }
-                
-                // if (maximum.value == NaN || maximum.value == '') {
-                //     valueOutputRigh = 0;
-                // }
-    
             }),
     
     
@@ -240,9 +238,17 @@
                 let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
                 // сделаем чтобы не выходили за рамки ползунки
     
-                if (newPos < parseFloat(valueOutputLeft.min)) {
-                    newPos = parseFloat(valueOutputLeft.min);
+                if (parseInt(valueOutputLeft.value) < parseInt(valueOutputLeft.min)) {
+                    valueOutputLeft.value = `${parseInt(valueOutputLeft.min)}`;
                   }
+
+                console.log(valueOutputLeft.value)
+                
+                console.log(valueOutputRight.value)
+
+                if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
+                    valueOutputLeft.value = `${valueOutputRight.value}`
+                }
     
                 if (newPos > rightEdge) {
                     newPos = rightEdge;
