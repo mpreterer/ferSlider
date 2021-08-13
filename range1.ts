@@ -39,6 +39,9 @@
     var valueRight = parseInt(thumbRight.style.left);
     const stopMax = parseInt((<HTMLInputElement>document.getElementById('valueRight')).max);
     
+    valueOutputLeft.value = '' + Math.round(((parseInt(thumbLeft.style.left) - 3) * (parseInt(valueOutputLeft.max))/100));
+    valueOutputRight.value = '' + Math.round(((parseInt(thumbRight.style.left) + 3) * (parseInt(valueOutputRight.max))/100));
+
     
     field_range.style.left = valueLeft + '%';
     field_range.style.width = valueRight - valueLeft + widthThumb + '%';
@@ -47,9 +50,6 @@
     valueTopL.innerHTML = `${(parseFloat(valueOutputLeft.value))}`;
     valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
     valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
-    
-    
-    
     
     var tip = {
         valueTopL: 
@@ -237,7 +237,7 @@
             thumbRight.style.zIndex = '0';
     
             function nowMouseMove(event:MouseEvent) {
-                let newPos = event.clientX - shiftX - leftDifference;            
+                let newPos = event.clientX - shiftX - leftDifference;     
                 let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
                 // сделаем чтобы не выходили за рамки ползунки
     
@@ -323,12 +323,18 @@
                 let newPos = event.clientX - shiftX - leftDifference;
                 if (newPos < 0) {
                     thumbLeft.style.left = 0 + '%';
-                  }
+                }
     
-                  let rightEdge = range.offsetWidth - thumbRight.offsetWidth;
-                  if (newPos > rightEdge) {
+                let rightEdge = range.offsetWidth - thumbRight.offsetWidth;
+
+                if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
+                    newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1
+                    valueOutputRight.value = `${parseInt(valueOutputLeft.value) + 0.1}`
+                 }
+                
+                if (newPos > rightEdge) {
                     newPos = rightEdge;
-                  }
+                }
     
                 if (parseInt(thumbRight.style.left) <= parseInt(thumbLeft.style.left)) {
                     thumbRight.style.left = parseInt(thumbLeft.style.left) + 1 + '%';

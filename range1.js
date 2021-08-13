@@ -36,6 +36,8 @@ var widthThumb = parseInt(thumb.style.width) / 10;
 var valueLeft = parseInt(thumbLeft.style.left);
 var valueRight = parseInt(thumbRight.style.left);
 var stopMax = parseInt(document.getElementById('valueRight').max);
+valueOutputLeft.value = '' + Math.round(((parseInt(thumbLeft.style.left) - 3) * (parseInt(valueOutputLeft.max)) / 100));
+valueOutputRight.value = '' + Math.round(((parseInt(thumbRight.style.left) + 3) * (parseInt(valueOutputRight.max)) / 100));
 field_range.style.left = valueLeft + '%';
 field_range.style.width = valueRight - valueLeft + widthThumb + '%';
 valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
@@ -247,6 +249,10 @@ var controller = {
                 thumbLeft.style.left = 0 + '%';
             }
             var rightEdge = range.offsetWidth - thumbRight.offsetWidth;
+            if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
+                newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1;
+                valueOutputRight.value = "" + (parseInt(valueOutputLeft.value) + 0.1);
+            }
             if (newPos > rightEdge) {
                 newPos = rightEdge;
             }
