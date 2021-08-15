@@ -207,11 +207,15 @@
                     thumbLeft.classList.remove('hidden');
                     valueTopL.classList.remove('hidden');
                     valueTopR.classList.remove('hidden');
+                    valueOutputLeft.value = '0'
                 } else {
                     thumbLeft.classList.add('hidden');
                     valueTopL.classList.add('hidden');
+                    valueTopL.innerHTML = '0'
+                    valueTopL.style.left = 0 + '%'
                     field_range.style.width = parseInt(thumbRight.style.left) + 2 + '%';
                     field_range.style.left = 0 + '%';
+                    valueOutputLeft.value = '0'
                 }
                 
             }),
@@ -247,7 +251,6 @@
 
                 if (newPos / parseFloat(getComputedStyle(range).width) * 100 >= parseFloat(thumbRight.style.left) || parseInt(valueOutputLeft.value) >= parseInt(valueOutputRight.value)) {
                     newPos = ((parseFloat(thumbRight.style.left) * parseFloat(getComputedStyle(range).width)) / 100) - 0.1
-                    valueOutputLeft.value = `${parseInt(valueOutputRight.value) - 0.1}`
                  }
 
                 if (newPos > rightEdge) {
@@ -388,10 +391,15 @@
                 field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
             }
             // Если правая сторна больше левой или в левой ''
-            if (valueOutputLeft > valueOutputRight || valueOutputLeft === null) {
-                thumbLeft.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 80 + '%';
-                field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
-                field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+            // if (valueOutputLeft > valueOutputRight || valueOutputLeft === null) {
+            //     thumbLeft.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 80 + '%';
+            //     field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
+            //     field_range.style.left = parseInt(thumbLeft.style.left) + '%';
+            // }
+
+            if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
+                valueOutputLeft.value = valueOutputRight.value;
+                thumbLeft.style.zIndex = '99';
             }
     
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
