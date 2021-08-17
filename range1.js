@@ -303,12 +303,6 @@ var controller = {
             thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 92.5 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
-        // Если правая сторна больше левой или в левой ''
-        // if (valueOutputLeft > valueOutputRight || valueOutputLeft === null) {
-        //     thumbLeft.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 80 + '%';
-        //     field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
-        //     field_range.style.left = parseInt(thumbLeft.style.left) + '%';
-        // }
         if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
             valueOutputLeft.value = valueOutputRight.value;
             thumbLeft.style.zIndex = '99';
@@ -326,10 +320,9 @@ var controller = {
             thumbRight.style.left = ((parseFloat(valueOutputRight.value)) / parseInt(valueOutputRight.max)) * 92.5 + '%';
             field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
         }
-        // Если левая сторна больше правой или в правой ''
-        if (valueOutputLeft > valueOutputRight || valueOutputRight === null) {
-            thumbRight.style.left = ((parseFloat(valueOutputLeft.value)) / parseInt(valueOutputLeft.max)) * 100 + '%';
-            field_range.style.width = parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%';
+        if (parseInt(valueOutputRight.value) < parseInt(valueOutputLeft.value)) {
+            valueOutputRight.value = valueOutputLeft.value;
+            thumbRight.style.zIndex = '99';
         }
         valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
         valueTopR.innerHTML = "" + (parseFloat(valueOutputRight.value));

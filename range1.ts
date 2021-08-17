@@ -179,10 +179,11 @@
     
                 valueOutputLeft.value = `${parseInt(minimum.value)}`;
     
-                if (parseInt(minimum.value) == NaN || minimum.value == null) {
+                if (parseInt(minimum.value) == NaN || minimum.value == '') {
                     valueOutputLeft.min = "" + 0;
                 }
-    
+                console.log(minimum.value);
+                console.log(valueOutputLeft.min);
             }),
         
         enterMaximum:
@@ -244,11 +245,15 @@
                 let newPos = event.clientX - shiftX - leftDifference;     
                 let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
                 // сделаем чтобы не выходили за рамки ползунки
-    
-                if (newPos < parseInt(valueOutputLeft.min)) {
-                    newPos = parseInt(valueOutputLeft.min);
+                console.log(newPos)
+                // if (newPos < parseInt(valueOutputLeft.min)) {
+                //     newPos = parseInt(valueOutputLeft.min);
+                // }
+                if (newPos < 0) {
+                    newPos = 0;
                 }
 
+                // Если левый ползунок пытается быть больше правого
                 if (newPos / parseFloat(getComputedStyle(range).width) * 100 >= parseFloat(thumbRight.style.left) || parseInt(valueOutputLeft.value) >= parseInt(valueOutputRight.value)) {
                     newPos = ((parseFloat(thumbRight.style.left) * parseFloat(getComputedStyle(range).width)) / 100) - 0.1
                  }
@@ -257,26 +262,23 @@
                     newPos = rightEdge;
                   }
                 
-                // if (newPos > parseInt(valueOutputRight.value)) {
-                // newPos = rightEdge;
-                // }
-    
-                if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
-                    thumbLeft.style.left = parseInt(thumbRight.style.left) - 1 + '%';
-                    document.removeEventListener('mouseup' , nowMouseUp);
-                    document.removeEventListener('mousemove', nowMouseMove);
-                    document.removeEventListener('mousemove', changeWidth);
-                    valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 103) * (parseInt(valueOutputLeft.max)) / 97);
+                // if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
+                //     thumbLeft.style.left = parseInt(thumbRight.style.left) - 1 + '%';
+                //     document.removeEventListener('mouseup' , nowMouseUp);
+                //     document.removeEventListener('mousemove', nowMouseMove);
+                //     document.removeEventListener('mousemove', changeWidth);
+                //     valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 103) * (parseInt(valueOutputLeft.max)) / 97);
 
-                    field_range.style.width = (parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left)) + widthThumb +'%';
-                    field_range.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
-                } else {
-                    document.addEventListener('mousemove', nowMouseMove);
-                    document.addEventListener('mousemove', changeWidth);
-                    document.addEventListener('mouseup', nowMouseUp);
+                //     field_range.style.width = (parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left)) + widthThumb +'%';
+                //     field_range.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
+                // } else 
+                // {
+                //     document.addEventListener('mousemove', nowMouseMove);
+                //     document.addEventListener('mousemove', changeWidth);
+                //     document.addEventListener('mouseup', nowMouseUp);
                    
-                    thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width))  * 100 + '%';
-                }
+                thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width))  * 100 + '%';
+                // }
             // Заполнение инпутов. преобразуем из % в целые значения инпутов
             valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputLeft.max)) / 100);
             // Верхние значения
@@ -330,10 +332,10 @@
     
                 let rightEdge = range.offsetWidth - thumbRight.offsetWidth;
 
-                if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
-                    newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1
-                    valueOutputRight.value = `${parseInt(valueOutputLeft.value) + 0.1}`
-                 }
+                // if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
+                //     newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1
+                //     valueOutputRight.value = `${parseInt(valueOutputLeft.value) + 0.1}`
+                //  }
                 
                 if (newPos > rightEdge) {
                     newPos = rightEdge;
@@ -390,16 +392,12 @@
                 thumbRight.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 92.5 + '%';
                 field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
             }
-            // Если правая сторна больше левой или в левой ''
-            // if (valueOutputLeft > valueOutputRight || valueOutputLeft === null) {
-            //     thumbLeft.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 80 + '%';
-            //     field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
-            //     field_range.style.left = parseInt(thumbLeft.style.left) + '%';
-            // }
 
             if (parseInt(valueOutputLeft.value) > parseInt(valueOutputRight.value)) {
                 valueOutputLeft.value = valueOutputRight.value;
                 thumbLeft.style.zIndex = '99';
+                thumbLeft.style.left = thumbRight.style.left;
+                field_range.style.width = 0 + '%';
             }
     
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
@@ -416,11 +414,11 @@
                 thumbRight.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 92.5 + '%';
                 field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
             }
-            // Если левая сторна больше правой или в правой ''
-            if (valueOutputLeft > valueOutputRight || valueOutputRight === null) {
-                thumbRight.style.left = ((parseFloat(valueOutputLeft.value))/parseInt(valueOutputLeft.max)) * 100 + '%';
-                field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
-            }
+            
+            // if (parseInt(valueOutputRight.value) < parseInt(valueOutputLeft.value)) {
+            //     valueOutputRight.value = valueOutputLeft.value;
+            //     thumbRight.style.zIndex = '99';
+            // }
     
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
@@ -475,9 +473,5 @@
                     document.removeEventListener('mousemove', nowMouseMove);
                     document.removeEventListener('mousemove', changeWidth);
                 }
-    
-                
-    
-    
         })
     }
