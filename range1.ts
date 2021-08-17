@@ -19,7 +19,7 @@
     const bar = <HTMLElement>document.getElementById('bar');
     var minimum = <HTMLInputElement>document.getElementById('minimum'); // минимум
     var minimumEvent = <HTMLElement>document.getElementById('minimum'); // минимум
-    var maximum = parseInt((<HTMLInputElement>document.getElementById('maximum')).value); // максимум
+    var maximum = <HTMLInputElement>document.getElementById('maximum'); // максимум
     var maximumEvent = <HTMLElement>document.getElementById('maximum'); // максимум
     const thumbTop = <HTMLElement>document.querySelector('.thumbTop'); // верхний ползунок вертикального слайдера
     const containerVR = <HTMLElement>document.querySelector('.container_range_vertical'); // вертикальный слайдер
@@ -102,7 +102,6 @@
             }
             else {
                 field_range.classList.remove('hidden')
-    
             }
         })
     }
@@ -150,6 +149,7 @@
                 startStep.innerHTML = '';
                 endStep.innerHTML = '';
                 valueOutputLeft.step = `${step}`;
+                valueOutputRight.step = `${step}`;
                 (<HTMLInputElement>document.getElementById('valueRight')).step = `${step}`;
     
                 // добавляем шаги
@@ -172,14 +172,32 @@
                 
                 valueOutputLeft.min = `${parseInt(minimum.value)}`;
                 valueOutputRight.min = `${parseInt(minimum.value)}`;
-    
-                valueOutputLeft.value = `${parseInt(minimum.value)}`;
+                minimum.min = minimum.value;
+
+                // переставляем ползунок в начало
+                valueOutputLeft.value = minimum.min;
+
+                thumbLeft.style.left = 1 + '%';
+                valueTopL.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
+                valueTopL.innerHTML = `${(parseFloat(valueOutputLeft.value))}`;
+                field_range.style.left = 0 + '%';
+                field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + '%'}`;
+
+                if (parseInt(minimum.min) > parseInt(maximum.max)) {
+                    maximum.value = `${parseInt(minimum.value) + 1}`;
+                    valueOutputRight.max =  `${parseInt(maximum.value) + 1}`;
+                    valueOutputLeft.max = `${parseInt(maximum.value) + 1}`;
+
+                    if (parseInt(valueOutputRight.value) < parseInt(valueOutputLeft.value)) {
+                        valueOutputRight.value = maximum.value;
+                        thumbRight.style.left = 95 + '%';
+                        thumbLeft.style.left = 1 + '%';
+                    }
+                }
     
                 if (parseInt(minimum.value) == NaN || minimum.value == '') {
                     valueOutputLeft.min = "" + 0;
                 }
-                console.log(minimum.value);
-                console.log(valueOutputLeft.min);
             }),
         
         enterMaximum:
@@ -217,9 +235,7 @@
                 
             }),
     
-    
-    
-                  
+
         eventThumbLeft:
     
             thumbLeft.addEventListener('mousedown', (event)=>  {
@@ -241,7 +257,7 @@
                 let newPos = event.clientX - shiftX - leftDifference;     
                 let rightEdge = range.offsetWidth - thumbLeft.offsetWidth;
                 // сделаем чтобы не выходили за рамки ползунки
-                console.log(newPos)
+
                 // if (newPos < parseInt(valueOutputLeft.min)) {
                 //     newPos = parseInt(valueOutputLeft.min);
                 // }
@@ -263,6 +279,9 @@
                 
             // Заполнение инпутов. преобразуем из % в целые значения инпутов
             valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputLeft.max)) / 100);
+            // настройка минимума
+            /////////////////
+            valueOutputLeft.value = `${parseInt(valueOutputLeft.value) + parseInt(valueOutputLeft.min)}`;
             // Верхние значения
             valueTopL.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
             valueTopL.innerHTML = `${parseFloat((<HTMLInputElement>document.getElementById('valueLeft')).value)}`;
@@ -388,11 +407,8 @@
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
          },
-    
-    
     }
-    
-    
+
     
     var verticalRange = {
     
@@ -422,7 +438,6 @@
                 
                   thumbTop.style.top = (newPosVertical / parseInt(getComputedStyle(containerVR).height)) * 100 + '%' // переводим в % range
                   valueOutputRight.value = '' + Math.round((newPosVertical / parseInt(getComputedStyle(containerVR).height) * 109.9) * (parseInt(valueOutputRight.max)) / 100);
-                  console.log(parseInt(getComputedStyle(containerVR).height))
                   // Значения сверху
                 }
     
