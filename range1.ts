@@ -152,8 +152,6 @@
                 valueOutputLeft.step = `${step}`;
                 (<HTMLInputElement>document.getElementById('valueRight')).step = `${step}`;
     
-    
-    
                 // добавляем шаги
                 if (valueLabel != Infinity || valueLabel != NaN) {
                     startStep.insertAdjacentHTML('beforeend',`<label>0</label>`);
@@ -161,11 +159,9 @@
         
                         i += steps;
                         filedSteps.insertAdjacentHTML('beforeend',`<label>${i}</label>`);
-    
                         }
                     }
                     endStep.insertAdjacentHTML('beforeend',`<label>${maxValue}</label>`);
-    
             })
     }
     
@@ -262,23 +258,9 @@
                     newPos = rightEdge;
                   }
                 
-                // if (parseInt(thumbLeft.style.left) >= parseInt(thumbRight.style.left)) {
-                //     thumbLeft.style.left = parseInt(thumbRight.style.left) - 1 + '%';
-                //     document.removeEventListener('mouseup' , nowMouseUp);
-                //     document.removeEventListener('mousemove', nowMouseMove);
-                //     document.removeEventListener('mousemove', changeWidth);
-                //     valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 103) * (parseInt(valueOutputLeft.max)) / 97);
-
-                //     field_range.style.width = (parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left)) + widthThumb +'%';
-                //     field_range.style.left = parseInt(thumbLeft.style.left) + 0.7 + '%';
-                // } else 
-                // {
-                //     document.addEventListener('mousemove', nowMouseMove);
-                //     document.addEventListener('mousemove', changeWidth);
-                //     document.addEventListener('mouseup', nowMouseUp);
-                   
+                // Перемещение ползунка
                 thumbLeft.style.left = (newPos / parseInt(getComputedStyle(range).width))  * 100 + '%';
-                // }
+                
             // Заполнение инпутов. преобразуем из % в целые значения инпутов
             valueOutputLeft.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputLeft.max)) / 100);
             // Верхние значения
@@ -293,8 +275,6 @@
     
                 field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
                 field_range.style.left = leftPositionThumbLeft + 0.7 + '%';
-    
-    
             }
     
             function nowMouseUp() {
@@ -305,8 +285,7 @@
             
         }),
     
-    
-    
+
         eventThumbRight:
     
          thumbRight.onmousedown = function(event) {
@@ -332,34 +311,20 @@
     
                 let rightEdge = range.offsetWidth - thumbRight.offsetWidth;
 
-                // if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
-                //     newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1
-                //     valueOutputRight.value = `${parseInt(valueOutputLeft.value) + 0.1}`
-                //  }
-                
                 if (newPos > rightEdge) {
                     newPos = rightEdge;
                 }
-    
-                if (parseInt(thumbRight.style.left) <= parseInt(thumbLeft.style.left)) {
-                    thumbRight.style.left = parseInt(thumbLeft.style.left) + 1 + '%';
-                    document.removeEventListener('mouseup' , nowMouseUp);
-                    document.removeEventListener('mousemove', nowMouseMove);
-                    document.removeEventListener('mousemove', changeWidth);
-                } else {
-                    document.addEventListener('mouseup' , nowMouseUp);
-                    document.addEventListener('mousemove', nowMouseMove);
-                    document.addEventListener('mousemove', changeWidth);
-    
-                    thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
+
+                if (newPos / parseFloat(getComputedStyle(range).width) * 100 <= parseFloat(thumbLeft.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
+                    newPos = ((parseFloat(thumbLeft.style.left) * parseFloat(getComputedStyle(range).width)) / 100) + 0.1;
                 }
+
+                thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
                // преобразуем в значения
                 valueOutputRight.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputRight.max)) / 100);
               // Значения сверху
               valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
               valueTopR.innerHTML = `${parseFloat((<HTMLInputElement>document.getElementById('valueRight')).value)}`;
-            
-               
             }
     
             function changeWidth() {
