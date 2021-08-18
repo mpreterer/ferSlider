@@ -50,6 +50,9 @@
     valueTopL.innerHTML = `${(parseFloat(valueOutputLeft.value))}`;
     valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
     valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
+
+    minimum.value = minimum.min;
+    maximum.value = maximum.max;
     
     var tip = {
         valueTopL: 
@@ -183,6 +186,18 @@
                 field_range.style.left = 0 + '%';
                 field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + '%'}`;
 
+
+                // Меняем максимум под минимальное значеие так чтобы он остался прежним
+                // p.s. в инпуте всегда прибавляется минимум
+                // прибавляем к максимум если min < 0 & вычитаем из максимума если min > 0
+                if (parseInt(minimum.value) < 0) {
+                    valueOutputRight.max = `${parseInt(maximum.value) + (parseInt(minimum.value) * -1)}`
+                    valueOutputLeft.max = `${parseInt(maximum.value) + (parseInt(minimum.value) * -1 )}`
+                } else {
+                    valueOutputRight.max = `${parseInt(maximum.value) - parseInt(minimum.value)}`
+                    valueOutputLeft.max = `${parseInt(maximum.value) - parseInt(minimum.value)}`
+                }
+                
                 if (parseInt(minimum.min) > parseInt(maximum.max)) {
                     maximum.value = `${parseInt(minimum.value) + 1}`;
                     valueOutputRight.max =  `${parseInt(maximum.value) + 1}`;
@@ -202,12 +217,19 @@
         
         enterMaximum:
             maximumEvent.addEventListener('input', () => {
-                let maximumChange = parseInt((<HTMLInputElement>document.getElementById('maximum')).value);
-                valueOutputLeft.max = `${maximumChange}`;
-                (<HTMLInputElement>document.getElementById('valueRight')).max = `${maximumChange}`;
+
+                if (parseInt(minimum.value) < 0) {
+                    valueOutputRight.max = `${parseInt(maximum.value) + (parseInt(minimum.value) * -1)}`
+                    valueOutputLeft.max = `${parseInt(maximum.value) + (parseInt(minimum.value) * -1)}`
+                } else {
+                    valueOutputRight.max = `${parseInt(maximum.value) - parseInt(minimum.value)}`
+                    valueOutputLeft.max = `${parseInt(maximum.value) - parseInt(minimum.value)}`
+                }
+
+                // valueOutputRight.max = `${maximum.value}`;
     
-                if ((<HTMLInputElement>document.getElementById('maximum')).value == null || parseInt((<HTMLInputElement>document.getElementById('maximum')).value) == NaN) {
-                    (<HTMLInputElement>document.getElementById('valueRight')).max = "" + stopMax;
+                if (maximum.value == null || parseInt(maximum.value) == NaN) {
+                    valueOutputRight.max = "" + stopMax;
                 }
             }),
     
@@ -341,7 +363,9 @@
                 thumbRight.style.left = (newPos / parseInt(getComputedStyle(range).width)) * 100 + '%' // переводим в % range
                // преобразуем в значения
                 valueOutputRight.value = '' + Math.round((newPos / parseInt(getComputedStyle(range).width) * 104.168) * (parseInt(valueOutputRight.max)) / 100);
-              // Значения сверху
+                // Добавляем минимум
+                valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                // Значения сверху
               valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
               valueTopR.innerHTML = `${parseFloat((<HTMLInputElement>document.getElementById('valueRight')).value)}`;
             }
@@ -353,7 +377,6 @@
     
                 field_range.style.width = (leftPositionThumbRight-leftPositionThumbLeft) + widthThumb +'%';
                 field_range.style.left = leftPositionThumbLeft + 0.9 + '%';
-                
             }
     
             function nowMouseUp() {
@@ -398,11 +421,6 @@
                 thumbRight.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 92.5 + '%';
                 field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
             }
-            
-            // if (parseInt(valueOutputRight.value) < parseInt(valueOutputLeft.value)) {
-            //     valueOutputRight.value = valueOutputLeft.value;
-            //     thumbRight.style.zIndex = '99';
-            // }
     
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
