@@ -421,6 +421,12 @@
                 thumbRight.style.left = ((parseFloat(valueOutputRight.value))/parseInt(valueOutputRight.max)) * 92.5 + '%';
                 field_range.style.width = parseInt(thumbRight.style.left)-parseInt(thumbLeft.style.left) + widthThumb + '%';
             }
+
+            if (parseInt(valueOutputRight.value) < parseInt(valueOutputLeft.value)) {
+                valueTopR.innerHTML = valueOutputLeft.value;
+                thumbRight.style.left = thumbLeft.style.left;
+                field_range.style.width = '0%';
+            }
     
             valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
             valueTopR.innerHTML = `${(parseFloat(valueOutputRight.value))}`;
