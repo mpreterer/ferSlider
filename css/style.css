@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: left;
     flex-direction: column;
-    margin: 70px 40px;
+    margin: 100px auto;
     
 }
 
