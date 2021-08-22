@@ -37,6 +37,7 @@
     let widthThumb = parseInt(thumb.style.width) / 10; 
     var valueLeft = parseInt(thumbLeft.style.left);
     var valueRight = parseInt(thumbRight.style.left);
+    var widthRange = parseInt(getComputedStyle(range).width);
     const stopMax = parseInt((<HTMLInputElement>document.getElementById('valueRight')).max);
     
     valueOutputLeft.value = '' + Math.round(((parseInt(thumbLeft.style.left) - 3) * (parseInt(valueOutputLeft.max))/100));
@@ -110,22 +111,21 @@
         })
     }
     
-    // Шаги
     
-    var moveClick = {
+    var moveClickFieldRange = {
         move:
             field_range.addEventListener('click', function(event) {
-            event.preventDefault();
-            let tl = thumbLeft.getBoundingClientRect().left;
-            let tr = thumbRight.getBoundingClientRect().left;
-            let newPosMove = ((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width));
+                event.preventDefault();
+                let tl = thumbLeft.getBoundingClientRect().left; // margin от левого ползунка до конца страницы по левую сторону
+                let tr = thumbRight.getBoundingClientRect().left; // аналогично с правой 
+                let newPosMove = ((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width));
 
             if (event.target == field_range) {
                 if  (tr - event.clientX > event.clientX - tl) {
                     thumbRight.style.left = `${newPosMove * 100 + '%'} `;
                     field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%'}`;
                     
-                    // преобразуем в значения
+                    // преобразуем в значения 
                     valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
                     // Добавляем минимум
                     valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
@@ -134,7 +134,10 @@
                     valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
 
                     valueTopL.style.zIndex = '98';
+                    thumbLeft.style.zIndex = '98';
+
                     valueTopR.style.zIndex = '99';
+                    thumbRight.style.zIndex = '99';
 
                 } else {
                     thumbLeft.style.left = `${((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width)) * 100 + '%'}`
@@ -151,13 +154,43 @@
 
                     valueTopR.style.zIndex = '98';
                     valueTopL.style.zIndex = '99';
+
+                    thumbLeft.style.zIndex = '99';
+                    thumbRight.style.zIndex = '98';
                 }
             }
             
-            console.log(event.clientX - thumbLeft.getBoundingClientRect().left)
-            console.log(thumbRight.getBoundingClientRect().left - event.clientX)
+        }),
 
-            console.log(event.clientX)
+    }
+
+    var moveCLickRange = {
+        move:
+            range.addEventListener('click', function(event) {
+                event.preventDefault(); // отключаем поведение по умолчанию
+
+                let tl = thumbLeft.getBoundingClientRect().left; // margin от левого ползунка до конца страницы по левую сторону
+                let tr = thumbRight.getBoundingClientRect().left; // аналогично с правой 
+                let posAfterThumbR = (event.clientX - leftDifference - ((parseInt(thumbRight.style.left) * widthRange) / 100)); // позиция после правого ползунка
+                let posAfterThumbL = (event.clientX - leftDifference - ((parseInt(thumbLeft.style.left) * widthRange) / 100)); // позиция перед левым ползунком
+
+            if (event.target == range) { 
+                if (posAfterThumbR < posAfterThumbL) {
+                    thumbRight.style.left = `${parseInt(thumbRight.style.left) + ((posAfterThumbR * 100) / widthRange) + '%'}`;
+                
+                    field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%'}`;
+                    // преобразуем в значения 
+                    valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                    // Добавляем минимум
+                    valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                    // Значения сверху
+                    valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+                    valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
+
+                    valueTopL.style.zIndex = '98';
+                    valueTopR.style.zIndex = '99';
+                }
+            }
 
         })
     }
