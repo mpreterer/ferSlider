@@ -103,9 +103,11 @@
         onBar: 
             bar.addEventListener('click', () => {
             if(!(field_range.classList.contains('hidden'))) {
+                range.setAttribute('bar','off')
                 field_range.classList.add('hidden')
             }
             else {
+                range.setAttribute('bar','on')
                 field_range.classList.remove('hidden')
             }
         })
@@ -237,8 +239,8 @@
                         valueTopR.style.zIndex = '98';
                 }} 
 
-            } else {
-                if (event.target == range) { 
+            } else if (range.getAttribute('range') === 'one' && range.getAttribute('bar') === 'on') {
+                if (event.target === range) { 
                     let posAfterThumbR = (event.clientX - leftDifference - ((parseInt(thumbRight.style.left) * widthRange) / 100)); // позиция после правого ползунка
                     thumbRight.style.left = `${parseInt(thumbRight.style.left) + ((posAfterThumbR * 100) / widthRange) + '%'}`;
                         
@@ -251,6 +253,19 @@
                     valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
                     valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
                 }
+            } else if (range.getAttribute('range') === 'one' && range.getAttribute('bar') === 'off') {
+                thumbRight.style.left = `${((event.clientX - leftDifference) * 100) / widthRange + '%'}`;
+                    
+                // преобразуем в значения 
+                valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                // Добавляем минимум
+                valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputRight.min)}`;
+                // Значения сверху
+                valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+                valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
+
+                valueTopL.style.zIndex = '99';
+                valueTopR.style.zIndex = '98';
             }
         }) 
         
