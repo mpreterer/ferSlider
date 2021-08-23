@@ -161,8 +161,27 @@
                         thumbRight.style.zIndex = '98';
                 }
             }
+            } else {
+                if (event.target == field_range) {
+                        let newPosMove = ((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width));
+                        
+                        thumbRight.style.left = `${newPosMove * 100 + '%'}`        
+                        field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%'}`;
+                        // преобразуем в значения 
+                        valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                        // Добавляем минимум
+                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                        // Значения сверху
+                        valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+                        valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
+
+                        valueTopL.style.zIndex = '98';
+                        thumbLeft.style.zIndex = '98';
+
+                        valueTopR.style.zIndex = '99';
+                        thumbRight.style.zIndex = '99';
+            }
         }
-            
         }),
 
     }
@@ -217,6 +236,21 @@
                         valueTopL.style.zIndex = '99';
                         valueTopR.style.zIndex = '98';
                 }} 
+
+            } else {
+                if (event.target == range) { 
+                    let posAfterThumbR = (event.clientX - leftDifference - ((parseInt(thumbRight.style.left) * widthRange) / 100)); // позиция после правого ползунка
+                    thumbRight.style.left = `${parseInt(thumbRight.style.left) + ((posAfterThumbR * 100) / widthRange) + '%'}`;
+                        
+                    field_range.style.width = `${parseInt(thumbRight.style.left) - parseInt(thumbLeft.style.left) + widthThumb + '%'}`;
+                    // преобразуем в значения 
+                    valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(range).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                    // Добавляем минимум
+                    valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                    // Значения сверху
+                    valueTopR.style.left = parseInt(thumbRight.style.left) + 1 + '%';
+                    valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
+                }
             }
         }) 
         
