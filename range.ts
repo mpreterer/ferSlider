@@ -64,7 +64,6 @@
     minimum.value = minimum.min;
     maximum.value = maximum.max;
     
-    
 
     var tip = {
         valueTopL: 
@@ -84,24 +83,27 @@
         BTN_TIP.addEventListener('click', () => {
             if (valueTopL.classList.contains('hidden')) {
                 
-                if (THUMB_LEFT.classList.contains('hidden') && valueTopR.classList.contains('hidden')) {
+                if ( THUMB_LEFT.classList.contains('hidden') && 
+                     valueTopR.classList.contains('hidden') 
+                ) {
                     valueTopR.classList.remove('hidden');
                     RANGE.setAttribute('tip','on')
                 }
 
-                else if (THUMB_LEFT.classList.contains('hidden')) {
+                else if ( THUMB_LEFT.classList.contains('hidden') ) {
                     valueTopR.classList.add('hidden');
                     RANGE.setAttribute('tip','off') 
                 }
 
-                else if (!THUMB_LEFT.classList.contains('hidden') && !THUMB_RIGHT.classList.contains('hidden')) {
+                else if ( !THUMB_LEFT.classList.contains('hidden') &&
+                          !THUMB_RIGHT.classList.contains('hidden')
+                ) {
                     valueTopR.classList.remove('hidden');
                     valueTopL.classList.remove('hidden');
                     RANGE.setAttribute('tip','on')
                 }
-    
-            }
-            else {
+                
+            } else {
                 valueTopR.classList.add('hidden');
                 valueTopL.classList.add('hidden');
             }
@@ -112,11 +114,10 @@
     var barClick = {
         onBar: 
         BAR.addEventListener('click', () => {
-            if(!(FIELD_RANGE.classList.contains('hidden'))) {
+            if ( !(FIELD_RANGE.classList.contains('hidden')) ) {
                 RANGE.setAttribute('bar','off')
                 FIELD_RANGE.classList.add('hidden')
-            }
-            else {
+            } else {
                 RANGE.setAttribute('bar','on')
                 FIELD_RANGE.classList.remove('hidden')
             }
@@ -130,19 +131,25 @@
             // если есть бар и двойной диапозон то выполнить работу
             if (RANGE.getAttribute('range') === 'double' && RANGE.getAttribute('bar') === 'on') {
                     event.preventDefault();
-                    let tl = THUMB_LEFT.getBoundingClientRect().left; // margin от левого ползунка до конца страницы по левую сторону
-                    let tr = THUMB_RIGHT.getBoundingClientRect().left; // аналогично с правой 
+                    // margin от левого ползунка до конца страницы по левую сторону
+                    let tl = THUMB_LEFT.getBoundingClientRect().left; 
+                    // аналогично с правой
+                    let tr = THUMB_RIGHT.getBoundingClientRect().left;  
                     let newPosMove = ((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width));
 
                 if (event.target == FIELD_RANGE) {
                     if  (tr - event.clientX > event.clientX - tl) {
                         THUMB_RIGHT.style.left = `${newPosMove * 100 + '%'} `;
-                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
+                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                     parseInt(THUMB_LEFT.style.left) + 
+                                                     widthThumb + '%'}`;
                         
                         // преобразуем в значения 
-                        valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                        valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * 
+                                                                (parseInt(valueOutputRight.max)) / 100);
                         // Добавляем минимум
-                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + 
+                                                    parseInt(valueOutputLeft.min)}`;
                         // Значения сверху
                         valueTopR.style.left = parseInt(THUMB_RIGHT.style.left) + 1 + '%';
                         valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
@@ -154,14 +161,21 @@
                         THUMB_RIGHT.style.zIndex = '99';
 
                     } else {
-                        THUMB_LEFT.style.left = `${((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width)) * 100 + '%'}`
-                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
-                        FIELD_RANGE.style.left = parseInt(THUMB_LEFT.style.left) + 0.7 + '%';
+                        THUMB_LEFT.style.left = `${((event.clientX - leftDifference) / 
+                                                     parseFloat(getComputedStyle(RANGE).width)) * 
+                                                     100 + '%'}`
 
+                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                     parseInt(THUMB_LEFT.style.left) + 
+                                                     widthThumb + '%'}`;
+
+                        FIELD_RANGE.style.left = parseInt(THUMB_LEFT.style.left) + 0.7 + '%';
                         // преобразуем в значения
-                        valueOutputLeft.value = '' + Math.round((newPosMove  * 104.168) * (parseInt(valueOutputLeft.max)) / 100);
+                        valueOutputLeft.value = '' + Math.round((newPosMove  * 104.168) * 
+                                                                (parseInt(valueOutputLeft.max)) / 100);
                         // Добавляем минимум
-                        valueOutputLeft.value = `${parseInt(valueOutputLeft.value) + parseInt(valueOutputLeft.min)}`;
+                        valueOutputLeft.value = `${parseInt(valueOutputLeft.value) + 
+                                                   parseInt(valueOutputLeft.min)}`;
                         // Значения сверху
                         valueTopL.style.left = parseInt(THUMB_LEFT.style.left) + 1 + '%';
                         valueTopL.innerHTML = `${parseFloat(valueOutputLeft.value)}`;
@@ -175,14 +189,18 @@
             }
             } else {
                 if (event.target == FIELD_RANGE) {
-                        let newPosMove = ((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width));
+                        let newPosMove = ((event.clientX - leftDifference) / 
+                                           parseFloat(getComputedStyle(RANGE).width));
                         
                         THUMB_RIGHT.style.left = `${newPosMove * 100 + '%'}`        
-                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
+                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                     parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
                         // преобразуем в значения 
-                        valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                        valueOutputRight.value = '' + Math.round((newPosMove  * 104.168) * 
+                                                                (parseInt(valueOutputRight.max)) / 100);
                         // Добавляем минимум
-                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + 
+                                                    parseInt(valueOutputLeft.min)}`;
                         // Значения сверху
                         valueTopR.style.left = parseInt(THUMB_RIGHT.style.left) + 1 + '%';
                         valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
@@ -206,8 +224,13 @@
 
                 let tl = THUMB_LEFT.getBoundingClientRect().left; // margin от левого ползунка до конца страницы по левую сторону
                 let tr = THUMB_RIGHT.getBoundingClientRect().left; // аналогично с правой 
-                let posAfterThumbR = (event.clientX - leftDifference - ((parseInt(THUMB_RIGHT.style.left) * widthRange) / 100)); // позиция после правого ползунка
-                let posAfterThumbL = (event.clientX - leftDifference - ((parseInt(THUMB_LEFT.style.left) * widthRange) / 100)); // позиция перед левым ползунком
+
+                let posAfterThumbR = (event.clientX - leftDifference - 
+                                     ((parseInt(THUMB_RIGHT.style.left) * 
+                                       widthRange) / 100)); // позиция после правого ползунка
+                let posAfterThumbL = (event.clientX - leftDifference - 
+                                     ((parseInt(THUMB_LEFT.style.left) * 
+                                       widthRange) / 100)); // позиция перед левым ползунком
 
                 if (posAfterThumbR < 0) {
                     posAfterThumbR =  posAfterThumbR * -1;
@@ -218,13 +241,19 @@
 
                 if (event.target == RANGE) { 
                     if (posAfterThumbR < posAfterThumbL) {
-                        THUMB_RIGHT.style.left = `${parseInt(THUMB_RIGHT.style.left) + ((posAfterThumbR * 100) / widthRange) + '%'}`;
+                        THUMB_RIGHT.style.left = `${parseInt(THUMB_RIGHT.style.left) + 
+                                                    ((posAfterThumbR * 100) / widthRange) + '%'}`;
                     
-                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
+                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                     parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
                         // преобразуем в значения 
-                        valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                        valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / 
+                                                                    parseFloat(getComputedStyle(RANGE).width)) * 
+                                                                    104.168) * (parseInt(valueOutputRight.max)) / 100
+                                                                    );
                         // Добавляем минимум
-                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                        valueOutputRight.value = `${parseInt(valueOutputRight.value) + 
+                                                    parseInt(valueOutputLeft.min)}`;
                         // Значения сверху
                         valueTopR.style.left = parseInt(THUMB_RIGHT.style.left) + 1 + '%';
                         valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
@@ -235,12 +264,17 @@
                     } else {
                         THUMB_LEFT.style.left = `${((event.clientX - leftDifference) * 100) / widthRange + '%'}`;
                     
-                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
+                        FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                     parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
                         FIELD_RANGE.style.left = `${THUMB_LEFT.style.left}`;
                         // преобразуем в значения 
-                        valueOutputLeft.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                        valueOutputLeft.value = '' + Math.round((((event.clientX - leftDifference) / 
+                                                                   parseFloat(getComputedStyle(RANGE).width)) * 
+                                                                   104.168) * (parseInt(valueOutputRight.max)) / 100
+                                                                   );
                         // Добавляем минимум
-                        valueOutputLeft.value = `${parseInt(valueOutputLeft.value) + parseInt(valueOutputLeft.min)}`;
+                        valueOutputLeft.value = `${parseInt(valueOutputLeft.value) + 
+                                                   parseInt(valueOutputLeft.min)}`;
                         // Значения сверху
                         valueTopL.style.left = parseInt(THUMB_LEFT.style.left) + 1 + '%';
                         valueTopL.innerHTML = `${parseFloat(valueOutputLeft.value)}`;
@@ -251,14 +285,22 @@
 
             } else if (RANGE.getAttribute('range') === 'one' && RANGE.getAttribute('bar') === 'on') {
                 if (event.target === RANGE) { 
-                    let posAfterThumbR = (event.clientX - leftDifference - ((parseInt(THUMB_RIGHT.style.left) * widthRange) / 100)); // позиция после правого ползунка
-                    THUMB_RIGHT.style.left = `${parseInt(THUMB_RIGHT.style.left) + ((posAfterThumbR * 100) / widthRange) + '%'}`;
-                        
-                    FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
+                    let posAfterThumbR = (event.clientX - leftDifference - 
+                                         ((parseInt(THUMB_RIGHT.style.left) * widthRange) / 100)
+                                         ); // позиция после правого ползунка
+
+                    THUMB_RIGHT.style.left = `${parseInt(THUMB_RIGHT.style.left) + 
+                                                ((posAfterThumbR * 100) / widthRange) + '%'}`;
+                    FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                                 parseInt(THUMB_LEFT.style.left) + widthThumb + '%'}`;
                     // преобразуем в значения 
-                    valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                    valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / 
+                                                                parseFloat(getComputedStyle(RANGE).width))  * 
+                                                                104.168) * (parseInt(valueOutputRight.max)) / 100
+                                                                );
                     // Добавляем минимум
-                    valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputLeft.min)}`;
+                    valueOutputRight.value = `${parseInt(valueOutputRight.value) + 
+                                                parseInt(valueOutputLeft.min)}`;
                     // Значения сверху
                     valueTopR.style.left = parseInt(THUMB_RIGHT.style.left) + 1 + '%';
                     valueTopR.innerHTML = `${parseFloat(valueOutputRight.value)}`;
@@ -267,7 +309,10 @@
                 THUMB_RIGHT.style.left = `${((event.clientX - leftDifference) * 100) / widthRange + '%'}`;
                     
                 // преобразуем в значения 
-                valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / parseFloat(getComputedStyle(RANGE).width))  * 104.168) * (parseInt(valueOutputRight.max)) / 100);
+                valueOutputRight.value = '' + Math.round((((event.clientX - leftDifference) / 
+                                                            parseFloat(getComputedStyle(RANGE).width)) * 
+                                                            104.168) * (parseInt(valueOutputRight.max)) / 100
+                                                            );
                 // Добавляем минимум
                 valueOutputRight.value = `${parseInt(valueOutputRight.value) + parseInt(valueOutputRight.min)}`;
                 // Значения сверху
@@ -324,7 +369,8 @@
                 valueTopL.style.left = parseInt(THUMB_LEFT.style.left) + 1 + '%';
                 valueTopL.innerHTML = `${(parseFloat(valueOutputLeft.value))}`;
                 FIELD_RANGE.style.left = 0 + '%';
-                FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left) + '%'}`;
+                FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                             parseInt(THUMB_LEFT.style.left) + '%'}`;
 
 
                 // Меняем максимум под минимальное значеие так чтобы он остался прежним
@@ -378,7 +424,8 @@
             //одинарный слайдер
             typeRange.addEventListener('click', () => {
                 THUMB_LEFT.style.left = 0 + '%';
-                FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - parseInt(THUMB_LEFT.style.left)}`;
+                FIELD_RANGE.style.width = `${parseInt(THUMB_RIGHT.style.left) - 
+                                             parseInt(THUMB_LEFT.style.left)}`;
                 // Убираем левый ползунок и заполняем field range else добавляем ползунок обратно
                 if (THUMB_LEFT.classList.contains('hidden')) {
                     // меняем класс диапозона
@@ -434,13 +481,19 @@
                 }
 
                 // Если левый ползунок пытается быть больше правого
-                if (newPos / parseFloat(getComputedStyle(RANGE).width) * 100 >= parseFloat(THUMB_RIGHT.style.left) || parseInt(valueOutputLeft.value) >= parseInt(valueOutputRight.value)) {
-                    newPos = ((parseFloat(THUMB_RIGHT.style.left) * parseFloat(getComputedStyle(RANGE).width)) / 100) + 0.1
-                 }
+                if (newPos / parseFloat(getComputedStyle(RANGE).width) * 100 >= 
+                             parseFloat(THUMB_RIGHT.style.left) || 
+                             parseInt(valueOutputLeft.value) >= 
+                             parseInt(valueOutputRight.value)
+                    ) 
+                {
+                    newPos = ((parseFloat(THUMB_RIGHT.style.left) * 
+                               parseFloat(getComputedStyle(RANGE).width)) / 100) + 0.1;
+                }
 
                 if (newPos > rightEdge) {
                     newPos = rightEdge;
-                  }
+                }
                 
                 // Перемещение ползунка
                 THUMB_LEFT.style.left = (newPos / parseInt(getComputedStyle(RANGE).width))  * 100 + '%';
@@ -498,8 +551,13 @@
                     newPos = rightEdge;
                 }
 
-                if (newPos / parseFloat(getComputedStyle(RANGE).width) * 100 <= parseFloat(THUMB_LEFT.style.left) || parseInt(valueOutputRight.value) <= parseInt(valueOutputLeft.value)) {
-                    newPos = ((parseFloat(THUMB_LEFT.style.left) * parseFloat(getComputedStyle(RANGE).width)) / 100) + 0.1;
+                if (newPos / parseFloat(getComputedStyle(RANGE).width) * 100 <= 
+                             parseFloat(THUMB_LEFT.style.left) || 
+                             parseInt(valueOutputRight.value) <= 
+                             parseInt(valueOutputLeft.value)) 
+                {
+                    newPos = ((parseFloat(THUMB_LEFT.style.left) * 
+                               parseFloat(getComputedStyle(RANGE).width)) / 100) + 0.1;
                 }
 
                 THUMB_RIGHT.style.left = (newPos / parseInt(getComputedStyle(RANGE).width)) * 100 + '%' // переводим в % RANGE
