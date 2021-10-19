@@ -1,127 +1,4 @@
-(function () {
-    this.ferSlider = function() {
-        let defaults = {
-            minValue: 0,
-            maxValue: 1000,
-            step: 1,
-            valueFrom: 100,
-            valueTo: 250,
-            isRange: false,
-            isTip: true,
-            isBar: true,
-            isVertical: false,
-            parentSelector: null,
-        };
 
-        if (arguments[0] && typeof arguments[0] === 'object') {
-            this.options = exetendsDefaults(defaults, arguments[0])
-        }
-
-        this.init();
-    };
-
-    function exetendsDefaults(source, properties) {
-        let property;
-
-        for (property in properties) {
-            if (properties.hasOwnProperty(property)) {
-                source[property] = properties[property];
-            }
-        }
-      
-        return source;
-    };
-
-    ferSlider.prototype.renderSlider = function () {
-        const { parentSelector } = this.options;
-        
-        parentSelector.innerHTML = `
-        <div class="container_range">
-            <div class="range range_horizontal" tip="on" condition="horizontal" bar="on" range="double" steps="1" maximum="5000" minimum="0" index="1">
-                <div class="field_range" style="width:0%; left:0;"></div>
-                <div class="valueTop valueTopLeft" style="left:25%;"></div>
-                <div class="thumb thumbLeft" style="width:10px;
-                height:18px; left:25%;"></div>
-                <div class="valueTop valueTopRight" style="left:65%;"></div>
-                <div class="thumb thumbRight" style="width:10px;
-                height:18px; left:65%;"></div>
-            </div>
-            <div class="steps">
-                <div class="startStep"></div>
-                <div class="stepsIn" style="width:100%;"></div>
-                <div class="endStep"></div>
-            </div>
-        </div>
-        `
-
-        this.options.selector = {
-            THUMB: parentSelector.querySelector('.thumb'),
-            THUMB_LEFT: parentSelector.querySelector('.thumbLeft'),
-            THUMB_RIGHT: parentSelector.querySelector('.thumbRight'),
-            FIELD_RANGE: parentSelector.querySelector('.field_range'),
-            RANGE: parentSelector.querySelector('.range'),
-            CONTAINER_RANGE: parentSelector.querySelector('.container_range'),
-            BTN_TIP: parentSelector.querySelector('#btnTip'), // Кнопка для tip
-            BAR: parentSelector.querySelector('#bar'),
-            THUMB_TOP: parentSelector.querySelector('.thumbTop'), // верхний ползунок вертикального слайдера
-            FIELD_STEPS: parentSelector.querySelector('.stepsIn'),
-            START_STEP: parentSelector.querySelector('.startStep'),
-            END_STEP: parentSelector.querySelector('.endStep'),
-            typeRange: parentSelector.querySelector('.typeRange'),
-            // STOP_MAX: parseInt(parentSelector.querySelector('#valueRight').max),
-            valueOutputLeftHTML: parentSelector.querySelector('#valueLeft'),
-            valueOutputRightHTML: parentSelector.querySelector('#valueRight'),
-            valueOutputLeft: parentSelector.querySelector('#valueLeft'),
-            valueOutputRight: parentSelector.querySelector('#valueRight'),
-            valueTopL: parentSelector.querySelector('.valueTopLeft'), // цифры сверху
-            valueTopR: parentSelector.querySelector('.valueTopRight'), // цифры сверху
-            minimum: parentSelector.querySelector('#minimum'), // минимум
-            minimumEvent: parentSelector.querySelector('#minimum'), // минимум
-            maximum: parentSelector.querySelector('#maximum'), // максимум
-            maximumEvent: parentSelector.querySelector('#maximum'), // максимум
-            // step: parseInt(parentSelector.querySelector('#valueSteps').value), //шаг
-            stepEvent: parentSelector.querySelector('#valueSteps'), //шаг
-            leftDifference: parseInt(getComputedStyle(parentSelector.querySelector('.container_range')).marginLeft), // чтобы не смещались ползунки
-            offLeft: parentSelector.querySelector('.container_range').offsetLeft,
-            valueLeft: parseInt(parentSelector.querySelector('.thumbLeft').style.left),
-            valueRight: parseInt(parentSelector.querySelector('.thumbRight').style.left),
-            widthRange: parseInt(getComputedStyle(parentSelector.querySelector('.container_range')).width),
-            widthThumb: parseInt(parentSelector.querySelector('.thumb').style.width) / widthRange,
-        };
-    };
-
-    ferSlider.prototype.addListeners = function () {
-        this.options.selector.BAR.addEventListener('click', function () {
-            if (!(this.options.selector.FIELD_RANGE.classList.contains('hidden'))) {
-                this.options.selector.RANGE.setAttribute('bar', 'off');
-                this.options.selector.FIELD_RANGE.classList.add('hidden');
-            }
-            else {
-                this.options.selector.RANGE.setAttribute('bar', 'on');
-                this.options.selector.FIELD_RANGE.classList.remove('hidden');
-            }
-        }); 
-    };
-
-    ferSlider.prototype.init = function () {
-        this.renderSlider();
-        this.addListeners();
-    };
-
-}());
-
-new ferSlider({
-    minValue: 0,
-    maxValue: 1000,
-    step: 1,
-    valueFrom: 100,
-    valueTo: 250,
-    isRange: false,
-    isTip: true,
-    isBar: true,
-    isVertical: false,
-    parentSelector: document.getElementById('fermanachi-slider'),
-})
 
 const THUMB = document.querySelector('.thumb');
 const THUMB_LEFT = document.querySelector('.thumbLeft');
@@ -129,29 +6,29 @@ const THUMB_RIGHT = document.querySelector('.thumbRight');
 const FIELD_RANGE = document.querySelector('.field_range');
 const RANGE = document.querySelector('.range');
 const CONTAINER_RANGE = document.querySelector('.container_range');
-const BTN_TIP = document.getElementById('btnTip'); // Кнопка для tip
-const BAR = document.getElementById('bar');
+const BTN_TIP = document.querySelector('.btnTip'); // Кнопка для tip
+const BAR = document.querySelector('.bar');
 const THUMB_TOP = document.querySelector('.thumbTop'); // верхний ползунок вертикального слайдера
 const FIELD_STEPS = document.querySelector('.stepsIn');
 const START_STEP = document.querySelector('.startStep');
 const END_STEP = document.querySelector('.endStep');
 const typeRange = document.querySelector('.typeRange');
-const STOP_MAX = parseInt(document.getElementById('valueRight').max);
+const STOP_MAX = parseInt(document.querySelector('.valueRight').max);
 // const CONTAINER_VR = <HTMLElement>document.querySelector('.container_range_vertical'); // вертикальный слайдер
 // const FIELD_RANGE_VR = <HTMLElement>document.querySelector('.field_range_vertical'); // внутри вертикального салйдера
 // const FIELD_STEP_OUT = <HTMLElement>document.querySelector('.steps');
-var valueOutputLeftHTML = document.getElementById('valueLeft');
-var valueOutputRightHTML = document.getElementById('valueRight');
-var valueOutputLeft = document.getElementById('valueLeft');
-var valueOutputRight = document.getElementById('valueRight');
+var valueOutputLeftHTML = document.querySelector('.valueLeft');
+var valueOutputRightHTML = document.querySelector('.valueRight');
+var valueOutputLeft = document.querySelector('.valueLeft');
+var valueOutputRight = document.querySelector('.valueRight');
 var valueTopL = document.querySelector('.valueTopLeft'); // цифры сверху
 var valueTopR = document.querySelector('.valueTopRight'); // цифры сверху
-var minimum = document.getElementById('minimum'); // минимум
-var minimumEvent = document.getElementById('minimum'); // минимум
-var maximum = document.getElementById('maximum'); // максимум
-var maximumEvent = document.getElementById('maximum'); // максимум
-var step = parseInt(document.getElementById('valueSteps').value); //шаг
-var stepEvent = document.getElementById('valueSteps'); //шаг
+var minimum = document.querySelector('.minimum'); // минимум
+var minimumEvent = document.querySelector('.minimum'); // минимум
+var maximum = document.querySelector('.maximum'); // максимум
+var maximumEvent = document.querySelector('.maximum'); // максимум
+var step = parseInt(document.querySelector('.valueSteps').value); //шаг
+var stepEvent = document.querySelector('.valueSteps'); //шаг
 var leftDifference = parseInt(getComputedStyle(CONTAINER_RANGE).marginLeft); // чтобы не смещались ползунки
 var offLeft = CONTAINER_RANGE.offsetLeft;
 var valueLeft = parseInt(THUMB_LEFT.style.left);

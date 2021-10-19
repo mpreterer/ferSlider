@@ -1,4 +1,4 @@
-// ;(function($) {
+
     const THUMB = <HTMLElement>document.querySelector('.thumb');
     const THUMB_LEFT = <HTMLElement>document.querySelector('.thumbLeft');
     const THUMB_RIGHT = <HTMLElement>document.querySelector('.thumbRight');
@@ -159,7 +159,7 @@
 
                         valueTopR.style.zIndex = '99';
                         THUMB_RIGHT.style.zIndex = '99';
-
+                        
                     } else {
                         THUMB_LEFT.style.left = `${((event.clientX - leftDifference) / 
                                                      parseFloat(getComputedStyle(RANGE).width)) * 
