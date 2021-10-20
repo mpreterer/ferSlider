@@ -1,10 +1,8 @@
-type ValueOutput = number | { from: number, to: number };
-type Orientation = 'vertical' | 'horizontal';
-type Gap = 'from' | 'to';
-type Type = 'from-start' | 'from-end' | 'range';
-type parentDom = HTMLDivElement;
-type UpdateOutputValue = { option: Gap, value: number };
+type valueOutput = number | { from: number, to: number };
+type orientation = 'vertical' | 'horizontal';
+type gap = 'from' | 'to';
+type type = 'oneRange' | 'doubleRange';
+type optionsParentDom = HTMLDivElement;
+type updateOutputValue = { option: gap, value: number };
 
-export {
-    ValueOutput, Orientation, Gap, Type, parentDom, UpdateOutputValue,
-};
+export { valueOutput, orientation, gap, type, optionsParentDom, updateOutputValue };
