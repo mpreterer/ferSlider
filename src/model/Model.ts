@@ -1,8 +1,12 @@
 import InterfaceSliderSettings from './InterfaceSliderSettings';
 
 class Model {
-    constructor() {
+
+    constructor(settings?: InterfaceSliderSettings) {
+        this.settings = {  };
     }
+
+    private settings: InterfaceSliderSettings;
   
     // initData(options): Options {
     //   return options
