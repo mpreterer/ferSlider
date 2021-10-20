@@ -1,10 +1,36 @@
-import Observer from "../Observer/Observer";
-import { optionsParentDOM, valueOutput} from ""
-class View extends Observer {
-    constructor(parentDOM: optionsParentDOM, modelOptions: valueOutput) {
-        super();
+// import Observer from "../Observer/Observer";
+// import { optionsParentDOM, updateOutputValue, valueOutput} from "../utils/types/namespace.ts";
 
-        this.modelOptions = modelOptions;
-
+class View {
+    options: Options;
+    $el: HTMLElement;
+  
+    SVPoint: SVPoint;
+    SVRange: SVRange;
+    SVLine: SVLine;
+  
+    setOptions(options: Options) {
+      this.options = options
+      console.log('Options was set');
     }
-}
+  
+    initProps() {
+      this.$el = document.getElementById(this.options.id);
+      console.log('Properties init complete!');
+    }
+  
+    render(template) {
+      this.$el.innerHTML = template
+      console.log('Template uploaded');
+    }
+  
+    initComponents() {
+      this.SVPoint = new SVPoint(this);
+      this.SVRange = new SVRange(this);
+  
+      this.SVPoint.start();
+      this.SVRange.start();
+  
+      console.log('init complete!');
+    }
+  }
