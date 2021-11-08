@@ -1,9 +1,8 @@
-// import Observer from "../Observer/Observer";
 // import { optionsParentDOM, updateOutputValue, valueOutput} from "../utils/types/namespace.ts";
 import Observer from "../Observer/Observer";
 
 class View extends Observer{
-    // options: Options;
+    private options: Options;
     // $el: HTMLElement;
   
     // SVPoint: SVPoint;
