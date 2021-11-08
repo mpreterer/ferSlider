@@ -3,7 +3,7 @@ interface IModelOptions {
     maxValue: number,
     step: number,
     valueFrom: number,
-    valueTo: number,
+    valueTo?: number,
     isRange: false,
     isTip: true,
     isBar: true,
