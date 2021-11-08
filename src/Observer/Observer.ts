@@ -1,4 +1,6 @@
-class Observer {
+import IObserver from './IObserver';
+
+class Observer implements IObserver {
     private observers: any;
 
     constructor() {
@@ -15,7 +17,7 @@ class Observer {
 
     broadcast(data: any) {
         this.observers.forEach((subscriber: Function) => {
-        subscriber(data);
+            subscriber(data);
         });
     }
 }
