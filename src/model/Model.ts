@@ -2,25 +2,25 @@ import Observer from '../Observer/Observer';
 import IModelOptions from '../interfaces/IModelOptions';
 
 class Model extends Observer {
-    private defaultSettings: IModelOptions;
+    private modelSettings: IModelOptions;
 
-    constructor(defaultSetting: IModelOptions) {
+    constructor(modelSettings: IModelOptions) {
         super();
 
-        this.defaultSettings = this.validDefaultSetting(defaultSetting);
+        this.modelSettings = this.validModelSettings(modelSettings);
     }
 
     public getModelOptions () {
-        return this.defaultSettings;
+        return this.modelSettings;
     }
 
-    private validDefaultSetting (validDefaultSetting: IModelOptions): IModelOptions {
-        const validatedDefaultSetting = validDefaultSetting;
+    private validModelSettings(validModelSettings: IModelOptions): IModelOptions {
+        const validatedModelSettings = validModelSettings;
     }
 
-    public updateModelOptions(newDefaultSettings: IModelOptions) {
-        this.defaultSettings = this.validDefaultSetting(newDefaultSettings);
-        this.broadcast(this.defaultSettings);
+    public updateModelOptions(newModelSettings: IModelOptions) {
+        this.modelSettings = this.validModelSettings(newModelSettings);
+        this.broadcast(this.modelSettings);
     }
   
     get template(): string {
