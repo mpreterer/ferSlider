@@ -11,7 +11,7 @@ declare global {
     $.fn.ferSlider = function (options: IModelOptions) {
   
       const domParent:HTMLDivElement = this[0];
-  
+  ``
       const slider = new ferSlider(domParent, options)
   
       return ferSlider
