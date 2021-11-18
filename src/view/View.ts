@@ -8,7 +8,6 @@ import Bar from "./components/bar/bar";
 import Step from "./components/step/step";
 import Tip from "./components/Tip/tip";
 
-
 class View extends Observer {
   private modelOptions: IModelOptions;
   private domParent: HTMLDivElement;
@@ -26,7 +25,7 @@ class View extends Observer {
     this.render();
   }
 
-  public updateModelOptions(newModelOptions: IModelOptions) {
+  public updateModelSettings(newModelOptions: IModelOptions) {
     this.modelOptions = newModelOptions;
   }
 
@@ -36,10 +35,8 @@ class View extends Observer {
   }
 
   private initViewComponents () {
-    
     this.bar = new Bar();
     this.thumb = new Thumb();
-
   }
 
   private createSlider () {
@@ -50,9 +47,10 @@ class View extends Observer {
     const tplThumb = templateSlider.appendChild(this.thumb.getHtml());
 
     tplThumb.appendChild(this.thumb.getHtml());
+    tplBar.appendChild(this.thumb.getHtml());
 
     this.domParent.appendChild(templateSlider);
   }
   }
 
-  export default View;
+export default View;

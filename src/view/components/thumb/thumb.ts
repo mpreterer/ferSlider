@@ -2,7 +2,6 @@ import styleClasses from "../../styleClasses";
 
 class Thumb {
   constructor () {
-
   }
 
   public getHtml():ChildNode {
