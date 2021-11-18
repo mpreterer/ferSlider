@@ -15,7 +15,7 @@ class Observer implements IObserver {
         this.observers = this.observers.filter((subscriber: Function) => subscriber !== fun);
     }
 
-    broadcast(data: any) {
+    notify(data: any) {
         this.observers.forEach((subscriber: Function) => {
             subscriber(data);
         });
