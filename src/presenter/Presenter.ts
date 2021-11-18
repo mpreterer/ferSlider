@@ -26,7 +26,7 @@ class Presenter extends Observer {
         this.view.subscribe(this.onViewUpdate);
     }
 
-    public updateModelSettings(newModelSettings: IModelSettings) {
+    public updateModelSettings(newModelSettings: IModelOptions) {
         this.sliderSettings = newModelSettings;
     }
 

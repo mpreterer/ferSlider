@@ -1,4 +1,4 @@
-import ferSlider from "./ferSlider";
+import ferSlider from "./View/components/slider/ferSlider";
 import IModelOptions from "./interfaces/IModelOptions";
 /// <reference path="./typings/globals/jquery/index.d.ts" />
 

@@ -13,14 +13,14 @@ class Model extends Observer {
     public getModelOptions () {
         return this.modelSettings;
     }
-
-    private validModelSettings(validModelSettings: IModelOptions): IModelOptions {
+    // IModelOptions вместо any
+    private validModelSettings(validModelSettings: IModelOptions): any {
         const validatedModelSettings = validModelSettings;
     }
 
     public updateModelOptions(newModelSettings: IModelOptions) {
         this.modelSettings = this.validModelSettings(newModelSettings);
-        this.broadcast(this.modelSettings);
+        this.notify(this.modelSettings);
     }
   
     get template(): string {
