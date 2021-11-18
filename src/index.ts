@@ -1,5 +1,6 @@
 import ferSlider from "./ferSlider";
 import IModelOptions from "./interfaces/IModelOptions";
+/// <reference path="./typings/globals/jquery/index.d.ts" />
 
 declare global {
     interface JQuery {
@@ -11,7 +12,6 @@ declare global {
     $.fn.ferSlider = function (options: IModelOptions) {
   
       const domParent:HTMLDivElement = this[0];
-  ``
       const slider = new ferSlider(domParent, options)
   
       return ferSlider
