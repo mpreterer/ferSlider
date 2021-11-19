@@ -2,13 +2,13 @@
   "compilerOptions": {
 
     "sourceMap": true,
-    "target": "es5",                                
-    "module": "commonjs",                           
-    "strict": true,                                 
-    "esModuleInterop": true,                       
-    
-    "skipLibCheck": true,                           
-    "forceConsistentCasingInFileNames": true        
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false
   },
   "exclude": [
     "node_modules"
