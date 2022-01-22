@@ -1,0 +1,21 @@
+.j-fer-slider__steps {
+    width:300px;
+    height:15px;
+    margin-top: 20px;
+    display: flex;
+
+    &_stepsIn {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+    &_startStep {
+        margin-right: 5px;
+      }
+      
+    &_endStep {
+        margin-right: -5px;
+      }
+  }

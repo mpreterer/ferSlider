@@ -1,0 +1,14 @@
+.j-fer-slider__tip {
+    height: 20px;
+    background: #00ffc8;
+    position: absolute;
+    top:-45px;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 5px 5px 5px 0px;
+
+    &_vertical {
+      transform: translate(-33%, -43%);
+    }
+  }

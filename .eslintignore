@@ -1,0 +1,7 @@
+dist/
+demo/
+src/
+node_modules/*
+babelrc.js
+jest.config.js
+webpack.config.js
