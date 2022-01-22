@@ -53,11 +53,11 @@ class View extends Observer {
     this.initThumbsListeners()
   }
   
-  public  odelSettings(newModelOptions: IValidSettings) {
+  public updateModelSettings(newModelOptions: IValidSettings) {
     this.modelSettings = newModelOptions;
     this.render();
   }
-  //
+  
   private render () {
     const { isTip, isStep, isRange, isBar } = this.modelSettings;
     const components = this.components;
@@ -174,7 +174,7 @@ class View extends Observer {
       components.thumbLeft.thumb.style.removeProperty(side);
       components.thumbRight.thumb.style.removeProperty(side);
     }
-    
+    //
     if(isVertical) {
       components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
       components.thumbLeft.thumb.classList.add(`${styleClasses.THUMB_VERTICAL}`);

@@ -94,15 +94,16 @@ describe('View:', () => {
       };
 
       const mockParent = document.createElement('div');
+      const view = new View(mockParent, newSettings);
 
       expect(mockParent.querySelector(`.${styleClasses.SLIDER}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.BAR}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.RANGE}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[0]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[1]).toBeInstanceOf(HTMLElement);
+      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[2]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.STEP}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[0]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[1]).toBeInstanceOf(HTMLElement);
+      expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[2]).toBeInstanceOf(HTMLElement);
     });
   });
 
@@ -125,13 +126,13 @@ describe('View:', () => {
       const mockParent = document.createElement('div');
       const view = new View(mockParent, newSettings);
 
-      const SLIDER = mockParent.querySelector(`.${styleClasses.SLIDER}`) as HTMLElement;
-      const BAR = mockParent.querySelector(`.${styleClasses.BAR}`) as HTMLElement;
-      const RANGE = mockParent.querySelector(`.${styleClasses.RANGE}`) as HTMLElement;
-      const THUMBS = mockParent.querySelectorAll(`.${styleClasses.THUMB}`) as NodeListOf<HTMLElement>;
-      const TIPS = mockParent.querySelectorAll(`.${styleClasses.TIP}`) as NodeListOf<HTMLElement>;
-      const STEP = mockParent.querySelector(`.${styleClasses.STEP}`) as HTMLElement;
-      const STEP_ITEM = mockParent.querySelectorAll(`.${styleClasses.STEP_ITEM}`) as NodeListOf<HTMLElement>;
+      const SLIDER = mockParent.querySelector(`.${styleClasses.SLIDER}`)!;
+      const BAR = mockParent.querySelector(`.${styleClasses.BAR}`)!;
+      const RANGE = mockParent.querySelector(`.${styleClasses.RANGE}`)!;
+      const THUMBS = mockParent.querySelectorAll(`.${styleClasses.THUMB}`)!;
+      const TIPS = mockParent.querySelectorAll(`.${styleClasses.TIP}`)!;
+      const STEP = mockParent.querySelector(`.${styleClasses.STEP}`)!;
+      const STEP_ITEM = mockParent.querySelectorAll(`.${styleClasses.STEP_ITEM}`)!;
 
       expect(SLIDER.classList.contains(`${styleClasses.SLIDER}`)).toBeTruthy();
       expect(BAR.classList.contains(`${styleClasses.BAR}`)).toBeTruthy();
