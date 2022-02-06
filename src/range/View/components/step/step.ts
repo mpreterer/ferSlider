@@ -22,6 +22,7 @@ class Step {
     const step = document.createElement('li');
     step.classList.add(`${styleClasses.STEP_ITEM}`);
     steps.appendChild(step);
+    this.dom = steps;
 
     return steps;
   }

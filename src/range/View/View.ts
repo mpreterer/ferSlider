@@ -11,6 +11,7 @@ import Bar from './components/bar/bar';
 import Step from './components/step/step';
 import Tip from './components/tip/tip';
 import IValidSettings from '../interfaces/IValidSettings';
+import Slider from './components/slider/slider';
 
 class View extends Observer {
   private modelSettings: IValidSettings;
@@ -34,7 +35,7 @@ class View extends Observer {
   private initSubViewComponents(htmlParent: HTMLElement) {
     this.components = {
       domParent: htmlParent,
-      slider: document.createElement('div'),
+      slider: new Slider().getDom(),
       bar: new Bar().getDom(),
       range: new Range().getDom(),
       thumbLeft: {
@@ -83,12 +84,12 @@ class View extends Observer {
     }
 
     if(isTip && !hasTip) {
-      components.thumbLeft.tip.appendChild(components.thumbLeft.tip);
-      components.thumbRight.tip.appendChild(components.thumbRight.tip);
+      components.bar.appendChild(components.thumbLeft.tip);
+      components.bar.appendChild(components.thumbRight.tip);
     }
 
     if(isBar) {
-      components.bar.appendChild(components.bar);
+      components.slider.appendChild(components.bar);
     }
 
     if(!isRange && hasRange) {

@@ -1,21 +1,12 @@
-.j-fer-slider__steps {
-    width:300px;
+.j-fer-slider__step {
+    width:100%;
     height:15px;
-    margin-top: 20px;
     display: flex;
+    justify-content: space-between;
+    padding: 0;
+    list-style: none;
 
-    &_stepsIn {
-        display: flex;
-        flex: 1 1 auto;
-        align-items: center;
-        justify-content: space-around;
-      }
-
-    &_startStep {
-        margin-right: 5px;
-      }
-      
-    &_endStep {
-        margin-right: -5px;
+    &_item {
+      user-select: auto;
       }
   }

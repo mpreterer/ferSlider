@@ -7,9 +7,9 @@
     "test": "jest"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --open",
-    "dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.config.js",
+    "start": "cross-env NODE_ENV=development webpack serve --open webpack.config.js",
+    "dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.slider.js webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.slider.js webpack.config.js ",
     "test": "npx jest",
     "eslint": "eslint . --ext .ts,.tsx"
   },

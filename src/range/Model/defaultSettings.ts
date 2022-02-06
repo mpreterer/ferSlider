@@ -6,11 +6,11 @@ const defaultSettings: IValidSettings = {
     step: 1,
     valueFrom: 50,
     valueTo: 100,
-    isRange: false,
+    isRange: true,
     isTip: true,
     isBar: true,
     isVertical: false,
-    isStep: false
+    isStep: true
 };
 
 export default defaultSettings;

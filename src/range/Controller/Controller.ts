@@ -30,6 +30,7 @@ class Controller extends Observer {
             ...this.view.events
         };
         this.init();
+        console.log(this.domParent)
     }
 
     get settings(): IValidSettings {
