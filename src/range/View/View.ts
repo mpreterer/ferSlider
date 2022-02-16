@@ -32,7 +32,7 @@ class View extends Observer {
     return this._events;
   };
   ////// этого
-  private initSubViewComponents(htmlParent: HTMLElement) {
+  private initSubViewComponents(htmlParent: TDOMParents) {
     this.components = {
       domParent: htmlParent,
       slider: new Slider().getDom(),
