@@ -67,7 +67,7 @@ class View extends Observer {
     const hasBar = components.slider.contains(components.bar);
     const hasFromThumb = components.bar.contains(components.thumbLeft.thumb);
     const hasToThumb = components.bar.contains(components.thumbRight.thumb);
-    const hasTip = components.thumbLeft.tip.contains(components.thumbLeft.tip) && components.thumbRight.tip.contains(components.thumbRight.tip);
+    const hasTip = components.thumbLeft.thumb.contains(components.thumbLeft.tip) && components.thumbRight.thumb.contains(components.thumbRight.tip);
     const hasRange = components.bar.contains(components.range);
     const hasStep = components.slider.contains(components.steps.getDom());
 
@@ -84,8 +84,8 @@ class View extends Observer {
     }
 
     if(isTip && !hasTip) {
-      components.bar.appendChild(components.thumbLeft.tip);
-      components.bar.appendChild(components.thumbRight.tip);
+      components.thumbLeft.thumb.appendChild(components.thumbLeft.tip);
+      components.thumbRight.thumb.appendChild(components.thumbRight.tip);
     }
 
     if(isBar) {
@@ -108,8 +108,8 @@ class View extends Observer {
     }
 
     if(!isTip && hasTip) {
-      components.thumbLeft.tip.removeChild(components.thumbLeft.tip);
-      components.thumbRight.tip.removeChild(components.thumbRight.tip);
+      components.thumbLeft.thumb.removeChild(components.thumbLeft.tip);
+      components.thumbRight.thumb.removeChild(components.thumbRight.tip);
     }
 
     if (isStep) {
@@ -120,9 +120,9 @@ class View extends Observer {
       }
     }
 
-    if (!isStep && hasStep) {
-      components.slider.removeChild(components.steps.getDom());
-    }
+    // if (!isStep && hasStep) {
+    //   components.slider.removeChild(components.steps.getDom());
+    // }
 
     this.renderSubComponentsStyles;
     this.setCurrentValue;
