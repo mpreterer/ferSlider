@@ -30,7 +30,6 @@ class Controller extends Observer {
             ...this.view.events
         };
         this.init();
-        console.log(this.domParent)
     }
 
     get settings(): IValidSettings {
@@ -76,9 +75,9 @@ class Controller extends Observer {
     private modelUpdate(modelSettings: IValidSettings) {
         this.view.updateModelSettings(modelSettings);
     }
-
-    private viewUpdate(modelSettings: IModelSettings) {
-        this.model.updateModelSettings(modelSettings as IValidSettings);
+    @bind
+    private viewUpdate(modelSettings: IValidSettings) {
+        this.model.updateModelSettings(modelSettings);
     }
 }
 
