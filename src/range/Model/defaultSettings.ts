@@ -2,7 +2,7 @@ import IValidSettings from "../interfaces/IValidSettings";
 
 const defaultSettings: IValidSettings = {
     minValue: 0,
-    maxValue: 100,
+    maxValue: 1000,
     step: 1,
     valueFrom: 50,
     valueTo: 100,
