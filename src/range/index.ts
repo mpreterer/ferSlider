@@ -16,7 +16,6 @@ declare global {
       const domParent: TDOMParents = this[0];
 
       const range = new ferSlider(domParent, validOptions);
-        console.log(domParent)
       return range;
     }
 }(jQuery));
