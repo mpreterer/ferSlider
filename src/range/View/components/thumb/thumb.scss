@@ -2,16 +2,25 @@
     position: absolute;
     width: 10px;
     height: 18px;
-    top:-4px;   
+    top:-4px;  
     cursor: pointer;
     background: #fff;
     border-radius: 3px;
     border: 1px solid #000;
     box-shadow: 1px 1px 0px #000;
+    z-index: 3;
+
+    &_horizontal {
+      transform: translate(-46%, -33%);
+    }
 
     &_vertical {
       bottom: 0%;
       top: 0%;
       transform: translate(-33%, -43%);
+    }
+
+    &_active {
+      z-index: 4;
     }
   }
