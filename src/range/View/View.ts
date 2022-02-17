@@ -4,7 +4,7 @@ import styleClasses from './styleClasses';
 
 import { bind } from 'decko';
 import { IEvents } from '../interfaces/IEvents';
-import { TDOMParents, TUpdateThumb } from '../interfaces/types';
+import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
 import Range from './components/range/range';
 import Thumb from './components/thumb/thumb';
 import Bar from './components/bar/bar';
@@ -60,7 +60,7 @@ class View extends Observer {
   }
   
   private render () {
-    const { isTip, isStep, isRange, isBar } = this.modelSettings;
+    const { isTip, isStep, isRange } = this.modelSettings;
     const components = this.components;
 
     const hasSlider = components.domParent.contains(components.slider);
@@ -75,25 +75,16 @@ class View extends Observer {
       components.slider.appendChild(components.bar);
     }
 
-    if(isStep && !hasStep) {
-      components.slider.appendChild(components.steps.getDom())
+    if(isStep) {
+      this.renderSteps();
+
+      if (!hasStep) {
+        components.slider.appendChild(components.steps.getDom());
+      }
     }
 
     if(!isStep && hasStep) {
       components.slider.removeChild(components.steps.getDom())
-    }
-
-    if(isTip && !hasTip) {
-      components.thumbLeft.thumb.appendChild(components.thumbLeft.tip);
-      components.thumbRight.thumb.appendChild(components.thumbRight.tip);
-    }
-
-    if(isBar) {
-      components.slider.appendChild(components.bar);
-    }
-
-    if(!isRange && hasRange) {
-      components.bar.removeChild(components.range)
     }
 
     if (isRange) {
@@ -107,22 +98,23 @@ class View extends Observer {
       components.bar.appendChild(components.thumbLeft.thumb);
     }
 
+    if(isRange && !hasRange) {
+      components.bar.appendChild(components.range)
+    }
+
+    if(!isRange && hasRange) {
+      components.bar.removeChild(components.range)
+    }
+
+    if(isTip && !hasTip) {
+      components.thumbLeft.thumb.appendChild(components.thumbLeft.tip);
+      components.thumbRight.thumb.appendChild(components.thumbRight.tip);
+    }
+
     if(!isTip && hasTip) {
       components.thumbLeft.thumb.removeChild(components.thumbLeft.tip);
       components.thumbRight.thumb.removeChild(components.thumbRight.tip);
     }
-
-    if (isStep) {
-      this.renderSteps();
-
-      if (!hasStep) {
-        components.slider.appendChild(components.steps.getDom());
-      }
-    }
-
-    // if (!isStep && hasStep) {
-    //   components.slider.removeChild(components.steps.getDom());
-    // }
 
     this.renderSubComponentsStyles;
     this.setCurrentValue;
@@ -217,7 +209,7 @@ class View extends Observer {
     }
   }
 
-    private getThumbPosition (thumb: 'thumbLeft' | 'thumbRight'): number {
+    private getThumbPosition (thumb: THandles): number {
       const { isVertical, maxValue } = this.modelSettings;
 
       const components = this.components;
@@ -229,7 +221,7 @@ class View extends Observer {
       return posOfPixel;
     }
 
-    private setActiveThumb (thumb: 'thumbLeft' | 'thumbRight') {
+    private setActiveThumb (thumb: THandles) {
       const components = this.components;
       const activeThumb = `${styleClasses.THUMB}` + 'active';
 
@@ -305,15 +297,15 @@ class View extends Observer {
     public updateCurrentValue (thumb: TUpdateThumb) {
       this.setThumbPosition(thumb.handle, thumb.value);
     }
-
-    private setThumbPosition (thumb: 'thumbLeft' | 'thumbRight', val: number) {
+    
+    private setThumbPosition (toggle: THandles, val: number) {
       const { isVertical, isRange, isTip } = this.modelSettings;
       const typeStyleSide = isVertical ? 'top' : 'left';
       const percent = this.convertPercentValueTo(val);
-  
-      this.components[thumb].thumb.style[typeStyleSide] = `${percent}%`;
-      this.setActiveThumb(thumb);
-      if (isTip) this.setTipValue(thumb, val);
+      
+      this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
+      this.setActiveThumb(toggle);
+      if (isTip) this.setTipValue(toggle, val);
       if (isRange) this.setClickRangePosition();
     }
 
@@ -437,4 +429,4 @@ class View extends Observer {
   }
   }
 
-export default View;
+export default View;  
