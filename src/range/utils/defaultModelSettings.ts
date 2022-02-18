@@ -4,7 +4,7 @@ const defaultModelSettings: IValidSettings = {
   minValue: 0,
   maxValue: 400,
   step: 1,
-  valueFrom: 0,
+  valueFrom: 10,
   valueTo: 100,
   isRange: true,
   isTip: true,

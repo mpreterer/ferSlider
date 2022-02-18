@@ -56,6 +56,7 @@ class View extends Observer {
   
   public updateModelSettings(newModelOptions: IValidSettings) {
     this.modelSettings = newModelOptions;
+    console.log(this.modelSettings)
     this.render();
   }
   
@@ -313,11 +314,11 @@ class View extends Observer {
     }
 
     private setClickRangePosition () {
-      const { isVertical, isRange, isTip } = this.modelSettings;
+      const { isVertical, isBarRange, isRange } = this.modelSettings;
+      const components = this.components;
+      const startPosition = isVertical ? 'top' : 'left';
 
-      if (isTip) {
-        const components = this.components;
-        const startPosition = isVertical ? 'top' : 'left';
+      if (isBarRange) {
         const fromPercent = parseFloat(components.thumbLeft.tip.style[startPosition].replace(/[^0-9,.]/g, ' '));
         const toPercent = 100 - parseFloat(components.thumbRight.tip.style[startPosition].replace(/[^0-9,.]/g, ' '));
 
@@ -326,7 +327,7 @@ class View extends Observer {
           components.range.style[startPosition] = `${toPercent}%`;
         } else {
           components.range.style[startPosition] = '0';
-          components.range.style[startPosition] = `${fromPercent}%`;
+          components.range.style[startPosition] = `${100 - fromPercent}%`;
         }
       }
     }
