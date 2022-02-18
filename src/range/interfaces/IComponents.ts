@@ -8,7 +8,7 @@ interface IComponents {
   horizontal: HTMLInputElement;
   isRange: HTMLInputElement;
   isTip: HTMLInputElement;
-  isBar: HTMLInputElement;
+  isBarRange: HTMLInputElement;
   isStep: HTMLInputElement;
 }
   

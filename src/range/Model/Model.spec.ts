@@ -17,7 +17,7 @@ describe('Model:', () => {
         valueTo: 40,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       }
