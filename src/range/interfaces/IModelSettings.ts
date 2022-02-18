@@ -8,7 +8,7 @@ export interface IModelSettings extends API  {
   valueTo?: number;
   isRange?: boolean;
   isTip?: boolean;
-  isBar?: boolean;
+  isBarRange?: boolean;
   isVertical?: boolean;
   isStep?: boolean;
 }

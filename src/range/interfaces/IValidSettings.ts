@@ -8,7 +8,7 @@ import { TValueFrom } from './types';
   valueTo: number;
   isRange: boolean;
   isTip: boolean;
-  isBar: boolean;
+  isBarRange: boolean;
   isVertical: boolean;
   isStep: boolean;
 }
