@@ -9,7 +9,7 @@ const styleClasses = {
   THUMB_HORIZONTAL: 'j-fer-slider__thumb_horizontal',
   THUMB_VERTICAL: 'j-fer-slider__thumb_vertical',
   BAR: 'j-fer-slider__bar',
-  BAR_HORIZONTAL: 'j-fer-slider__bar_horizonta',
+  BAR_HORIZONTAL: 'j-fer-slider__bar_horizontal',
   BAR_VERTICAL: 'j-fer-slider__bar_vertical',
   TIP: 'j-fer-slider__tip',
   TIP_HORIZONTAL: 'j-fer-slider__tip_horizontal',

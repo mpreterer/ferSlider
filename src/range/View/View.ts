@@ -116,12 +116,13 @@ class View extends Observer {
       components.thumbRight.thumb.removeChild(components.thumbRight.tip);
     }
 
-    this.renderSubComponentsStyles;
-    this.setCurrentValue;
+    this.renderSubComponentsStyles();
+    this.setCurrentValue();
 
     if(!hasSlider) {
       components.domParent.appendChild(components.slider);
     }
+
   }
 
   private renderSubComponentsStyles() {
@@ -300,6 +301,7 @@ class View extends Observer {
       const { isVertical, isRange, isTip } = this.modelSettings;
       const typeStyleSide = isVertical ? 'top' : 'left';
       const percent = this.convertPercentValueTo(val);
+      
       this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
       this.setActiveThumb(toggle);
       if (isTip) this.setTipValue(toggle, val);
@@ -425,4 +427,4 @@ class View extends Observer {
   }
   }
 
-export default View;  
+export default View;

@@ -10,13 +10,12 @@
     box-shadow: 1px 1px 0px #000;
     z-index: 3;
 
-    &_horizontal {
-      transform: translate(-46%, -33%);
-    }
+    // &_horizontal {
+    //   transform: translate(-46%, -33%);
+    // }
 
     &_vertical {
       top: 0%;
-      transform: translate(-33%, -43%);
     }
 
     &_active {
