@@ -47,8 +47,8 @@ class Model extends Observer {
       const { minValue, maxValue, isRange, valueFrom, step } = this.modelSettings;
       const isFrom = thumb.handle === 'thumbLeft';
       const isTo = thumb.handle === 'thumbRight';
-  
-      const valueWithStep = thumb.valueFromStep ? thumb.value : this.getValueWithStep(thumb.value, minValue, step); /// ?
+      const hasStep = thumb.valueFromStep;
+      const valueWithStep = hasStep ? this.getValueWithStep(thumb.value, minValue, step) : thumb.value;
       const validValueWithStep = this.getDiapason(valueWithStep, minValue, maxValue);
   
       if(isRange) {
