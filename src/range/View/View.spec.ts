@@ -20,7 +20,7 @@ describe('View:', () => {
         valueTo: 40,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       };
@@ -51,7 +51,7 @@ describe('View:', () => {
         valueTo: 30,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       };
@@ -88,7 +88,7 @@ describe('View:', () => {
         valueTo: 30,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       };
@@ -118,7 +118,7 @@ describe('View:', () => {
         valueTo: 30,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       };
@@ -164,7 +164,7 @@ describe('View:', () => {
         valueTo: 30,
         isRange: false,
         isTip: true,
-        isBar: true,
+        isBarRange: true,
         isVertical: false,
         isStep: false
       };

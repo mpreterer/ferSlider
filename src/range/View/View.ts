@@ -60,7 +60,7 @@ class View extends Observer {
   }
   
   private render () {
-    const { isTip, isStep, isRange } = this.modelSettings;
+    const { isTip, isStep, isRange, isBarRange } = this.modelSettings;
     const components = this.components;
 
     const hasSlider = components.domParent.contains(components.slider);
@@ -97,11 +97,11 @@ class View extends Observer {
       components.bar.appendChild(components.thumbLeft.thumb);
     }
 
-    if(isRange && !hasRange) {
+    if(isBarRange && !hasRange) {
       components.bar.appendChild(components.range)
     }
 
-    if(!isRange && hasRange) {
+    if(!isBarRange && hasRange) {
       components.bar.removeChild(components.range)
     }
 
