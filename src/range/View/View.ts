@@ -298,19 +298,19 @@ class View extends Observer {
     }
     
     private setThumbPosition (toggle: THandles, val: number) {
-      const { isVertical, isRange, isTip } = this.modelSettings;
+      const { isVertical, isBarRange, isTip } = this.modelSettings;
       const typeStyleSide = isVertical ? 'top' : 'left';
       const percent = this.convertPercentValueTo(val);
       
       this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
       this.setActiveThumb(toggle);
       if (isTip) this.setTipValue(toggle, val);
-      if (isRange) this.setClickRangePosition();
+      if (isBarRange) this.setClickRangePosition();
     }
 
     private convertPercentValueTo (val: number): number {
       const { isVertical, minValue, maxValue } = this.modelSettings;
-      const percent = Number(((val - minValue) * 100 / (maxValue-minValue)).toFixed(10))
+      const percent = Number(((val - minValue) * 100 / (maxValue-minValue)).toFixed(10));
       const okPercent = isVertical ? 100-percent : percent;
       return okPercent;
     }
@@ -319,17 +319,19 @@ class View extends Observer {
       const { isVertical, isBarRange, isRange } = this.modelSettings;
       const components = this.components;
       const startPosition = isVertical ? 'top' : 'left';
+      const endPosition = isVertical ? 'bottom' : 'right';
+
 
       if (isBarRange) {
-        const fromPercent = parseFloat(components.thumbLeft.tip.style[startPosition].replace(/[^0-9,.]/g, ' '));
-        const toPercent = 100 - parseFloat(components.thumbRight.tip.style[startPosition].replace(/[^0-9,.]/g, ' '));
+        const fromPercent = parseFloat(components.thumbLeft.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
+        const toPercent = 100 - parseFloat(components.thumbRight.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
 
         if (isRange) {
           components.range.style[startPosition] = `${fromPercent}%`;
-          components.range.style[startPosition] = `${toPercent}%`;
+          components.range.style[endPosition] = `${toPercent}%`;
         } else {
           components.range.style[startPosition] = '0';
-          components.range.style[startPosition] = `${100 - fromPercent}%`;
+          components.range.style[endPosition] = `${100 - fromPercent}%`;
         }
       }
     }
