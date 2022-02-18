@@ -8,7 +8,7 @@ const defaultModelSettings: IValidSettings = {
   valueTo: 100,
   isRange: true,
   isTip: true,
-  isBar: true,
+  isBarRange: true,
   isVertical: false,
   isStep: true
 }
