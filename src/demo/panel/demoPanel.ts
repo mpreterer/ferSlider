@@ -37,10 +37,10 @@ class demoPanel {
       step: panel.querySelector('.js-panel__step-input')!,
       horizontal: panel.querySelector('.js-panel__horizontal-input')!,
       isVertical: panel.querySelector('.js-panel__vertical-input')!,
-      isRange: panel.querySelector('.js-panel__withRange-input')!,
-      isTip: panel.querySelector('.js-panel__withTip-input')!,
-      isStep: panel.querySelector('.js-panel__withStep-input')!,
-      isBar: panel.querySelector('.js-panel__withBar-input')!
+      isRange: panel.querySelector('.js-panel__isRange-input')!,
+      isTip: panel.querySelector('.js-panel__isTip-input')!,
+      isStep: panel.querySelector('.js-panel__isStep-input')!,
+      isBarRange: panel.querySelector('.js-panel__isBarRange-input')!
     };
 
     this.domParent.appendChild(panel);
@@ -111,9 +111,9 @@ class demoPanel {
       })
     })
 
-    components.isBar.addEventListener('change', (element) => {
+    components.isBarRange.addEventListener('change', (element) => {
       this.slider.updateSettings({
-        isBar: Boolean((element.target as HTMLInputElement).checked)
+        isBarRange: Boolean((element.target as HTMLInputElement).checked)
       })
     })
 
@@ -184,7 +184,7 @@ class demoPanel {
 
   @bind
   private changeSettings (settings: IValidSettings): void {
-    const { minValue, maxValue, valueFrom, step, isBar, isRange, isTip, isStep } = settings;
+    const { minValue, maxValue, valueFrom, step, isBarRange, isRange, isTip, isStep } = settings;
     const components = this.components;
 
     components.minValue.value = `${minValue}`;
@@ -194,7 +194,7 @@ class demoPanel {
 
     components.step.value = `${step}`;
     
-    components.isBar.checked = isBar;
+    components.isBarRange.checked = isBarRange;
     components.isRange.checked = isRange;
     components.isTip.checked = isTip;
     components.isStep.checked = isStep;
