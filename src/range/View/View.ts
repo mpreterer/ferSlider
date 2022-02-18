@@ -16,7 +16,7 @@ import Slider from './components/slider/slider';
 class View extends Observer {
   private modelSettings: IValidSettings;
   private components: IUnitComponents;
-  private dragThumb: 'thumbLeft' | 'thumbRight' | null;
+  private dragThumb: THandles | null;
 
   constructor (domParent: TDOMParents, modelSettings: IValidSettings) {
     super();
@@ -320,7 +320,6 @@ class View extends Observer {
       const components = this.components;
       const startPosition = isVertical ? 'top' : 'left';
       const endPosition = isVertical ? 'bottom' : 'right';
-
 
       if (isBarRange) {
         const fromPercent = parseFloat(components.thumbLeft.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
