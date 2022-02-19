@@ -81,6 +81,7 @@ class Controller extends Observer {
     @bind
     private modelUpdate(modelSettings: IValidSettings) {
         this.view.updateModelSettings(modelSettings);
+        this.model.events.modelChangedSettings.notify(modelSettings);
     }
     @bind
     private viewUpdate(modelSettings: IValidSettings) {
