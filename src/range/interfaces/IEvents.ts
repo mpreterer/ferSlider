@@ -8,3 +8,5 @@ export interface IModelEvents {
 export interface IEvents {
     slide: IObserver;
 }
+
+export interface IExtendsEvents extends IEvents, IModelEvents {}

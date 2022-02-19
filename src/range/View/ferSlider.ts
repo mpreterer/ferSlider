@@ -1,13 +1,13 @@
 import { IModelSettings } from "../interfaces/IModelSettings";
 import { TDOMParents, TUpdateThumb } from "../interfaces/types";
-import { IModelEvents } from "../interfaces/IEvents";
+import { IEvents, IModelEvents, IExtendsEvents } from "../interfaces/IEvents";
 import Controller from "../Controller/Controller";
 import IValidSettings from "../interfaces/IValidSettings";
 
 class ferSlider {
   private controller: Controller;
 
-  get events(): IModelEvents {
+  get events(): IExtendsEvents {
     return this.controller.events;
   }
 

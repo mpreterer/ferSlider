@@ -1,6 +1,6 @@
 import { IModelSettings } from "../interfaces/IModelSettings";
 import { TDOMParents, TUpdateThumb } from '../interfaces/types';
-import { IEvents, IModelEvents } from "../interfaces/IEvents";
+import { IExtendsEvents } from "../interfaces/IEvents";
 import { bind } from "decko";
 import Observer from "../Observer/Observer";
 import Model from "../Model/Model";
@@ -12,9 +12,8 @@ class Controller extends Observer {
     private domParent: TDOMParents;
     private model: Model;
     private view: View;
-    private _events: IModelEvents;
 
-    get events (): IEvents {
+    get events (): IExtendsEvents {
         return {
           ...this.model.events,
           ...this.view.events,
