@@ -56,7 +56,6 @@ class View extends Observer {
   
   public updateModelSettings(newModelOptions: IValidSettings) {
     this.modelSettings = newModelOptions;
-    console.log(this.modelSettings)
     this.render();
   }
   
@@ -71,6 +70,7 @@ class View extends Observer {
     const hasTip = components.thumbLeft.thumb.contains(components.thumbLeft.tip) && components.thumbRight.thumb.contains(components.thumbRight.tip);
     const hasRange = components.bar.contains(components.range);
     const hasStep = components.slider.contains(components.steps.getDom());
+
     if(!hasBar) {
       components.slider.appendChild(components.bar);
     }
@@ -128,7 +128,8 @@ class View extends Observer {
   private renderSubComponentsStyles() {
     const { isVertical } = this.modelSettings;
     const components = this.components;
-    const side = isVertical ? 'left' : 'top';
+    const sideStart = isVertical ? 'left' : 'top';
+    const sideFinish = isVertical ? 'right' : 'bottom';
     const beforeOrient = isVertical ? false : true;
 
     components.slider.setAttribute('class', `${styleClasses.SLIDER}`);
@@ -162,9 +163,10 @@ class View extends Observer {
       });
     }
 
-    components.range.style[side] = '0';
-    components.thumbLeft.thumb.style.removeProperty(side);
-    components.thumbRight.thumb.style.removeProperty(side);
+    components.range.style[sideStart] = '0';
+    components.range.style[sideFinish] = '0';
+    components.thumbLeft.thumb.style.removeProperty(sideStart);
+    components.thumbRight.thumb.style.removeProperty(sideStart);
     
     if(isVertical) {
       components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
@@ -248,12 +250,11 @@ class View extends Observer {
     }
 
     private convertCoordsToValue (coords: number): number {
-      const { maxValue, minValue, isVertical } = this.modelSettings;
+      const { maxValue, minValue } = this.modelSettings;
       const barLength = this.getBarLength();
       const value = Number((coords * (maxValue - minValue) / barLength + minValue).toFixed(10));
-      const validatedValue = isVertical ? maxValue-value : value;/// может не надо
 
-      return validatedValue;
+      return value;
     }
 
     private getValidatedCoords(event: MouseEvent): number {
@@ -265,14 +266,14 @@ class View extends Observer {
       return result;
     }
      
-    private changePositonThumb(event: MouseEvent): THandles {
+    private changePositonThumb(event: MouseEvent): THandles{
       // maybe null
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
       
       if (isRange) {
-        const thumbRightValue = this.getThumbPosition('thumbLeft');
+        const thumbRightValue = this.getThumbPosition('thumbRight');
         const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
         const valueFromRangeMiddle = (mouseCoords - thumbLeftValue);
   
@@ -338,7 +339,7 @@ class View extends Observer {
     @bind
     private draggableStart(event: MouseEvent) {
       this.dragThumb = this.changePositonThumb(event);
-
+  
       if(this.dragThumb) {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
@@ -346,14 +347,14 @@ class View extends Observer {
         window.addEventListener('mouseup', this.draggableEnd);
       }
     }
-  
+
     @bind
     private draggable(event: MouseEvent) {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
-  
-        this.notify({ thumb: this.dragThumb, value: value});
+        this.notify({ thumb: this.dragThumb, value});
+        // this._events.slide.notify({ thumb: this.dragThumb, value, valueFromStep: true});
       }
     }
     
@@ -367,10 +368,11 @@ class View extends Observer {
     }
 
     private initThumbsListeners() {
-      this.components.range.addEventListener('mousedown', this.draggableStart);
+      
       window.removeEventListener('mousemove', this.draggable);
       window.removeEventListener('mouseup', this.draggableEnd);
       this.components.bar.addEventListener('click', this.click);
+      this.components.bar.addEventListener('mousedown', this.draggableStart);
       this.components.steps.getDom().addEventListener('click', this.setItemStepsPosition);
     }
 
@@ -381,7 +383,7 @@ class View extends Observer {
       if(this.dragThumb) {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
-    }
+      }
   }
 
     @bind
