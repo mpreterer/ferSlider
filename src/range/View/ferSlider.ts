@@ -1,6 +1,6 @@
 import { IModelSettings } from "../interfaces/IModelSettings";
 import { TDOMParents, TUpdateThumb } from "../interfaces/types";
-import { IEvents, IModelEvents, IExtendsEvents } from "../interfaces/IEvents";
+import { IExtendsEvents } from "../interfaces/IEvents";
 import Controller from "../Controller/Controller";
 import IValidSettings from "../interfaces/IValidSettings";
 

@@ -5,10 +5,10 @@ import '../range/styleRange.scss';
 // import './panel/index';
 // import './panel/panel.scss';
 
-// const sliderContainer1 = {
-//   containerSlider: $('.js-slider__container-slider-1'),
-//   containerPanel: $('.js-slider__container-panel-1')
-// };
+const sliderContainer1 = {
+  containerSlider: $('.js-slider__container-slider-1'),
+  containerPanel: $('.js-slider__container-panel-1')
+};
 
 // const sliderContainer2 = {
 //   containerSlider: $('.js-slider__container-slider-2'),

@@ -354,7 +354,7 @@ class View extends Observer {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
         // this.notify({ handle: this.dragThumb, value});
-        this._events.slide.notify({ handle: this.dragThumb, value, valueFromStep: true} as TUpdateThumb);
+        this._events.slide.notify({handle: this.dragThumb, value, valueFromStep: true} as TUpdateThumb);
       }
     }
     
