@@ -2,7 +2,6 @@ import Observer from '../Observer/Observer';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TValueFrom, TUpdateThumb } from '../interfaces/types';
 import { IModelEvents } from '../interfaces/IEvents';
-import { IModelSettings } from '../interfaces/IModelSettings';
 
 class Model extends Observer {
     private modelSettings: IValidSettings;
@@ -105,7 +104,7 @@ class Model extends Observer {
 
     private getValidCurrentValue(valueFrom: TValueFrom): TValueFrom {
       const { minValue, maxValue, isRange } = this.modelSettings;
-      
+
       if(typeof valueFrom === 'object') {
           
         if(isRange) {

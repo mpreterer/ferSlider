@@ -262,8 +262,6 @@ class View extends Observer {
       const coords = isVertical ? 'clientY' : 'clientX';
       const barOffset = this.getBarOffset();
       const result = isVertical ? barOffset - event[coords] : event[coords] - barOffset;
-      console.log('barOffset',barOffset)
-
       
       return result;
     }
@@ -273,19 +271,18 @@ class View extends Observer {
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
-      console.log('mouseCoords',mouseCoords)
       
       if (isRange) {
         const thumbRightValue = this.getThumbPosition('thumbRight');
         const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
         const valueFromRangeMiddle = (mouseCoords - thumbLeftValue);
-  
+
         if (mouseCoords <= thumbLeftValue) return 'thumbLeft';
         if (mouseCoords >= thumbRightValue) return 'thumbRight';
         if (valueFromRangeMiddle <= rangeMiddle) return 'thumbLeft';
         if (valueFromRangeMiddle > rangeMiddle) return 'thumbRight';
       }
-  
+
       return 'thumbLeft';
     }
 
@@ -293,7 +290,7 @@ class View extends Observer {
       const { isTip } = this.modelSettings;
 
       if(isTip) {
-        this.components[thumb].tip.innerHTML = percent.toFixed(2);
+        this.components[thumb].tip.innerHTML = percent.toFixed();
       }
     }
     
@@ -305,7 +302,7 @@ class View extends Observer {
       const { isVertical, isBarRange, isTip } = this.modelSettings;
       const typeStyleSide = isVertical ? 'top' : 'left';
       const percent = this.convertPercentValueTo(val);
-      
+
       this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
       this.setActiveThumb(toggle);
       if (isTip) this.setTipValue(toggle, val);
@@ -342,7 +339,7 @@ class View extends Observer {
     @bind
     private draggableStart(event: MouseEvent) {
       this.dragThumb = this.changePositonThumb(event);
-  
+      
       if(this.dragThumb) {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
@@ -356,8 +353,8 @@ class View extends Observer {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
-        this.notify({ thumb: this.dragThumb, value});
-        // this._events.slide.notify({ thumb: this.dragThumb, value, valueFromStep: true});
+        // this.notify({ handle: this.dragThumb, value});
+        this._events.slide.notify({ handle: this.dragThumb, value, valueFromStep: true} as TUpdateThumb);
       }
     }
     

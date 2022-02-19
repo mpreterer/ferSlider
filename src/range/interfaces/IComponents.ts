@@ -1,3 +1,5 @@
+import { TDOMParents } from "./types";
+
 interface IComponents {
   minValue: HTMLInputElement;
   isVertical: HTMLInputElement;
