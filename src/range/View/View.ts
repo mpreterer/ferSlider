@@ -197,7 +197,7 @@ class View extends Observer {
 
     if (typeof valueFrom === 'object') {
       this.setThumbPosition('thumbLeft', valueFrom.minValue);
-      if (isRange === true) {
+      if (isRange) {
         this.setThumbPosition('thumbRight', valueFrom.maxValue);
       }
     }
@@ -235,7 +235,7 @@ class View extends Observer {
 
     private getBarLength ():number {
       const { isVertical } = this.modelSettings;
-      const lengthType = isVertical === false ? 'offsetWidth' : 'offsetHeight';
+      const lengthType = isVertical ? 'offsetHeight' : 'offsetWidth';
       const length = this.components.bar[lengthType];
   
       return length;
@@ -261,7 +261,9 @@ class View extends Observer {
       const { isVertical } = this.modelSettings;
       const coords = isVertical ? 'clientY' : 'clientX';
       const barOffset = this.getBarOffset();
-      const result = isVertical ? event[coords] - barOffset : barOffset - event[coords];
+      const result = isVertical ? barOffset - event[coords] : event[coords] - barOffset;
+      console.log('barOffset',barOffset)
+
       
       return result;
     }
@@ -271,6 +273,7 @@ class View extends Observer {
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
+      console.log('mouseCoords',mouseCoords)
       
       if (isRange) {
         const thumbRightValue = this.getThumbPosition('thumbRight');
