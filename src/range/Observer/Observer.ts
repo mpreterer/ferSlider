@@ -7,15 +7,15 @@ class Observer implements IObserver {
         this.observers = [];
     }
 
-    subscribe(fun: Function) {
+    public subscribe(fun: Function) {
         this.observers.push(fun);
     }
 
-    unsubscribe(fun: Function) {
+    public unsubscribe(fun: Function) {
         this.observers = this.observers.filter((subscriber: Function) => subscriber !== fun);
     }
 
-    notify(data: any) {
+    public notify(data: any) {
         this.observers.forEach((subscriber: Function) => {
             subscriber(data);
         });
