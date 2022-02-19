@@ -22,11 +22,6 @@ class Model extends Observer {
       return this.modelEvents;
     };
 
-    private _events: IModelEvents = {
-      currentValueChanged: new Observer,
-      modelChangedSettings: new Observer
-    }
-
     private modelEvents: IModelEvents = {
       currentValueChanged: new Observer(),
       modelChangedSettings: new Observer(),
@@ -50,7 +45,7 @@ class Model extends Observer {
       const hasStep = thumb.valueFromStep;
       const valueWithStep = hasStep ? this.getValueWithStep(thumb.value, minValue, step) : thumb.value;
       const validValueWithStep = this.getDiapason(valueWithStep, minValue, maxValue);
-  
+
       if(isRange) {
         if(typeof valueFrom === 'object') {
           if(isFrom) {
@@ -64,13 +59,11 @@ class Model extends Observer {
           }
         }
       }
-  
-      if(!isRange) {
-        thumb.value = validValueWithStep;
-        this.modelSettings.valueFrom = thumb.value;
-      }
-  
-      this.notify(thumb);
+
+      this.modelSettings.valueFrom = validValueWithStep;
+      thumb.value = validValueWithStep;
+      
+      this.modelEvents.currentValueChanged.notify(thumb);
     }
     
     private validModelSettings(settings: IValidSettings) {
@@ -79,8 +72,8 @@ class Model extends Observer {
   
       this.modelSettings.minValue = validatedMiddle.minValue;
       this.modelSettings.maxValue = validatedMiddle.maxValue;
-      this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom!, isRange!, this.modelSettings.minValue, this.modelSettings.maxValue);
-      this.modelSettings.step = this.getValidStep(minValue!, maxValue!, step!);
+      this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom);
+      this.modelSettings.step = this.getValidStep(minValue, maxValue, step);
     }
 
     private getValidStep(minValue: number, maxValue: number, step: number): number {
@@ -110,7 +103,9 @@ class Model extends Observer {
       return { minValue: checkValue, maxValue: maxValue };
     }
 
-    private getValidCurrentValue(valueFrom: TValueFrom, isRange: boolean , minValue: number, maxValue: number): TValueFrom {
+    private getValidCurrentValue(valueFrom: TValueFrom): TValueFrom {
+      const { minValue, maxValue, isRange } = this.modelSettings;
+      
       if(typeof valueFrom === 'object') {
           
         if(isRange) {
