@@ -14,8 +14,15 @@ class Controller extends Observer {
     private view: View;
     private _events: IModelEvents;
 
-    get events (): IModelEvents {
-        return this._events;
+    get events (): IEvents {
+        return {
+          ...this.model.events,
+          ...this.view.events,
+        };
+    }
+
+    get settings(): IValidSettings {
+        return this.model.settings;
     }
 
     constructor(domParent: TDOMParents, settings: IValidSettings) {
@@ -23,17 +30,17 @@ class Controller extends Observer {
         
         this.domParent = domParent;
     
+        // this.model = new Model(settings);
+        // this.view = new View(this.domParent, this.model.settings);
+        // this._events = {
+        //     ...this.model.events,
+        //     ...this.view.events
+        // };
+        this.domParent = domParent;
         this.model = new Model(settings);
         this.view = new View(this.domParent, this.model.settings);
-        this._events = {
-            ...this.model.events,
-            ...this.view.events
-        };
-        this.init();
-    }
 
-    get settings(): IValidSettings {
-        return this.model.settings;
+        this.init();
     }
 
     public updateSettings(settings: IModelSettings):void {
@@ -57,8 +64,8 @@ class Controller extends Observer {
 
     @bind
     private subscribeToEvents() {
-        this.model.subscribe(this.updateViewFromModelEvents);
-        this.view.subscribe(this.updateModelFromViewEvents);
+        this.model.events.currentValueChanged.subscribe(this.updateViewFromModelEvents);
+        this.view.events.slide.subscribe(this.updateModelFromViewEvents);
     }
 
     @bind
