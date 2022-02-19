@@ -138,25 +138,6 @@ class Model extends Observer {
     public updateCurrentValue(thumb: TUpdateThumb) {
         this.notify(thumb);
     }
-  
-    get template(): string {
-      return `
-      <div class="container_range">
-          <div class="range range_horizontal" tip="on" condition="horizontal" bar="on" range="double" steps="1" maximum="5000" minimum="0" index="1">
-              <div class="field_range"></div>
-              <div class="valueTop valueTopLeft"></div>
-              <div class="thumb thumbLeft"></div>
-              <div class="valueTop valueTopRight"></div>
-              <div class="thumb thumbRight"></div>
-          </div>
-          <div class="steps">
-              <div class="startStep"></div>
-              <div class="stepsIn"></div>
-              <div class="endStep"></div>
-          </div>
-      </div>
-      `
-    }
   }
 
 export default Model;
