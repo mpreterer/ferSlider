@@ -78,7 +78,7 @@ class Model extends Observer {
     private getValidStep(minValue: number, maxValue: number, step: number): number {
       const maxStep = maxValue - minValue;
   
-      if(step >= maxValue && maxStep > 0) return maxStep;
+      if(step > maxValue) return maxStep;
       if(step <= 0) return maxStep;
   
       return step;
