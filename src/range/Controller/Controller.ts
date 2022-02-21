@@ -49,7 +49,7 @@ class Controller extends Observer {
 
     public updateCurrentValue(thumb: TUpdateThumb): void {
         this.model.updateCurrentValueSettings(thumb);
-      }
+    }
 
     private init() {
         this.subscribeToLayers();
@@ -61,7 +61,6 @@ class Controller extends Observer {
         this.view.subscribe(this.viewUpdate);
     }
 
-    @bind
     private subscribeToEvents() {
         this.model.events.currentValueChanged.subscribe(this.updateViewFromModelEvents);
         this.view.events.slide.subscribe(this.updateModelFromViewEvents);
@@ -74,7 +73,7 @@ class Controller extends Observer {
 
     @bind
     private updateModelFromViewEvents(thumb: TUpdateThumb) {
-        this.model.updateCurrentValue(thumb);
+        this.model.updateCurrentValueSettings(thumb);
     }
     
     @bind

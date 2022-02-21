@@ -99,7 +99,7 @@ class Model extends Observer {
     private getMiddleValue(minValue: number, maxValue: number): { minValue: number, maxValue: number } {
       const checkValue = minValue > maxValue ? maxValue : minValue;
   
-      return { minValue: checkValue, maxValue: maxValue };
+      return { minValue: checkValue, maxValue };
     }
 
     private getValidCurrentValue(valueFrom: TValueFrom): TValueFrom {
@@ -135,9 +135,9 @@ class Model extends Observer {
         return (maxValue - minValue) / 2;
     }
 
-    public updateCurrentValue(thumb: TUpdateThumb) {
-        this.notify(thumb);
-    }
+    // public updateCurrentValue(thumb: TUpdateThumb) {
+    //     this.notify(thumb);
+    // }
   }
 
 export default Model;
