@@ -2,8 +2,8 @@ import './style.scss';
 import './options.scss';
 import '../range/index';
 import '../range/styleRange.scss';
-// import './panel/index';
-// import './panel/panel.scss';
+import './panel/index';
+import './panel/panel.scss';
 
 const sliderContainer1 = {
   containerSlider: $('.js-slider__container-slider-1'),
@@ -42,4 +42,6 @@ const sliderContainer1 = {
 //   isStep: true,
 // });
 
-$('.qwe').ferSlider();
+const slider_1 = sliderContainer1.containerSlider.ferSlider({});
+sliderContainer1.containerPanel.demoPanel(slider_1);
+

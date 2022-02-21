@@ -18,7 +18,7 @@ class demoPanel {
   constructor (domParent: TDOMParents, slider: ferSlider) {
     this.domParent = domParent;
     this.slider = slider;
-    this.modelSettings = this.slider.settings
+    this.modelSettings = this.slider.settings;
     this.render();
     this.subscribeToEvents();
     this.initListenersFromPanel();
