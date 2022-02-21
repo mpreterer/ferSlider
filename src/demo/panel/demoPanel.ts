@@ -5,7 +5,7 @@ import { IModelSettings } from '../../range/interfaces/IModelSettings';
 import { TUpdateThumb, TValueFrom } from '../../range/interfaces/types';
 import IComponents from '../../range/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
-import timeout from './utils/timeout';
+// import timeout from './utils/timeout';
 import IValidSettings from '../../range/interfaces/IValidSettings';
 
 class demoPanel {
@@ -43,13 +43,14 @@ class demoPanel {
       isBarRange: panel.querySelector('.js-panel__isBarRange-input')!
     };
 
+    this.components.thumbRight.disabled = true;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
   }
 
   private subscribeToEvents(): void {
-    this.slider.events.modelChangedSettings!.subscribe(this.changeSettings);//////////
-    this.slider.events.currentValueChanged!.subscribe(this.onSlideUpdate);//////
+    this.slider.events.modelChangedSettings!.subscribe(this.changeSettings);
+    this.slider.events.currentValueChanged!.subscribe(this.onSlideUpdate);
   }
 
   private initListenersFromPanel(): void {
@@ -130,55 +131,64 @@ class demoPanel {
     })
    }
     
-      private updateSliderSettings (): void {
-        const newSettings: IModelSettings = {};
-        const components = this.components;
-        const checkedOrientaton = components.horizontal.checked ? true : false;
-    
-        newSettings.minValue = components.minValue.value ? parseFloat(components.minValue.value) : this.modelSettings.minValue;
-        newSettings.maxValue = components.maxValue.value ? parseFloat(components.maxValue.value) : this.modelSettings.maxValue;
-        newSettings.step = components.step.value ? parseFloat(components.step.value) : this.modelSettings.step;
-    
-        newSettings.valueFrom = {
-          minValue: components.thumbLeft.value ? parseFloat(components.thumbLeft.value) : this.modelSettings.minValue!,
-          maxValue: components.thumbRight.value ? parseFloat(components.thumbRight.value) : this.modelSettings.minValue!
-        };
-    
-        newSettings.isVertical = checkedOrientaton;
-        newSettings.isRange = components.isRange.checked;
-        newSettings.isTip = components.isTip.checked;
-        newSettings.isStep = components.isStep.checked;
-    
-        this.slider.updateSettings(newSettings);
+  private updateSliderSettings (): void {
+
+    function checkType () {
+      const isRange = components.isRange.checked;
+
+      if (isRange) {
+        return true;
       }
 
-      // private inputNumber = timeout(() => {
-      //   this.updateSliderSettings();
-      // });
+      return false;
+    }
 
-      // @bind
-      // private changeInput (): void {
-      //   this.updateSliderSettings();
-      // }
+    const newSettings: IModelSettings = {};
+    const components = this.components;
+    const checkedOrientaton = components.horizontal.checked ? true : false;
 
-  
+    newSettings.minValue = components.minValue.value ? parseFloat(components.minValue.value) : this.modelSettings.minValue;
+    newSettings.maxValue = components.maxValue.value ? parseFloat(components.maxValue.value) : this.modelSettings.maxValue;
+    newSettings.step = components.step.value ? parseFloat(components.step.value) : this.modelSettings.step;
+
+    newSettings.valueFrom = {
+      minValue: components.thumbLeft.value ? parseFloat(components.thumbLeft.value) : this.modelSettings.minValue!,
+      maxValue: components.thumbRight.value ? parseFloat(components.thumbRight.value) : this.modelSettings.minValue!
+    };
+
+    newSettings.isVertical = checkedOrientaton;
+    newSettings.isRange = checkType();
+    newSettings.isBarRange = components.isBarRange.checked;
+    newSettings.isTip = components.isTip.checked;
+    newSettings.isStep = components.isStep.checked;
+
+    this.slider.updateSettings(newSettings);
+  }
+
+// private inputNumber = timeout(() => {
+//   this.updateSliderSettings();
+// });
+
+// @bind
+// private changeInput (): void {
+//   this.updateSliderSettings();
+// }
 
   @bind
   private onSlideUpdate (thumb: TUpdateThumb): void {
-    const components = this.components;
-    components[thumb.handle].value = `${thumb.value}`;
+    this.components[thumb.handle].value = `${thumb.value}`;
   }
 
-  private changeCurrentValue (currentValue: TValueFrom): void {
+  private changeCurrentValue (valueFrom: TValueFrom): void {
     const components = this.components;
 
-    if(typeof currentValue === 'object') {
-      components.thumbLeft.value = `${currentValue.minValue}`;
-      components.thumbRight.value = `${currentValue.maxValue}`;
+    if(typeof valueFrom === 'object') {
+      components.thumbLeft.value = `${valueFrom.minValue}`;
+      components.thumbRight.value = `${valueFrom.maxValue}`;
     }
 
-    if(typeof currentValue === 'number') {
-      components.thumbLeft.value = `${currentValue}`;
+    if(typeof valueFrom === 'number') {
+      components.thumbLeft.value = `${valueFrom}`;
     }
   }
 
@@ -190,6 +200,7 @@ class demoPanel {
     components.minValue.value = `${minValue}`;
     components.maxValue.value = `${maxValue}`;
 
+    components.thumbRight.disabled = !isRange;
     this.changeCurrentValue(valueFrom);
 
     components.step.value = `${step}`;
