@@ -353,7 +353,6 @@ class View extends Observer {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
-        // this.notify({ handle: this.dragThumb, value});
         this._events.slide.notify({handle: this.dragThumb, value, valueFromStep: true} as TUpdateThumb);
       }
     }
@@ -387,7 +386,6 @@ class View extends Observer {
   }
 
     @bind
-    ////
     private setItemStepsPosition(event: MouseEvent) {
     this.components.steps.getItems().forEach((item) => {
       if (event.target == item) {
@@ -398,7 +396,7 @@ class View extends Observer {
       }
     })
    }
-////
+   
    private getStepsValue(): number[] {
     const { maxValue, minValue, step } = this.modelSettings;
     const middleValue = Math.ceil((maxValue - minValue) / step);
