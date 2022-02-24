@@ -4,14 +4,14 @@ import { TDOMParents } from '../../range/interfaces/types';
 import ferSlider from "../../range/View/ferSlider";
 import demoPanel from "./demoPanel";
 
-declare global {
-  interface JQuery {
-    ferSlider(slider: demoPanel): demoPanel;
-  }
-} 
+// declare global {
+//   interface JQuery {
+//     ferSlider(slider: demoPanel): demoPanel;
+//   }
+// } 
 
 (function ( $ ) {
-  $.fn.ferSlider = function(slider: ferSlider) {
+  $.fn.demoPanel = function(slider: ferSlider) {
 
     const domParent: TDOMParents = this[0];
 

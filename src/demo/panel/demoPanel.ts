@@ -43,7 +43,7 @@ class demoPanel {
       isBarRange: panel.querySelector('.js-panel__isBarRange-input')!
     };
 
-    this.components.thumbRight.disabled = true;
+    // this.components.thumbRight.disabled = true;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
   }
