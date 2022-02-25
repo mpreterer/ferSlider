@@ -4,12 +4,6 @@ import { TDOMParents } from '../../range/interfaces/types';
 import ferSlider from "../../range/View/ferSlider";
 import demoPanel from "./demoPanel";
 
-// declare global {
-//   interface JQuery {
-//     ferSlider(slider: demoPanel): demoPanel;
-//   }
-// } 
-
 (function ( $ ) {
   $.fn.demoPanel = function(slider: ferSlider) {
 
