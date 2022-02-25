@@ -43,7 +43,6 @@ class demoPanel {
       isBarRange: panel.querySelector('.js-panel__isBarRange-input')!
     };
 
-    // this.components.thumbRight.disabled = true;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
   }
@@ -88,25 +87,25 @@ class demoPanel {
       })
     })
 
-    components.isVertical.addEventListener('change', (element) => {
+    components.isVertical.addEventListener('change', () => {
       this.slider.updateSettings({
         isVertical: false
       })
     })
 
-    components.isVertical.addEventListener('change', (element) => {
+    components.isVertical.addEventListener('change', () => {
       this.slider.updateSettings({
         isVertical: true
       })
     })
 
-    components.isRange.addEventListener('change', (element) => {
+    components.isRange.addEventListener('change', () => {
       this.slider.updateSettings({
         isRange: false
       })
     })
 
-    components.isRange.addEventListener('change', (element) => {
+    components.isRange.addEventListener('change', () => {
       this.slider.updateSettings({
         isRange: true
       })

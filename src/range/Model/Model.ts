@@ -48,13 +48,14 @@ class Model extends Observer {
       if(isRange) {
         if(typeof valueFrom === 'object') {
           if(isFrom) {
-            thumb.value = this.getDiapason(validValueWithStep, minValue, valueFrom.maxValue);
-            this.modelSettings.valueFrom = { minValue: thumb.value, maxValue: valueFrom.maxValue };
+            const val = this.getDiapason(validValueWithStep, minValue, valueFrom.maxValue);
+            this.modelSettings.valueFrom = { minValue: val, maxValue: valueFrom.maxValue };
+            thumb.value = val;
           }
           if(isTo) {
-            thumb.value = this.getDiapason(validValueWithStep, valueFrom.minValue, maxValue);
-            valueFrom.maxValue = thumb.value;
-            this.modelSettings.valueFrom = { minValue: valueFrom.minValue, maxValue: thumb.value };
+            const val = this.getDiapason(validValueWithStep, valueFrom.minValue, maxValue);
+            this.modelSettings.valueFrom = { minValue: valueFrom.minValue, maxValue: val };
+            thumb.value = val;
           }
         }
       }
@@ -108,11 +109,11 @@ class Model extends Observer {
       if(typeof valueFrom === 'object') {
           
         if(isRange) {
-          valueFrom = this.getMiddleValue(valueFrom.minValue, valueFrom.maxValue);
+          const res = this.getMiddleValue(valueFrom.minValue, valueFrom.maxValue);
 
           return {
-            minValue: this.getDiapason(valueFrom.minValue, minValue, maxValue),
-            maxValue: this.getDiapason(valueFrom.maxValue, minValue, maxValue)
+            minValue: this.getDiapason(res.minValue, minValue, maxValue),
+            maxValue: this.getDiapason(res.maxValue, minValue, maxValue)
           }
         }
 
@@ -134,10 +135,6 @@ class Model extends Observer {
   
         return (maxValue - minValue) / 2;
     }
-
-    // public updateCurrentValue(thumb: TUpdateThumb) {
-    //     this.notify(thumb);
-    // }
   }
 
 export default Model;
