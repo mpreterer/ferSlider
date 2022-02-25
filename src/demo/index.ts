@@ -19,7 +19,9 @@ const sliderContainer3 = {
   containerPanel: $('.js-container__panel-3')
 };
 
-const slider_1 = sliderContainer1.containerSlider.ferSlider({});
+const slider_1 = sliderContainer1.containerSlider.ferSlider({
+  isRange:true
+});
 const slider_2 = sliderContainer2.containerSlider.ferSlider({
   minValue: -42,
   maxValue: 42,

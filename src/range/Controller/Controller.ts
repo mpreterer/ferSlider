@@ -28,14 +28,6 @@ class Controller extends Observer {
         super();
         
         this.domParent = domParent;
-    
-        // this.model = new Model(settings);
-        // this.view = new View(this.domParent, this.model.settings);
-        // this._events = {
-        //     ...this.model.events,
-        //     ...this.view.events
-        // };
-        this.domParent = domParent;
         this.model = new Model(settings);
         this.view = new View(this.domParent, this.model.settings);
 
