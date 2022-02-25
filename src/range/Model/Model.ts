@@ -60,9 +60,6 @@ class Model extends Observer {
         }
       }
 
-      this.modelSettings.valueFrom = validValueWithStep;
-      thumb.value = validValueWithStep;
-      
       this.modelEvents.currentValueChanged.notify(thumb);
     }
     
