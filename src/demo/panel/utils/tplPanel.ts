@@ -25,11 +25,11 @@ const template = `
         </div>
         <div class="output_container">
             <div class="min">
-                <span>Минимум: </span>
+                <span>Minimum: </span>
                 <input type="number" class="minimum js-panel__min-input" name="min">
             </div>
             <div class="max">
-                <span>Максимум: </span>
+                <span>Maximum: </span>
                 <input type="number" class="maximum js-panel__max-input" name="max">
             </div>
             <div class="from">

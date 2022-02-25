@@ -1,4 +1,3 @@
-import './style.scss';
 import './options.scss';
 import '../range/index';
 import '../range/styleRange.scss';
