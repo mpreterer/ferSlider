@@ -6,7 +6,7 @@ const template = `
             </div>
             <div class="typeRange">
                 <span>Range / Double range</span>
-                <input class="typeRange js-panel__isRange-input" type="checkbox" name="typeRange">
+                <input class="isRange js-panel__isRange-input" type="checkbox" name="isRange">
             </div>
             <div class="container_bar">
                 <span class="spanBar">Progress Bar</span>
