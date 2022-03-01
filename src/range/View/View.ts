@@ -130,7 +130,7 @@ class View extends Observer {
     const components = this.components;
     const sideStart = isVertical ? 'left' : 'top';
     const sideFinish = isVertical ? 'right' : 'bottom';
-    const beforeOrient = isVertical ? false : true;
+    const beforeOrient = isVertical ? true : false;
 
     components.slider.setAttribute('class', `${styleClasses.SLIDER}`);
     components.thumbLeft.thumb.setAttribute('data-thumb', '1');
