@@ -8,12 +8,13 @@
     user-select: none;
 
     &_horizontal {
-        top: -38px;
         border-radius: 5px 5px 5px 0px;
+        top: -38px;
     }
 
     &_vertical {
         left: -38px;
+        top: -18px;
         border-radius: 5px 5px 0px 5px;
     }
 }
