@@ -98,6 +98,10 @@ class View extends Observer {
       components.bar.appendChild(components.thumbLeft.thumb);
     }
 
+    if (!isRange && hasToThumb) {
+      components.bar.removeChild(components.thumbRight.thumb);
+    }
+
     if(isBarRange && !hasRange) {
       components.bar.appendChild(components.range)
     }
@@ -122,7 +126,6 @@ class View extends Observer {
     if(!hasSlider) {
       components.domParent.appendChild(components.slider);
     }
-
   }
 
   private renderSubComponentsStyles() {
