@@ -3,9 +3,8 @@ import { TDOMParents } from '../../range/interfaces/types';
 import { bind } from "decko";
 import { IModelSettings } from '../../range/interfaces/IModelSettings';
 import { TUpdateThumb, TValueFrom } from '../../range/interfaces/types';
-import IComponents from '../../range/interfaces/IComponents';
+import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
-// import timeout from './utils/timeout';
 import IValidSettings from '../../range/interfaces/IValidSettings';
 
 class demoPanel {
@@ -36,13 +35,14 @@ class demoPanel {
       thumbRight: panel.querySelector('.js-panel__to-input')!,
       step: panel.querySelector('.js-panel__step-input')!,
       horizontal: panel.querySelector('.js-panel__horizontal-input')!,
-      isVertical: panel.querySelector('.js-panel__vertical-input')!,
+      vertical: panel.querySelector('.js-panel__vertical-input')!,
       isRange: panel.querySelector('.js-panel__isRange-input')!,
       isTip: panel.querySelector('.js-panel__isTip-input')!,
       isStep: panel.querySelector('.js-panel__isStep-input')!,
       isBarRange: panel.querySelector('.js-panel__isBarRange-input')!
     };
 
+    this.components.thumbRight.disabled;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
   }
@@ -87,27 +87,21 @@ class demoPanel {
       })
     })
 
-    components.isVertical.addEventListener('change', () => {
+    components.horizontal.addEventListener('change', () => {
       this.slider.updateSettings({
         isVertical: false
       })
     })
 
-    components.isVertical.addEventListener('change', () => {
+    components.vertical.addEventListener('change', () => {
       this.slider.updateSettings({
         isVertical: true
       })
     })
-
-    components.isRange.addEventListener('change', () => {
+    
+    components.isRange.addEventListener('change', (element) => {
       this.slider.updateSettings({
-        isRange: false
-      })
-    })
-
-    components.isRange.addEventListener('change', () => {
-      this.slider.updateSettings({
-        isRange: true
+        isRange: Boolean((element.target as HTMLInputElement).checked)
       })
     })
 
@@ -129,49 +123,6 @@ class demoPanel {
       })
     })
    }
-    
-  private updateSliderSettings (): void {
-
-    function checkType () {
-      const isRange = components.isRange.checked;
-
-      if (isRange) {
-        return true;
-      }
-
-      return false;
-    }
-
-    const newSettings: IModelSettings = {};
-    const components = this.components;
-    const checkedOrientaton = components.horizontal.checked ? true : false;
-
-    newSettings.minValue = components.minValue.value ? parseFloat(components.minValue.value) : this.modelSettings.minValue;
-    newSettings.maxValue = components.maxValue.value ? parseFloat(components.maxValue.value) : this.modelSettings.maxValue;
-    newSettings.step = components.step.value ? parseFloat(components.step.value) : this.modelSettings.step;
-
-    newSettings.valueFrom = {
-      minValue: components.thumbLeft.value ? parseFloat(components.thumbLeft.value) : this.modelSettings.minValue!,
-      maxValue: components.thumbRight.value ? parseFloat(components.thumbRight.value) : this.modelSettings.minValue!
-    };
-
-    newSettings.isVertical = checkedOrientaton;
-    newSettings.isRange = checkType();
-    newSettings.isBarRange = components.isBarRange.checked;
-    newSettings.isTip = components.isTip.checked;
-    newSettings.isStep = components.isStep.checked;
-
-    this.slider.updateSettings(newSettings);
-  }
-
-// private inputNumber = timeout(() => {
-//   this.updateSliderSettings();
-// });
-
-// @bind
-// private changeInput (): void {
-//   this.updateSliderSettings();
-// }
 
   @bind
   private onSlideUpdate (thumb: TUpdateThumb): void {

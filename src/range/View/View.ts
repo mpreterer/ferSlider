@@ -131,8 +131,8 @@ class View extends Observer {
   private renderSubComponentsStyles() {
     const { isVertical } = this.modelSettings;
     const components = this.components;
-    const sideStart = isVertical ? 'left' : 'top';
-    const sideFinish = isVertical ? 'right' : 'bottom';
+    const sideStart = isVertical ? 'left' : 'bottom';
+    const sideFinish = isVertical ? 'right' : 'top';
     const beforeOrient = isVertical ? true : false;
 
     components.slider.setAttribute('class', `${styleClasses.SLIDER}`);
@@ -246,7 +246,7 @@ class View extends Observer {
 
     private getBarOffset():number {
       const { isVertical } = this.modelSettings;
-      const offsetSide = isVertical ? 'top' : 'left';
+      const offsetSide = isVertical ? 'bottom' : 'left';
       const offset = this.components.bar.getBoundingClientRect()[offsetSide];
   
       return offset;
@@ -420,7 +420,7 @@ class View extends Observer {
   private renderSteps() {
     const { isVertical } = this.modelSettings;
     const values = this.getStepsValue();
-    const side = isVertical ? 'top' : 'left';
+    const side = isVertical ? 'bottom' : 'left';
     this.components.steps.getDom().innerHTML = '';
 
     values.map((item) => {

@@ -2,7 +2,6 @@ import { TDOMParents } from "../../../../range/interfaces/types";
 
 interface IComponents {
   minValue: HTMLInputElement;
-  isVertical: HTMLInputElement;
   maxValue: HTMLInputElement;
   step: HTMLInputElement;
   thumbLeft: HTMLInputElement;
