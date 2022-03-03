@@ -10,9 +10,16 @@
     &_vertical {
       margin: 0 0 0 15px;
       flex-direction: column-reverse;
+      & li {
+        margin: -8px 0;
+        transform: translateY(-15%);
+      }
     }
 
-    &_item {
-      user-select: auto;
+    &_horizontal {
+      & li {
+        margin: 0 -8px;
+        transform: translateX(50%);
       }
+    }
   }
