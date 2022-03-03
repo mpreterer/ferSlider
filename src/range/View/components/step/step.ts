@@ -15,16 +15,11 @@ class Step {
     return this.dom;
   }
 
-  public getHTML ():ChildNode {
+  public getHTML () {
     const steps = document.createElement('ul');
     steps.classList.add(`${styleClasses.STEP}`);
 
-    const step = document.createElement('li');
-    step.classList.add(`${styleClasses.STEP_ITEM}`);
-    steps.appendChild(step);
-    this.dom = steps;
-
-    return steps;
+    this.saveDom(steps);
   }
 
   public addItem (value: number): HTMLElement {

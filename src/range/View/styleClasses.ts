@@ -17,7 +17,7 @@ const styleClasses = {
   STEP: 'j-fer-slider__step',
   STEP_HORIZONTAL: 'j-fer-slider__step_horizontal',
   STEP_VERTICAL: 'j-fer-slider__step_vertical',
-  STEP_ITEM: 'j-fer-slider__step-item'
+  STEP_ITEM: 'j-fer-slider__step-item',
 };
 
 export default styleClasses;

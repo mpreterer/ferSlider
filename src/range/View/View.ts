@@ -180,6 +180,9 @@ class View extends Observer {
       components.bar.classList.add(`${styleClasses.BAR_VERTICAL}`);
       components.range.classList.add(`${styleClasses.RANGE_VERTICAL}`);
       components.steps.getDom().classList.add(`${styleClasses.STEP_VERTICAL}`);
+      components.steps.getItems().forEach((item) => {
+        item.classList.add(`${styleClasses.STEP_ITEM}`);
+      });
     } else {
       components.slider.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
       components.thumbLeft.thumb.classList.add(`${styleClasses.THUMB_HORIZONTAL}`);
@@ -191,7 +194,7 @@ class View extends Observer {
       components.steps.getDom().classList.add(`${styleClasses.STEP_HORIZONTAL}`);
       components.steps.getItems().forEach((item) => {
       item.classList.add(`${styleClasses.STEP_ITEM}`);
-    });
+      });
     }
   }
 
@@ -390,6 +393,7 @@ class View extends Observer {
 
     @bind
     private setItemStepsPosition(event: MouseEvent) {
+
     this.components.steps.getItems().forEach((item) => {
       if (event.target == item) {
         const value = Number(item.getAttribute('data-val'));
@@ -420,7 +424,7 @@ class View extends Observer {
   private renderSteps() {
     const { isVertical } = this.modelSettings;
     const values = this.getStepsValue();
-    const side = isVertical ? 'bottom' : 'left';
+    const side = isVertical ? 'top' : 'left';
     this.components.steps.getDom().innerHTML = '';
 
     values.map((item) => {

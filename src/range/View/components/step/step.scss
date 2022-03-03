@@ -1,25 +1,26 @@
 .j-fer-slider__step {
-    width:100%;
     display: flex;
     position: relative;
-    justify-content: space-between;
     padding: 0;
     list-style: none;
     user-select: none;
 
     &_vertical {
-      margin: 0 0 0 15px;
-      flex-direction: column-reverse;
+      width: 15px;
+      margin-left: 15px;
       & li {
-        margin: -8px 0;
-        transform: translateY(-15%);
+        transform: translateY(-50%);
       }
     }
 
     &_horizontal {
+      height: 15px;
       & li {
-        margin: 0 -8px;
-        transform: translateX(50%);
+        transform: translateX(-50%);
       }
+    }
+
+    & li {
+      position: absolute;
     }
   }
