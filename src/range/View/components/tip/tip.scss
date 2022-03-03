@@ -4,6 +4,7 @@
     position: absolute;
     text-align: center;
     padding: 5px;
+    min-width: 30px;
     font-weight: bold;
     user-select: none;
 
@@ -13,8 +14,8 @@
     }
 
     &_vertical {
-        left: -38px;
-        top: -18px;
+        right: -50%;
+        transform: translate(-50%, -50%);
         border-radius: 5px 5px 0px 5px;
     }
 }
