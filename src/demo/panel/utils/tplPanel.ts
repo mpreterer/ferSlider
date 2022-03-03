@@ -14,9 +14,9 @@ const template = `
             </div>
             <div class="container_orientation">
                 <span class="spanOrientation">Vertical</span>
-                <input class="orientation js-panel__vertical-input" type="radio" name="vertical" value="vertical">
+                <input class="orientation js-panel__vertical-input" type="radio" name="orientation" value="vertical">
                 <span class="spanOrientation">Horizontal</span>
-                <input class="orientation js-panel__horizontal-input" type="radio" name="horizontal" value="horizontal">
+                <input class="orientation js-panel__horizontal-input" type="radio" name="orientation" value="horizontal">
             </div>
             <div class="container_step">
                 <span class="spanStep">Step</span>
