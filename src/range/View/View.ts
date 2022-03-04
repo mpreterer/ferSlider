@@ -1,7 +1,6 @@
 import Observer from '../Observer/Observer';
 import IUnitComponents from '../interfaces/IUnitComponents';
 import styleClasses from './styleClasses';
-
 import { bind } from 'decko';
 import { IEvents } from '../interfaces/IEvents';
 import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
@@ -408,7 +407,7 @@ class View extends Observer {
    private getStepsValue(): number[] {
     const { maxValue, minValue, step } = this.modelSettings;
     const middleValue = Math.ceil((maxValue - minValue) / step);
-    const viewStep = Math.ceil(middleValue / 5) * step;
+    const viewStep = Math.ceil(middleValue / 6) * step;
     const middleArr = [];
     let value = minValue;
 
