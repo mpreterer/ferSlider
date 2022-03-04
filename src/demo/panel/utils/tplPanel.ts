@@ -1,5 +1,5 @@
 const template = `
-        <div class="buttons_container">
+        <div class="options__buttons_container">
             <div class="tip">
                 <span>Tip:</span>
                 <input class = "btnTip js-panel__isTip-input" type="checkbox" name="isTip">
@@ -23,7 +23,7 @@ const template = `
                 <input class="typeStep js-panel__isStep-input" type="checkbox" name="isStep">
             </div>
         </div>
-        <div class="output_container">
+        <div class="options__output_container">
             <div class="min">
                 <span>Minimum: </span>
                 <input type="number" class="minimum js-panel__min-input" name="min">
