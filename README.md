@@ -1,0 +1,1 @@
+# Проект слайдер для MetaLamp https://mpreterer.github.io/ferSlider/
