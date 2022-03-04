@@ -5,17 +5,16 @@
 @import 'View/components/tip/tip.scss';
 
 .j-fer-slider {
-  display: flex;
   border-radius: 5px;
   position: relative;
 
   &_horizontal {
     width:100%;
-    height:10px;
+    display: block;
   }
   
   &_vertical {
-      width: 10px;
-      height: 100%;
-    }
+    height: 100%;
+    display: flex;
+  }
 }

@@ -398,6 +398,7 @@ class View extends Observer {
       if (event.target == item) {
         const value = Number(item.getAttribute('data-val'));
         const thumb = this.changePositonThumb(event);
+        console.log(value)
 
         this._events.slide.notify({ handle: thumb, value});
       }

@@ -7,7 +7,7 @@
 
     &_vertical {
       width: 15px;
-      margin-left: 15px;
+      margin: 0 15px;
       & li {
         transform: translateY(-50%);
       }
@@ -15,6 +15,7 @@
 
     &_horizontal {
       height: 15px;
+      margin: 8px 0;
       & li {
         transform: translateX(-50%);
       }
@@ -22,5 +23,13 @@
 
     & li {
       position: absolute;
+      padding: 5px;
+      cursor: pointer;
     }
+
   }
+
+.j-fer-slider__step-item:hover {
+  background-color: #D7D7D7;
+  border-radius: 5px;
+}

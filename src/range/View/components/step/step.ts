@@ -25,7 +25,7 @@ class Step {
   public addItem (value: number): HTMLElement {
     const itemStep = document.createElement('li');
     itemStep.classList.add(`${styleClasses.STEP_ITEM}`);
-    itemStep.setAttribute('data-value', `${value}`);
+    itemStep.setAttribute('data-val', `${value}`);
     itemStep.innerHTML = `${value}`;
     this.dom.appendChild(itemStep);
 
@@ -33,7 +33,7 @@ class Step {
   }
 
   public getItems (): NodeListOf<HTMLElement> {
-    const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP_ITEM}`);
+    const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP} li`);
     return stepsList as NodeListOf<HTMLElement>;
   }
 }
