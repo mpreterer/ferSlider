@@ -272,7 +272,6 @@ class View extends Observer {
     }
      
     private changePositonThumb(event: MouseEvent): THandles{
-      // maybe null
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
