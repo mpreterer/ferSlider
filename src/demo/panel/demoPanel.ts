@@ -55,33 +55,33 @@ class demoPanel {
   private initListenersFromPanel(): void {
     const components = this.components;
 
-    components.minValue.addEventListener('input', (element) => {
+    components.minValue.addEventListener('change', (element) => {
       this.slider.updateSettings({
         minValue: parseInt((element.target as HTMLInputElement).value)
       })
     })
 
-    components.maxValue.addEventListener('input', (element) => {
+    components.maxValue.addEventListener('change', (element) => {
       this.slider.updateSettings({
         maxValue: parseInt((element.target as HTMLInputElement).value)
       })
     })
 
-    components.thumbLeft.addEventListener('input', (element) => {
+    components.thumbLeft.addEventListener('change', (element) => {
       this.slider.updateCurrentValue({
         handle: 'thumbLeft',
         value: parseInt((element.target as HTMLInputElement).value)
       })
     })
 
-    components.thumbRight.addEventListener('input', (element) => {
+    components.thumbRight.addEventListener('change', (element) => {
       this.slider.updateCurrentValue({
         handle: 'thumbRight',
         value: parseInt((element.target as HTMLInputElement).value)
       })
     })
 
-    components.step.addEventListener('input', (element) => {
+    components.step.addEventListener('change', (element) => {
       this.slider.updateSettings({
         step: parseInt((element.target as HTMLInputElement).value)
       })
