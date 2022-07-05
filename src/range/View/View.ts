@@ -223,6 +223,7 @@ class View extends Observer {
       const barLength = this.getBarLength();
       const posOfPixel = components[thumb].thumb[offsetType] + (components[thumb].thumb[thumbLength] / 2);
       const res = isVertical ? barLength - posOfPixel : posOfPixel;
+      console.log(res)
 
       return res;
     }
@@ -331,11 +332,23 @@ class View extends Observer {
         const toPercent = 100 - parseFloat(components.thumbRight.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
 
         if (isRange) {
-          components.range.style[startPosition] = `${fromPercent}%`;
-          components.range.style[endPosition] = `${toPercent}%`;
+          if (isVertical) {
+            const VerticalFromPercent = parseFloat(components.thumbRight.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
+            const VerticalToPercent = 100 - parseFloat(components.thumbLeft.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
+            components.range.style[startPosition] = `${VerticalFromPercent}%`;
+            components.range.style[endPosition] = `${VerticalToPercent}%`;
+          } else {
+            components.range.style[startPosition] = `${fromPercent}%`;
+            components.range.style[endPosition] = `${toPercent}%`;
+          }
         } else {
-          components.range.style[startPosition] = '0';
-          components.range.style[endPosition] = `${100 - fromPercent}%`;
+          if (isVertical) {
+            components.range.style[startPosition] = '0';
+            components.range.style['top'] = `${fromPercent}%`;
+          } else {
+            components.range.style[startPosition] = '0';
+            components.range.style[endPosition] = `${100-fromPercent}%`;
+          }
         }
       }
     }
