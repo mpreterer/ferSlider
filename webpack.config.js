@@ -86,7 +86,7 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new HtmlWebpackPlugin({
-      template: './src/demo/index.html',
+      template: './src/demo/index.pug',
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin({

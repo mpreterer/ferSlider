@@ -2,45 +2,15 @@ extends head.pug
 
 block sliders
     .container__wrapper
-        .container_range
-            .range.range_horizontal#slider(tip="on" condition="horizontal" bar="on" range="double" steps="1" maximum="5000" minimum="0" index="1")
-                .field_range(style="width:0%; left:0;")
-                .valueTop.valueTopLeft(style="left:25%;")
-                .thumb.thumbLeft(style="width:10px; height:18px; left:25%;")
-                .valueTop.valueTopRight(style="left:65%;")
-                .thumb.thumbRight(style="width:10px; height:18px; left:65%;")
-            .steps
-                .startStep
-                .stepsIn(style="width:100%;")
-                .endStep
-        .options
-            .buttons_container
-                .tip
-                    span Tip:
-                    button#btnTip on/off
-                .typeRange
-                    span Range / Double range
-                    button#typeRange on/off
-                .container_bar
-                    span#spanBar Bar
-                    button#bar on/off
-                .orientation
-                    span Orientation
-                    button#orientation on/off
-
-            .output_container
-                .min
-                    span Минимум:
-                    input#minimum(type="number" value="0" min="0")
-                .max
-                    span Максимум:
-                    input(type="number" id="maximum" value="5000" max="5000")
-                .from
-                    span from:
-                    input#valueLeft(type = "number" max="5000" min="0" maxlength="5" size="6" value="1100" step="1")
-                .to
-                    span to:
-                    input#valueRight(type = "number" max="5000" min="0" maxlength="5" size="6" value="3400" step="1")
-                .steps1
-                    span#instepsteps steps:
-                    input#valueSteps(type="number")
+        .preview.slider-1.js-slider-1
+            p.preview__title Default mode:
+            .preview__container-slider.js-container__slider-1
+            .preview__container-panel.js-container__panel-1
+        .preview.slider-3.js-slider-3
+            p.preview__title Vertical mode:
+            .preview__container-slider.js-container__slider-3
+            .preview__container-panel.js-container__panel-3
+        .preview.slider-2.js-slider-2
+            p.preview__title Double Range mode:
+            .preview__container-slider.js-container__slider-2
+            .preview__container-panel.js-container__panel-2
