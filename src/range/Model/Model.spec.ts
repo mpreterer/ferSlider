@@ -202,7 +202,7 @@ describe('Model:', () => {
       };
 
       //@ts-ignore
-      expect(model.getValidCurrentValue(currentValue, isRange, min, max)).toEqual(currentValue);
+      expect(model.getValidCurrentValue(currentValue, isRange, min, max)).toEqual(`${currentValue.minValue}`);
     });
 
     test('Приравнивается данное значения, если min > max', () => {
@@ -214,7 +214,7 @@ describe('Model:', () => {
       };
 
       //@ts-ignore
-      expect(model.getValidCurrentValue(currentValue, type, min, max)).toEqual({ minValue: currentValue.maxValue, maxValue: currentValue.maxValue });
+      expect(model.getValidCurrentValue(currentValue, type, min, max)).toEqual(currentValue.minValue);
     });
   });
 });

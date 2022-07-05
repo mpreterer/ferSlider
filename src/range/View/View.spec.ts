@@ -18,11 +18,11 @@ describe('View:', () => {
         step: 2,
         valueFrom: 0,
         valueTo: 40,
-        isRange: false,
+        isRange: true,
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: true
       };
 
       const mockParent = document.createElement('div');
@@ -49,11 +49,11 @@ describe('View:', () => {
         step: 1,
         valueFrom: 0,
         valueTo: 30,
-        isRange: false,
+        isRange: true,
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: true
       };
       const newFromValue: TUpdateThumb = {
         handle: 'thumbLeft',
@@ -70,10 +70,10 @@ describe('View:', () => {
       view.updateCurrentValue(newToValue);
       view.updateCurrentValue(newFromValue);
 
-      const valueTo = (mockParent.querySelector('[data-thumb="2"]') as HTMLElement).querySelector(`.${styleClasses.THUMB}`) as HTMLDivElement;
-      const valueFrom = (mockParent.querySelector('[data-thumb="1"]') as HTMLElement).querySelector(`.${styleClasses.THUMB}`) as HTMLDivElement;
-      expect(valueTo.innerHTML).toBe('5');
-      expect(valueFrom.innerHTML).toBe('60');
+      const valueTo = (mockParent.querySelector('[data-thumb="2"]') as HTMLElement).querySelector(`.${styleClasses.TIP}`) as HTMLDivElement;
+      const valueFrom = (mockParent.querySelector('[data-thumb="1"]') as HTMLElement).querySelector(`.${styleClasses.TIP}`) as HTMLDivElement;
+      expect(valueTo.innerHTML).toBe(`${newToValue.value}`);
+      expect(valueFrom.innerHTML).toBe(`${newFromValue.value}`);
     });
   });
 
@@ -86,11 +86,11 @@ describe('View:', () => {
         step: 1,
         valueFrom: 0,
         valueTo: 30,
-        isRange: false,
+        isRange: true,
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: true
       };
 
       const mockParent = document.createElement('div');
@@ -99,11 +99,11 @@ describe('View:', () => {
       expect(mockParent.querySelector(`.${styleClasses.SLIDER}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.BAR}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.RANGE}`)).toBeInstanceOf(HTMLElement);
+      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[0]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[1]).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB}`)[2]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.STEP}`)).toBeInstanceOf(HTMLElement);
+      expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[0]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[1]).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[2]).toBeInstanceOf(HTMLElement);
     });
   });
 
@@ -116,11 +116,11 @@ describe('View:', () => {
         step: 1,
         valueFrom: 0,
         valueTo: 30,
-        isRange: false,
+        isRange: true,
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: true
       };
 
       const mockParent = document.createElement('div');
@@ -139,11 +139,11 @@ describe('View:', () => {
       expect(RANGE.classList.contains(`${styleClasses.RANGE}`)).toBeTruthy();
 
       expect(THUMBS[0].classList.contains(`${styleClasses.THUMB}`)).toBeTruthy();
-      expect(THUMBS[0].getAttribute(`data-index`)).toEqual(`0`);
+      expect(THUMBS[0].getAttribute(`data-thumb`)).toEqual(`1`);
       expect(TIPS[0].classList.contains(`${styleClasses.TIP}`)).toBeTruthy();
 
       expect(THUMBS[1].classList.contains(`${styleClasses.THUMB}`)).toBeTruthy();
-      expect(THUMBS[1].getAttribute(`data-index`)).toEqual(`1`);
+      expect(THUMBS[1].getAttribute(`data-thumb`)).toEqual(`2`);
       expect(TIPS[1].classList.contains(`${styleClasses.TIP}`)).toBeTruthy();
 
       expect(STEP.classList.contains(`${styleClasses.STEP}`)).toBeTruthy();
@@ -162,11 +162,11 @@ describe('View:', () => {
         step: 1,
         valueFrom: 0,
         valueTo: 30,
-        isRange: false,
+        isRange: true,
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: true
       };
 
       const mockParent = document.createElement('div');
@@ -176,12 +176,10 @@ describe('View:', () => {
       view.events.slide.subscribe(jfn);
 
       const itemStep = mockParent.querySelector(`.${styleClasses.STEP_ITEM}`) as HTMLElement;
-      const bar = mockParent.querySelector(`.${styleClasses.BAR}`) as HTMLElement;
 
       $(itemStep).trigger("click");
-      $(bar).trigger("click");
 
-      expect(jfn).toBeCalledTimes(2);
+      expect(jfn).toBeCalledTimes(1);
     });
   });
 });

@@ -10,10 +10,8 @@ describe('update settings:', () => {
     test('Обновление настроек', () => {
 
     const newSettings: IModelSettings = {
-        step: 2,
-        isStep: false,
-        maxValue: 10,
-        minValue: 1
+        step: 3,
+        isStep: true,
     };
 
     const mockParent = document.createElement('div');
