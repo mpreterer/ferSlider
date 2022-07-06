@@ -41,7 +41,7 @@
 
  **Настройки по умолчанию:**
   > ```js
-  > const defaultOptions = {
+  > const defaultSettings = {
   >   minValue: 0,
   >   maxValue: 1000,
   >   step: 1,
@@ -70,6 +70,22 @@ $('.sliderContainer').ferSlider({settings});
 ## Использованные библиотеки
 * [jQuery ^3.6.0](https://github.com/jquery/jquery),
 * [decko ^1.2.0](https://www.npmjs.com/package/decko),
+
+</br>
+**Проект написан с использованием паттерна MVC с Passive View**
+</br>
+
+* **Controller** Является посредником между View и Model. Controller знает всё о слоях Model и View, и он подписан на них. При изминении во View, Controller получает изменения и обновляет Model. Так же Model через Controller передает данные во View.
+
+* **Model** Содержит всю бизнес-логику. Ничего не знает о слоях Controller и View. Model наследуется от класса Observer.
+
+* **View** Отвечает за отоброжение элементов и является интерфейсом пользователя. View ничего не знает о слоях Controller и Model. View также, наследуется от класса Observer.
+
+* **Observer** Является наблюдаемым объектом. На него можно подписаться, отписаться, либо уведомить тех кто подписан об изминениях. С помощью Observer, Model уведомляет, что он изменился. Так же как и View уведомляет, что он изменился.
+
+* **ferSlider** Является JQuery обёрткой Controller'а. Необходим для подключения плагина.
+
+* **Range, Bar, Step, Thumb, Tip** Это компоненты слайдера.
 
 ## UML-диаграмма плагина
 <img src=https://github.com/mpreterer/ferSlider/blob/master/UML.png alt="plugin UML"></img>
