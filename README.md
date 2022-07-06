@@ -55,6 +55,18 @@
   >};
   > ```
 
+## Использование
+1) Подключить jQuery и плагин:
+```
+import "./plugin.js";
+import $ from "jquery";
+```
+2) С помощью jQuery выбрать нужный элемент-контейнер и вызвать на нем функцию rangeSlider:
+```
+const slider_1 = sliderContainer1.containerSlider.ferSlider({settings});
+```
+где modelData и viewData объекты с нужными настройками(см. Настройки)
+
 ## UML-диаграмма плагина
 <img src=https://github.com/mpreterer/ferSlider/blob/master/UML.png alt="plugin UML"></img>
 

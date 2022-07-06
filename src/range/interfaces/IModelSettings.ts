@@ -12,9 +12,8 @@ export interface IModelSettings extends API  {
   isVertical?: boolean;
   isStep?: boolean;
 }
-///
+
 export interface API {
   hasSlide?: (callback: TUpdateThumb) => void;
   updateSettings?: (settingsToUpdate: Partial<IModelSettings>) => void;
 }
-///

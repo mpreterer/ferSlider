@@ -1,14 +1,8 @@
-/// <reference path="./utils/typings/globals/jquery/index.d.ts" />
+/// <reference path="./utils/typings/globals/IJQuery.d.ts" />
 import ferSlider from "./View/ferSlider";
 import { IModelSettings } from "./interfaces/IModelSettings";
 import { TDOMParents } from "./interfaces/types";
 import defaultSettings from "./Model/defaultSettings";
-
-declare global {
-    interface JQuery {
-        ferSlider(settings?: IModelSettings): ferSlider;
-    }
-}
 
 (function ($) {
     $.fn.ferSlider = function(settings?: IModelSettings) {

@@ -1,4 +1,4 @@
-/// <reference path="../../range/utils/typings/index.d.ts" />
+/// <reference path="./utils/typings/globals/IJQueryPanel.d.ts" />
 
 import { TDOMParents } from '../../range/interfaces/types';
 import ferSlider from "../../range/View/ferSlider";

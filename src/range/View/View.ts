@@ -23,14 +23,14 @@ class View extends Observer {
     this.modelSettings = modelSettings;
     this.initSubViewComponents(domParent);
   }
-  ////// попробовать обойтись без 
+ 
   private _events: IEvents = {
     slide: new Observer
   }
   get events(): IEvents {
     return this._events;
   };
-  ////// этого
+  
   private initSubViewComponents(htmlParent: TDOMParents) {
     this.components = {
       domParent: htmlParent,
@@ -223,7 +223,6 @@ class View extends Observer {
       const barLength = this.getBarLength();
       const posOfPixel = components[thumb].thumb[offsetType] + (components[thumb].thumb[thumbLength] / 2);
       const res = isVertical ? barLength - posOfPixel : posOfPixel;
-      console.log(res)
 
       return res;
     }
@@ -409,7 +408,6 @@ class View extends Observer {
       if (event.target == item) {
         const value = Number(item.getAttribute('data-val'));
         const thumb = this.changePositonThumb(event);
-        console.log(value)
 
         this._events.slide.notify({ handle: thumb, value});
       }
