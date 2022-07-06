@@ -71,9 +71,7 @@ $('.sliderContainer').ferSlider({settings});
 * [jQuery ^3.6.0](https://github.com/jquery/jquery),
 * [decko ^1.2.0](https://www.npmjs.com/package/decko),
 
-</br>
 **Проект написан с использованием паттерна MVC с Passive View**
-</br>
 
 * **Controller** Является посредником между View и Model. Controller знает всё о слоях Model и View, и он подписан на них. При изминении во View, Controller получает изменения и обновляет Model. Так же Model через Controller передает данные во View.
 
