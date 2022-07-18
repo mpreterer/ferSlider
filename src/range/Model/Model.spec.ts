@@ -46,7 +46,6 @@ describe('Model:', () => {
       const thumb: TUpdateThumb = { handle: 'thumbLeft', value: 65 };
       model.updateCurrentValueSettings(thumb);
       
-      //@ts-ignore
       expect(subscriber).toHaveBeenCalledWith(thumb);
     });
   });

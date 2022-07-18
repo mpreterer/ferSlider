@@ -262,7 +262,7 @@ class View extends Observer {
       return value;
     }
 
-    private getValidatedCoords(event: MouseEvent): number {
+    private getValidatedCoords(event: PointerEvent): number {
       const { isVertical } = this.modelSettings;
       const coords = isVertical ? 'clientY' : 'clientX';
       const barOffset = this.getBarOffset();
@@ -271,7 +271,7 @@ class View extends Observer {
       return result;
     }
      
-    private changePositonThumb(event: MouseEvent): THandles{
+    private changePositonThumb(event: PointerEvent): THandles{
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
@@ -353,19 +353,19 @@ class View extends Observer {
     }
 
     @bind
-    private draggableStart(event: MouseEvent) {
+    private draggableStart(event: PointerEvent) {
       this.dragThumb = this.changePositonThumb(event);
       
       if(this.dragThumb) {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
-        window.addEventListener('mousemove', this.draggable);
-        window.addEventListener('mouseup', this.draggableEnd);
+        window.addEventListener('pointermove', this.draggable);
+        window.addEventListener('pointerup', this.draggableEnd);
       }
     }
 
     @bind
-    private draggable(event: MouseEvent) {
+    private draggable(event: PointerEvent) {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
@@ -376,23 +376,23 @@ class View extends Observer {
     @bind
     private draggableEnd() {
       if (this.dragThumb) {
-        window.removeEventListener('mousemove', this.draggable);
-        window.removeEventListener('mouseup', this.draggableEnd);
+        window.removeEventListener('pointermove', this.draggable);
+        window.removeEventListener('pointerup', this.draggableEnd);
         this.dragThumb = null;
       }
     }
 
     private initThumbsListeners() {
       
-      window.removeEventListener('mousemove', this.draggable);
-      window.removeEventListener('mouseup', this.draggableEnd);
-      this.components.bar.addEventListener('click', this.click);
-      this.components.bar.addEventListener('mousedown', this.draggableStart);
-      this.components.steps.getDom().addEventListener('click', this.setItemStepsPosition);
+      window.removeEventListener('pointermove', this.draggable);
+      window.removeEventListener('pointerup', this.draggableEnd);
+      this.components.bar.addEventListener('pointerdown', this.click);
+      this.components.bar.addEventListener('pointerdown', this.draggableStart);
+      this.components.steps.getDom().addEventListener('pointerdown', this.setItemStepsPosition);
     }
 
     @bind
-    private click(event: MouseEvent) {
+    private click(event: PointerEvent) {
       this.dragThumb = this.changePositonThumb(event);
 
       if(this.dragThumb) {
@@ -402,7 +402,7 @@ class View extends Observer {
   }
 
     @bind
-    private setItemStepsPosition(event: MouseEvent) {
+    private setItemStepsPosition(event: PointerEvent) {
 
     this.components.steps.getItems().forEach((item) => {
       if (event.target == item) {
