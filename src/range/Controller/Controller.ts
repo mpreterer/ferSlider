@@ -34,8 +34,8 @@ class Controller extends Observer {
         this.init();
     }
 
-    public updateSettings(settings: IModelSettings):void {
-        const newSettings = { ...this.model.settings, ...settings } as IValidSettings;
+    public updateSettings(settings: IModelSettings) {
+        const newSettings = { ...this.model.settings, ...settings };
         this.model.updateModelSettings(newSettings);
     }
 

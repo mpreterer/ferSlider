@@ -3,10 +3,10 @@
  */
 import $ from 'jquery';
 import View from './View';
-import defaultModelSettings from '../utils/defaultModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
 import styleClasses from './styleClasses';
 import { TUpdateThumb } from '../interfaces/types';
+import defaultSettings from '../Model/defaultSettings';
 
 describe('View:', () => {
 
@@ -25,20 +25,19 @@ describe('View:', () => {
         isStep: true
       };
 
-      const mockParent = document.createElement('div');
-      const view = new class mockView extends View {
+      const getNodes = (body: HTMLElement) => ({
+        isRange: body.querySelector(`.${styleClasses.RANGE}`),
+        isVertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`)
+      })
 
-        get settings(): IValidSettings {
-          //@ts-ignore
-          return this.modelSettings;
-        }
-        constructor(){
-          super(mockParent, defaultModelSettings);
-        }
-      };
+      const domParent = document.createElement('div');
+      const view = new View(domParent, defaultSettings);
       view.updateModelSettings(newSettings);
-  
-      expect(view.settings).toStrictEqual(newSettings);
+
+      const { isRange, isVertical } = getNodes(domParent)
+
+      expect(isRange).toBeTruthy();
+      expect(isVertical).toBeFalsy();
     });
   });
   describe('updateCurrentValue:', () => {
@@ -69,11 +68,18 @@ describe('View:', () => {
 
       view.updateCurrentValue(newToValue);
       view.updateCurrentValue(newFromValue);
+      const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
+      const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
+      
+      if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement){
+        const valueTo = valueToSelector.querySelector(`.${styleClasses.TIP}`);
+        const valueFrom = valueFromSelector.querySelector(`.${styleClasses.TIP}`)
 
-      const valueTo = (mockParent.querySelector('[data-thumb="2"]') as HTMLElement).querySelector(`.${styleClasses.TIP}`) as HTMLDivElement;
-      const valueFrom = (mockParent.querySelector('[data-thumb="1"]') as HTMLElement).querySelector(`.${styleClasses.TIP}`) as HTMLDivElement;
-      expect(valueTo.innerHTML).toBe(`${newToValue.value}`);
-      expect(valueFrom.innerHTML).toBe(`${newFromValue.value}`);
+        if (valueTo instanceof HTMLDivElement && valueFrom instanceof HTMLDivElement) {
+          expect(valueTo.innerHTML).toBe(`${newToValue.value}`);
+          expect(valueFrom.innerHTML).toBe(`${newFromValue.value}`);
+        }
+      }
     });
   });
 
@@ -150,36 +156,6 @@ describe('View:', () => {
         STEP_ITEM.forEach((item) => {
         expect(item.classList.contains(`${styleClasses.STEP_ITEM}`)).toBeTruthy();
       });
-    });
-  });
-
-  describe('Draggable:', () => {
-    test('Методы уведомляют о взаимодействии со слайдером', () => {
-
-      const newSettings: IValidSettings = {
-        minValue: 0,
-        maxValue: 100,
-        step: 1,
-        valueFrom: 0,
-        valueTo: 30,
-        isRange: true,
-        isTip: true,
-        isBarRange: true,
-        isVertical: false,
-        isStep: true
-      };
-
-      const mockParent = document.createElement('div');
-      const view = new View(mockParent, newSettings);
-      const jfn = jest.fn();
-
-      view.events.slide.subscribe(jfn);
-
-      const itemStep = mockParent.querySelector(`.${styleClasses.STEP_ITEM}`) as HTMLElement;
-
-      $(itemStep).trigger("click");
-
-      expect(jfn).toBeCalledTimes(1);
     });
   });
 });

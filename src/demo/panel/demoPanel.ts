@@ -54,37 +54,47 @@ class demoPanel {
 
   private initListenersFromPanel(): void {
     const components = this.components;
-
-    components.minValue.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        minValue: parseInt((element.target as HTMLInputElement).value)
-      })
+    
+    components.minValue.addEventListener('change', (element)  => {
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          minValue: parseInt((element.target).value)
+        })
+      }
     })
 
     components.maxValue.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        maxValue: parseInt((element.target as HTMLInputElement).value)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          maxValue: parseInt((element.target).value)
+        })
+      }
     })
 
     components.thumbLeft.addEventListener('change', (element) => {
-      this.slider.updateCurrentValue({
-        handle: 'thumbLeft',
-        value: parseInt((element.target as HTMLInputElement).value)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateCurrentValue({
+          handle: 'thumbLeft',
+          value: parseInt((element.target).value)
+        })
+      }
     })
 
     components.thumbRight.addEventListener('change', (element) => {
-      this.slider.updateCurrentValue({
-        handle: 'thumbRight',
-        value: parseInt((element.target as HTMLInputElement).value)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateCurrentValue({
+          handle: 'thumbRight',
+          value: parseInt((element.target).value)
+        })
+      }
     })
 
     components.step.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        step: parseInt((element.target as HTMLInputElement).value)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          step: parseInt((element.target).value)
+        })
+      }
     })
 
     components.horizontal.addEventListener('change', () => {
@@ -100,27 +110,35 @@ class demoPanel {
     })
     
     components.isRange.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        isRange: Boolean((element.target as HTMLInputElement).checked)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          isRange: Boolean((element.target).checked)
+        })
+     }
     })
 
     components.isBarRange.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        isBarRange: Boolean((element.target as HTMLInputElement).checked)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          isBarRange: Boolean((element.target).checked)
+        })
+      }
     })
 
     components.isTip.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        isTip: Boolean((element.target as HTMLInputElement).checked)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          isTip: Boolean((element.target).checked)
+        })
+      }
     })
 
     components.isStep.addEventListener('change', (element) => {
-      this.slider.updateSettings({
-        isStep: Boolean((element.target as HTMLInputElement).checked)
-      })
+      if (element.target instanceof HTMLInputElement) {
+        this.slider.updateSettings({
+          isStep: Boolean((element.target).checked)
+        })
+      }
     })
    }
 

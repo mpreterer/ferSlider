@@ -250,7 +250,7 @@ class View extends Observer {
       const { isVertical } = this.modelSettings;
       const offsetSide = isVertical ? 'bottom' : 'left';
       const offset = this.components.bar.getBoundingClientRect()[offsetSide];
-  
+      
       return offset;
     }
 
@@ -369,7 +369,7 @@ class View extends Observer {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
-        this._events.slide.notify({handle: this.dragThumb, value, valueFromStep: true} as TUpdateThumb);
+        this._events.slide.notify({handle: this.dragThumb, value, valueFromStep: true});
       }
     }
     
@@ -383,7 +383,6 @@ class View extends Observer {
     }
 
     private initThumbsListeners() {
-      
       window.removeEventListener('pointermove', this.draggable);
       window.removeEventListener('pointerup', this.draggableEnd);
       this.components.bar.addEventListener('pointerdown', this.click);
@@ -403,14 +402,13 @@ class View extends Observer {
 
     @bind
     private setItemStepsPosition(event: PointerEvent) {
+      this.components.steps.getItems().forEach((item) => {
+        if (event.target == item) {
+          const value = Number(item.getAttribute('data-val'));
+          const thumb = this.changePositonThumb(event);
 
-    this.components.steps.getItems().forEach((item) => {
-      if (event.target == item) {
-        const value = Number(item.getAttribute('data-val'));
-        const thumb = this.changePositonThumb(event);
-
-        this._events.slide.notify({ handle: thumb, value});
-      }
+          this._events.slide.notify({ handle: thumb, value});
+        }
     })
    }
    
