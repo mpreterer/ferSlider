@@ -212,6 +212,7 @@ class View extends Observer {
         this.setThumbPosition('thumbRight', valueFrom);
       }
     }
+
   }
 
     private getThumbPosition (thumb: THandles): number {
@@ -275,7 +276,7 @@ class View extends Observer {
       const { isRange } = this.modelSettings;
       const thumbLeftValue = this.getThumbPosition('thumbLeft');
       const mouseCoords = this.getValidatedCoords(event);
-      
+
       if (isRange) {
         const thumbRightValue = this.getThumbPosition('thumbRight');
         const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
@@ -301,22 +302,24 @@ class View extends Observer {
     public updateCurrentValue (thumb: TUpdateThumb) {
       this.setThumbPosition(thumb.handle, thumb.value);
     }
-    
+
     private setThumbPosition (toggle: THandles, val: number) {
       const { isVertical, isBarRange, isTip } = this.modelSettings;
       const typeStyleSide = isVertical ? 'top' : 'left';
       const percent = this.convertPercentValueTo(val);
-
       this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
+
       this.setActiveThumb(toggle);
       if (isTip) this.setTipValue(toggle, val);
       if (isBarRange) this.setClickRangePosition();
     }
 
-    private convertPercentValueTo (val: number): number {
+    private convertPercentValueTo (val: number) {
       const { isVertical, minValue, maxValue } = this.modelSettings;
-      const percent = Number(((val - minValue) * 100 / (maxValue-minValue)).toFixed(10));
+      
+      const percent = Number(((val - minValue ) * 100 / (maxValue-minValue)).toFixed(10));
       const okPercent = isVertical ? 100-percent : percent;
+
       return okPercent;
     }
 
@@ -355,7 +358,7 @@ class View extends Observer {
     @bind
     private draggableStart(event: PointerEvent) {
       this.dragThumb = this.changePositonThumb(event);
-      
+
       if(this.dragThumb) {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
@@ -369,6 +372,7 @@ class View extends Observer {
       if (this.dragThumb) {
         const coords = this.getValidatedCoords(event);
         const value = this.convertCoordsToValue(coords);
+        
         this._events.slide.notify({handle: this.dragThumb, value, valueFromStep: true});
       }
     }
@@ -378,6 +382,7 @@ class View extends Observer {
       if (this.dragThumb) {
         window.removeEventListener('pointermove', this.draggable);
         window.removeEventListener('pointerup', this.draggableEnd);
+
         this.dragThumb = null;
       }
     }
@@ -398,7 +403,7 @@ class View extends Observer {
         this.setActiveThumb(this.dragThumb);
         this.draggable(event);
       }
-  }
+    }
 
     @bind
     private setItemStepsPosition(event: PointerEvent) {
@@ -409,8 +414,8 @@ class View extends Observer {
 
           this._events.slide.notify({ handle: thumb, value});
         }
-    })
-   }
+      })
+    }
    
    private getStepsValue(): number[] {
     const { maxValue, minValue, step } = this.modelSettings;
@@ -440,7 +445,7 @@ class View extends Observer {
       const percent = this.convertPercentValueTo(item);
       domItem.style[side] = `${percent}%`;
     });
-  }
+   }
   }
 
 export default View;

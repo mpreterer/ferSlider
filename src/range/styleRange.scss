@@ -7,6 +7,7 @@
 .j-fer-slider {
   border-radius: 5px;
   position: relative;
+  touch-action: none;
 
   &_horizontal {
     width:100%;
