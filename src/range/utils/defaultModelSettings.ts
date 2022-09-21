@@ -10,7 +10,7 @@ const defaultModelSettings: IValidSettings = {
   isTip: true,
   isBarRange: true,
   isVertical: false,
-  isStep: true
+  isStep: true,
 }
 
 export default defaultModelSettings;

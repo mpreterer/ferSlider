@@ -1,12 +1,12 @@
 import IObserver from '../Observer/IObserver';
-  
+
 export interface IModelEvents {
-    currentValueChanged: IObserver,
-    modelChangedSettings: IObserver
+  currentValueChanged: IObserver,
+  modelChangedSettings: IObserver
 }
 
 export interface IEvents {
-    slide: IObserver;
+  slide: IObserver;
 }
 
 export interface IExtendsEvents extends IEvents, IModelEvents {}

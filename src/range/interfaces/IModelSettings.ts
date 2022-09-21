@@ -1,6 +1,6 @@
 import { TValueFrom, TUpdateThumb } from './types';
 
-export interface IModelSettings extends API  {
+export interface IModelSettings extends API {
   minValue?: number;
   maxValue?: number;
   step?: number;

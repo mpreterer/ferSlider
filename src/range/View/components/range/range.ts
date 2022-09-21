@@ -3,15 +3,15 @@ import styleClasses from "../../styleClasses";
 class Range {
   private dom: HTMLDivElement;
 
-  constructor() {
+  constructor () {
     this.getHTML();
   }
 
-  public saveDom(element: HTMLDivElement) {
+  public saveDom (element: HTMLDivElement) {
     this.dom = element;
   }
 
-  public getDom(): HTMLDivElement {
+  public getDom (): HTMLDivElement {
     return this.dom;
   }
 

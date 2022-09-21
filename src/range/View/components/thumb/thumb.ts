@@ -7,15 +7,15 @@ class Thumb {
 
   }
 
-  public saveDom(element: HTMLDivElement) {
+  public saveDom (element: HTMLDivElement) {
     this.dom = element;
   }
 
-  public getDom(): HTMLDivElement {
+  public getDom (): HTMLDivElement {
     return this.dom;
   }
 
-  public getHTML(): HTMLDivElement {
+  public getHTML (): HTMLDivElement {
     const thumbHTML = document.createElement('div');
     thumbHTML.classList.add(`${styleClasses.THUMB}`);
 

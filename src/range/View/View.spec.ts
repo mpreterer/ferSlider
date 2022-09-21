@@ -9,7 +9,6 @@ import { TUpdateThumb } from '../interfaces/types';
 import defaultSettings from '../Model/defaultSettings';
 
 describe('View:', () => {
-
   describe('updateModelSettings:', () => {
     test('Обновление настроек', () => {
       const newSettings: IValidSettings = {
@@ -22,12 +21,12 @@ describe('View:', () => {
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: true
+        isStep: true,
       };
 
       const getNodes = (body: HTMLElement) => ({
         isRange: body.querySelector(`.${styleClasses.RANGE}`),
-        isVertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`)
+        isVertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`),
       })
 
       const domParent = document.createElement('div');
@@ -52,17 +51,17 @@ describe('View:', () => {
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: true
+        isStep: true,
       };
       const newFromValue: TUpdateThumb = {
         handle: 'thumbLeft',
-        value: 5
+        value: 5,
       }
       const newToValue: TUpdateThumb = {
         handle: 'thumbRight',
-        value: 60
+        value: 60,
       }
-      
+
       const mockParent = document.createElement('div');
       const view = new View(mockParent, newSettings);
 
@@ -70,8 +69,8 @@ describe('View:', () => {
       view.updateCurrentValue(newFromValue);
       const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
       const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
-      
-      if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement){
+
+      if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement) {
         const valueTo = valueToSelector.querySelector(`.${styleClasses.TIP}`);
         const valueFrom = valueFromSelector.querySelector(`.${styleClasses.TIP}`)
 
@@ -85,7 +84,6 @@ describe('View:', () => {
 
   describe('initSubView, render:', () => {
     test('Валидный DOM слайдера', () => {
-
       const newSettings: IValidSettings = {
         minValue: 0,
         maxValue: 100,
@@ -96,7 +94,7 @@ describe('View:', () => {
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: true
+        isStep: true,
       };
 
       const mockParent = document.createElement('div');
@@ -115,7 +113,6 @@ describe('View:', () => {
 
   describe('renderSubComponentsStyles:', () => {
     test('Правильно задаются классы и атрибуты для subView элементов', () => {
-
       const newSettings: IValidSettings = {
         minValue: 0,
         maxValue: 100,
@@ -126,7 +123,7 @@ describe('View:', () => {
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: true
+        isStep: true,
       };
 
       const mockParent = document.createElement('div');
@@ -153,7 +150,7 @@ describe('View:', () => {
       expect(TIPS[1].classList.contains(`${styleClasses.TIP}`)).toBeTruthy();
 
       expect(STEP.classList.contains(`${styleClasses.STEP}`)).toBeTruthy();
-        STEP_ITEM.forEach((item) => {
+      STEP_ITEM.forEach((item) => {
         expect(item.classList.contains(`${styleClasses.STEP_ITEM}`)).toBeTruthy();
       });
     });

@@ -1,6 +1,6 @@
 import { TValueFrom } from './types';
 
- interface IValidSettings {
+interface IValidSettings {
   minValue: number;
   maxValue: number;
   step: number;

@@ -7,15 +7,15 @@ import IValidSettings from "../interfaces/IValidSettings";
 class ferSlider {
   private controller: Controller;
 
-  get events(): IExtendsEvents {
+  get events (): IExtendsEvents {
     return this.controller.events;
   }
 
-  get settings(): IValidSettings {
+  get settings (): IValidSettings {
     return this.controller.settings;
   }
 
-  constructor(domParent: TDOMParents, settings: IModelSettings) {
+  constructor (domParent: TDOMParents, settings: IModelSettings) {
     this.controller = new Controller(domParent, settings as IValidSettings);
     this.init(settings);
   }
@@ -24,15 +24,15 @@ class ferSlider {
     this.controller.updateCurrentValue(thumb);
   }
 
-  public updateSettings(settings: IModelSettings): void {
+  public updateSettings (settings: IModelSettings): void {
     this.controller.updateSettings(settings);
     this.init(settings);
   }
-  
-  private init(settings: IModelSettings) {
+
+  private init (settings: IModelSettings) {
     const { hasSlide } = settings;
 
-    if(hasSlide) {  
+    if (hasSlide) {
       this.controller.events.currentValueChanged.subscribe(hasSlide);
     }
   }

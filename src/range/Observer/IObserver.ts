@@ -1,7 +1,7 @@
 interface IObserver {
-    subscribe: Function;
-    unsubscribe: Function;
-    notify: Function;
+  subscribe: Function;
+  unsubscribe: Function;
+  notify: Function;
 }
-  
-export default IObserver; 
+
+export default IObserver;

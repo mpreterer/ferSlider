@@ -5,11 +5,11 @@ import { TDOMParents } from "./interfaces/types";
 import defaultSettings from "./Model/defaultSettings";
 
 (function ($) {
-    $.fn.ferSlider = function(settings?: IModelSettings) {
-      const validOptions: IModelSettings = $.extend({}, defaultSettings, settings);
-      const domParent: TDOMParents = this[0];
+  $.fn.ferSlider = function (settings?: IModelSettings) {
+    const validOptions: IModelSettings = $.extend({}, defaultSettings, settings);
+    const domParent: TDOMParents = this[0];
 
-      const range = new ferSlider(domParent, validOptions);
-      return range;
-    }
+    const range = new ferSlider(domParent, validOptions);
+    return range;
+  }
 }(jQuery));

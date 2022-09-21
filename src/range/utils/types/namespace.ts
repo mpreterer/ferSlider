@@ -5,4 +5,6 @@ type type = 'oneRange' | 'doubleRange';
 type optionsParentDom = HTMLDivElement;
 type updateOutputValue = { option: gap, value: number };
 
-export { valueOutput, orientation, gap, type, optionsParentDom, updateOutputValue };
+export {
+  valueOutput, orientation, gap, type, optionsParentDom, updateOutputValue,
+};

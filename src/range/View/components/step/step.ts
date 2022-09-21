@@ -7,11 +7,11 @@ class Step {
     this.getHTML();
   }
 
-  public saveDom(element: HTMLElement) {
+  public saveDom (element: HTMLElement) {
     this.dom = element;
   }
 
-  public getDom(): HTMLElement {
+  public getDom (): HTMLElement {
     return this.dom;
   }
 

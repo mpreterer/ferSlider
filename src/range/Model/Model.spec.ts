@@ -19,7 +19,7 @@ describe('Model:', () => {
         isTip: true,
         isBarRange: true,
         isVertical: false,
-        isStep: false
+        isStep: false,
       }
 
       model.updateModelSettings(startSettings);
@@ -29,7 +29,6 @@ describe('Model:', () => {
   });
 
   describe('updateCurrentValueSettings:', () => {
-
     test('Обновление valueFrom на проверенное', () => {
       const thumb: TUpdateThumb = { handle: 'thumbLeft', value: 10 };
 
@@ -45,7 +44,7 @@ describe('Model:', () => {
 
       const thumb: TUpdateThumb = { handle: 'thumbLeft', value: 65 };
       model.updateCurrentValueSettings(thumb);
-      
+
       expect(subscriber).toHaveBeenCalledWith(thumb);
     });
   });
