@@ -9,7 +9,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --open webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.slider.js webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.slider.js webpack.config.js ",
+    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.slider.js webpack.slider.js ",
     "test": "npx jest",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
@@ -40,6 +40,7 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
