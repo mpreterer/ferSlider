@@ -11,7 +11,8 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.slider.js webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.slider.js webpack.config.js ",
     "test": "npx jest",
-    "eslint": "eslint . --ext .ts,.tsx",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix",
     "stylelint": "stylelint \"src/**/*.scss\"",
     "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
   },
