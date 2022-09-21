@@ -1,21 +1,21 @@
 .j-fer-slider__tip {
-    height: 20px;
-    background: #00ffc8;
-    position: absolute;
-    text-align: center;
-    padding: 5px;
-    min-width: 30px;
-    font-weight: bold;
-    user-select: none;
+  position: absolute;
+  min-width: 30px;
+  height: 20px;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+  background: #00ffc8;
+  user-select: none;
 
-    &_horizontal {
-        border-radius: 5px 5px 5px 0px;
-        top: -38px;
-    }
+  &_horizontal {
+    top: -38px;
+    border-radius: 5px 5px 5px 0;
+  }
 
-    &_vertical {
-        right: -50%;
-        transform: translate(-50%, -50%);
-        border-radius: 5px 5px 0px 5px;
-    }
+  &_vertical {
+    right: -50%;
+    border-radius: 5px 5px 0;
+    transform: translate(-50%, -50%);
+  }
 }
