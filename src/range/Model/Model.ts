@@ -1,7 +1,7 @@
-import Observer from '../Observer/Observer';
-import IValidSettings from '../interfaces/IValidSettings';
-import { TValueFrom, TUpdateThumb } from '../interfaces/types';
-import { IModelEvents } from '../interfaces/IEvents';
+import Observer from "../Observer/Observer";
+import IValidSettings from "../interfaces/IValidSettings";
+import { TValueFrom, TUpdateThumb } from "../interfaces/types";
+import { IModelEvents } from "../interfaces/IEvents";
 
 class Model extends Observer {
   private modelSettings: IValidSettings;
@@ -14,7 +14,7 @@ class Model extends Observer {
   }
 
   get settings (): IValidSettings {
-    return this.modelSettings
+    return this.modelSettings;
   }
 
   get events (): IModelEvents {
@@ -39,50 +39,82 @@ class Model extends Observer {
 
   public updateCurrentValueSettings (thumb: TUpdateThumb): void {
     const {
-      minValue, maxValue, isRange, valueFrom, step,
+      minValue,
+      maxValue,
+      isRange,
+      valueFrom,
+      step,
     } = this.modelSettings;
-    const isFrom = thumb.handle === 'thumbLeft';
-    const isTo = thumb.handle === 'thumbRight';
-    const hasStep = thumb.valueFromStep;
-    const valueWithStep = hasStep ? this.getValueWithStep(thumb.value, minValue, step) : thumb.value;
-    const validValueWithStep = this.getDiapason(valueWithStep, minValue, maxValue);
+    const bodyThumb = thumb;
+    const isFrom = bodyThumb.handle === "thumbLeft";
+    const isTo = bodyThumb.handle === "thumbRight";
+    const hasStep = bodyThumb.valueFromStep;
+    const valueWithStep = hasStep
+      ? Model.getValueWithStep(bodyThumb.value, minValue, step)
+      : bodyThumb.value;
+    const validValueWithStep = Model.getDiapason(
+      valueWithStep,
+      minValue,
+      maxValue,
+    );
 
     if (isRange) {
-      if (typeof valueFrom === 'object') {
+      if (typeof valueFrom === "object") {
         if (isFrom) {
-          const val = this.getDiapason(validValueWithStep, minValue, valueFrom.maxValue);
-          this.modelSettings.valueFrom = { minValue: val, maxValue: valueFrom.maxValue };
-          thumb.value = val;
+          const val = Model.getDiapason(
+            validValueWithStep,
+            minValue,
+            valueFrom.maxValue,
+          );
+          this.modelSettings.valueFrom = {
+            minValue: val,
+            maxValue: valueFrom.maxValue,
+          };
+          bodyThumb.value = val;
         }
         if (isTo) {
-          const val = this.getDiapason(validValueWithStep, valueFrom.minValue, maxValue);
-          this.modelSettings.valueFrom = { minValue: valueFrom.minValue, maxValue: val };
-          thumb.value = val;
+          const val = Model.getDiapason(
+            validValueWithStep,
+            valueFrom.minValue,
+            maxValue,
+          );
+          this.modelSettings.valueFrom = {
+            minValue: valueFrom.minValue,
+            maxValue: val,
+          };
+          bodyThumb.value = val;
         }
       }
     }
 
     if (!isRange) {
       this.modelSettings.valueFrom = validValueWithStep;
-      thumb.value = validValueWithStep;
+      bodyThumb.value = validValueWithStep;
     }
 
-    this.modelEvents.currentValueChanged.notify(thumb);
+    this.modelEvents.currentValueChanged.notify(bodyThumb);
   }
 
   private validModelSettings (settings: IValidSettings) {
     const {
-      valueFrom, minValue, maxValue, isRange, step,
+      valueFrom,
+      minValue,
+      maxValue,
+      step,
     } = settings;
-    const validatedMiddle = this.getMiddleValue(minValue, maxValue);
+    const validatedMiddle = Model.getMiddleValue(minValue, maxValue);
 
     this.modelSettings.minValue = validatedMiddle.minValue;
     this.modelSettings.maxValue = validatedMiddle.maxValue;
     this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom);
-    this.modelSettings.step = this.getValidStep(minValue, maxValue, step);
+    this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
   }
 
-  private getValidStep (minValue: number, maxValue: number, step: number): number {
+  static getValidStep (
+    minValue: number,
+    maxValue: number,
+    step: number,
+  ): number {
     const maxStep = maxValue - minValue;
 
     if (step > maxValue) return maxStep;
@@ -91,19 +123,32 @@ class Model extends Observer {
     return step;
   }
 
-  private getDiapason (value: number, minValue: number, maxValue: number): number {
-    if (value <= minValue) { return minValue; }
-    if (value >= maxValue) { return maxValue; }
+  static getDiapason (
+    value: number,
+    minValue: number,
+    maxValue: number,
+  ): number {
+    if (value <= minValue) {
+      return minValue;
+    }
+    if (value >= maxValue) {
+      return maxValue;
+    }
     return value;
   }
 
-  private getValueWithStep (value: number, minValue: number, step: number) {
-    const valueWithStep = Math.round((value - minValue) / step) * step + minValue;
+  static getValueWithStep (value: number, minValue: number, step: number) {
+    const valueWithStep = Math.round((
+      (value - minValue) / step)
+      * step + minValue);
 
     return valueWithStep;
   }
 
-  private getMiddleValue (minValue: number, maxValue: number): { minValue: number, maxValue: number } {
+  static getMiddleValue (
+    minValue: number,
+    maxValue: number,
+  ): { minValue: number; maxValue: number } {
     const checkValue = minValue > maxValue ? maxValue : minValue;
 
     return { minValue: checkValue, maxValue };
@@ -112,27 +157,31 @@ class Model extends Observer {
   private getValidCurrentValue (valueFrom: TValueFrom): TValueFrom {
     const { minValue, maxValue, isRange } = this.modelSettings;
 
-    if (typeof valueFrom === 'object') {
+    if (typeof valueFrom === "object") {
       if (isRange) {
-        const res = this.getMiddleValue(valueFrom.minValue, valueFrom.maxValue);
+        const res = Model.getMiddleValue(valueFrom.minValue, valueFrom.maxValue);
 
         return {
-          minValue: this.getDiapason(res.minValue, minValue, maxValue),
-          maxValue: this.getDiapason(res.maxValue, minValue, maxValue),
-        }
+          minValue: Model.getDiapason(res.minValue, minValue, maxValue),
+          maxValue: Model.getDiapason(res.maxValue, minValue, maxValue),
+        };
       }
 
-      return this.getDiapason(valueFrom.minValue, minValue, maxValue);
+      return Model.getDiapason(valueFrom.minValue, minValue, maxValue);
     }
 
-    if (typeof valueFrom === 'number') {
-      const confirmedCurrentValue = this.getDiapason(valueFrom, minValue, maxValue);
+    if (typeof valueFrom === "number") {
+      const confirmedCurrentValue = Model.getDiapason(
+        valueFrom,
+        minValue,
+        maxValue,
+      );
 
       if (isRange) {
         return {
           minValue: confirmedCurrentValue,
           maxValue: confirmedCurrentValue,
-        }
+        };
       }
       return confirmedCurrentValue;
     }

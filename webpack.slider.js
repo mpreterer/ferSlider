@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
@@ -12,7 +13,10 @@ const isProd = !isDev;
 module.exports = {
   mode: 'development',
   devtool: false,
-  entry: './src/range/index.ts',
+  entry: {
+    index: './src/range/index.ts',
+    demo: './src/demo/index.ts',
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
@@ -72,6 +76,14 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, './assets/images'),
+          to: path.resolve(__dirname, 'dist/assets/images'),
+        },
+      ],
+    }),
     new ForkTsCheckerWebpackPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',

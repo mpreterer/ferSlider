@@ -3,10 +3,6 @@ import styleClasses from "../../styleClasses";
 class Thumb {
   private dom: HTMLDivElement;
 
-  constructor () {
-
-  }
-
   public saveDom (element: HTMLDivElement) {
     this.dom = element;
   }

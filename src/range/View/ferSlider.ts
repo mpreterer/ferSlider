@@ -4,7 +4,7 @@ import { IExtendsEvents } from "../interfaces/IEvents";
 import Controller from "../Controller/Controller";
 import IValidSettings from "../interfaces/IValidSettings";
 
-class ferSlider {
+class FerSlider {
   private controller: Controller;
 
   get events (): IExtendsEvents {
@@ -38,4 +38,4 @@ class ferSlider {
   }
 }
 
-export default ferSlider;
+export default FerSlider;

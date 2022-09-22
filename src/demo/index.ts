@@ -19,8 +19,8 @@ const sliderContainer3 = {
   containerPanel: $(".js-container__panel-3"),
 };
 
-const slider_1 = sliderContainer1.containerSlider.ferSlider({});
-const slider_2 = sliderContainer2.containerSlider.ferSlider({
+const slider_1 = sliderContainer1.containerSlider.FerSlider({});
+const slider_2 = sliderContainer2.containerSlider.FerSlider({
   minValue: -42,
   maxValue: 42,
   isRange: true,
@@ -32,7 +32,7 @@ const slider_2 = sliderContainer2.containerSlider.ferSlider({
   isTip: true,
   isStep: true,
 });
-const slider_3 = sliderContainer3.containerSlider.ferSlider({
+const slider_3 = sliderContainer3.containerSlider.FerSlider({
   minValue: -10,
   maxValue: 0,
   isVertical: true,

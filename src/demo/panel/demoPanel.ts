@@ -1,4 +1,4 @@
-import ferSlider from '../../range/View/ferSlider';
+import FerSlider from '../../range/View/FerSlider';
 import { TDOMParents } from '../../range/interfaces/types';
 import { bind } from "decko";
 import { IModelSettings } from '../../range/interfaces/IModelSettings';
@@ -10,11 +10,11 @@ import IValidSettings from '../../range/interfaces/IValidSettings';
 class demoPanel {
 
   private domParent: TDOMParents;
-  private slider: ferSlider;
+  private slider: FerSlider;
   private components: IComponents;
   private modelSettings: IValidSettings;
 
-  constructor (domParent: TDOMParents, slider: ferSlider) {
+  constructor (domParent: TDOMParents, slider: FerSlider) {
     this.domParent = domParent;
     this.slider = slider;
     this.modelSettings = this.slider.settings;

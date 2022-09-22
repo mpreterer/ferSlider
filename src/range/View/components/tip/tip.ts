@@ -11,10 +11,6 @@ class Tip {
     return this.dom;
   }
 
-  constructor () {
-
-  }
-
   public getHTML (): HTMLDivElement {
     const tipHTML = document.createElement('div');
     tipHTML.classList.add(`${styleClasses.TIP}`);

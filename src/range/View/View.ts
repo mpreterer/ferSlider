@@ -1,16 +1,16 @@
-import { bind } from 'decko';
-import Observer from '../Observer/Observer';
-import IUnitComponents from '../interfaces/IUnitComponents';
-import styleClasses from './styleClasses';
-import { IEvents } from '../interfaces/IEvents';
-import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
-import Range from './components/range/range';
-import Thumb from './components/thumb/thumb';
-import Bar from './components/bar/bar';
-import Step from './components/step/step';
-import Tip from './components/tip/tip';
-import IValidSettings from '../interfaces/IValidSettings';
-import Slider from './components/slider/slider';
+import { bind } from "decko";
+import Observer from "../Observer/Observer";
+import IUnitComponents from "../interfaces/IUnitComponents";
+import styleClasses from "./styleClasses";
+import { IEvents } from "../interfaces/IEvents";
+import { TDOMParents, THandles, TUpdateThumb } from "../interfaces/types";
+import Range from "./components/range/range";
+import Thumb from "./components/thumb/thumb";
+import Bar from "./components/bar/bar";
+import Step from "./components/step/step";
+import Tip from "./components/tip/tip";
+import IValidSettings from "../interfaces/IValidSettings";
+import Slider from "./components/slider/slider";
 
 class View extends Observer {
   private modelSettings: IValidSettings;
@@ -26,12 +26,12 @@ class View extends Observer {
     this.initSubViewComponents(domParent);
   }
 
-  private _events: IEvents = {
+  private slideEvents: IEvents = {
     slide: new Observer(),
-  }
+  };
 
   get events (): IEvents {
-    return this._events;
+    return this.slideEvents;
   }
 
   private initSubViewComponents (htmlParent: TDOMParents) {
@@ -50,10 +50,10 @@ class View extends Observer {
       },
       steps: new Step(),
       tip: new Tip().getHTML(),
-    }
+    };
 
     this.render();
-    this.initThumbsListeners()
+    this.initThumbsListeners();
   }
 
   public updateModelSettings (newModelOptions: IValidSettings) {
@@ -63,7 +63,10 @@ class View extends Observer {
 
   private render () {
     const {
-      isTip, isStep, isRange, isBarRange,
+      isTip,
+      isStep,
+      isRange,
+      isBarRange,
     } = this.modelSettings;
     const { components } = this;
 
@@ -71,7 +74,8 @@ class View extends Observer {
     const hasBar = components.slider.contains(components.bar);
     const hasFromThumb = components.bar.contains(components.thumbLeft.thumb);
     const hasToThumb = components.bar.contains(components.thumbRight.thumb);
-    const hasTip = components.thumbLeft.thumb.contains(components.thumbLeft.tip) && components.thumbRight.thumb.contains(components.thumbRight.tip);
+    const hasTip = components.thumbLeft.thumb.contains(components.thumbLeft.tip)
+      && components.thumbRight.thumb.contains(components.thumbRight.tip);
     const hasRange = components.bar.contains(components.range);
     const hasStep = components.slider.contains(components.steps.getDom());
 
@@ -88,7 +92,7 @@ class View extends Observer {
     }
 
     if (!isStep && hasStep) {
-      components.slider.removeChild(components.steps.getDom())
+      components.slider.removeChild(components.steps.getDom());
     }
 
     if (isRange) {
@@ -107,11 +111,11 @@ class View extends Observer {
     }
 
     if (isBarRange && !hasRange) {
-      components.bar.appendChild(components.range)
+      components.bar.appendChild(components.range);
     }
 
     if (!isBarRange && hasRange) {
-      components.bar.removeChild(components.range)
+      components.bar.removeChild(components.range);
     }
 
     if (isTip && !hasTip) {
@@ -135,22 +139,32 @@ class View extends Observer {
   private renderSubComponentsStyles () {
     const { isVertical } = this.modelSettings;
     const { components } = this;
-    const sideStart = isVertical ? 'left' : 'bottom';
-    const sideFinish = isVertical ? 'right' : 'top';
+    const sideStart = isVertical ? "left" : "bottom";
+    const sideFinish = isVertical ? "right" : "top";
     const beforeOrient = !!isVertical;
 
-    components.slider.setAttribute('class', `${styleClasses.SLIDER}`);
-    components.thumbLeft.thumb.setAttribute('data-thumb', '1');
-    components.thumbRight.thumb.setAttribute('data-thumb', '2');
+    components.slider.setAttribute("class", `${styleClasses.SLIDER}`);
+    components.thumbLeft.thumb.setAttribute("data-thumb", "1");
+    components.thumbRight.thumb.setAttribute("data-thumb", "2");
 
     if (beforeOrient) {
       components.bar.classList.remove(`${styleClasses.BAR_HORIZONTAL}`);
       components.range.classList.remove(`${styleClasses.RANGE_HORIZONTAL}`);
-      components.thumbLeft.thumb.classList.remove(`${styleClasses.THUMB_HORIZONTAL}`);
-      components.thumbLeft.tip.classList.remove(`${styleClasses.TIP_HORIZONTAL}`);
-      components.thumbRight.thumb.classList.remove(`${styleClasses.THUMB_HORIZONTAL}`);
-      components.thumbRight.tip.classList.remove(`${styleClasses.TIP_HORIZONTAL}`);
-      components.steps.getDom().classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
+      components.thumbLeft.thumb.classList.remove(
+        `${styleClasses.THUMB_HORIZONTAL}`,
+      );
+      components.thumbLeft.tip.classList.remove(
+        `${styleClasses.TIP_HORIZONTAL}`,
+      );
+      components.thumbRight.thumb.classList.remove(
+        `${styleClasses.THUMB_HORIZONTAL}`,
+      );
+      components.thumbRight.tip.classList.remove(
+        `${styleClasses.TIP_HORIZONTAL}`,
+      );
+      components.steps
+        .getDom()
+        .classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
 
       components.steps.getItems().forEach((item) => {
         item.classList.remove(`${styleClasses.STEP_ITEM}`);
@@ -158,26 +172,38 @@ class View extends Observer {
     } else {
       components.bar.classList.remove(`${styleClasses.BAR_VERTICAL}`);
       components.range.classList.remove(`${styleClasses.RANGE_VERTICAL}`);
-      components.thumbLeft.thumb.classList.remove(`${styleClasses.THUMB_VERTICAL}`);
+      components.thumbLeft.thumb.classList.remove(
+        `${styleClasses.THUMB_VERTICAL}`,
+      );
       components.thumbLeft.tip.classList.remove(`${styleClasses.TIP_VERTICAL}`);
-      components.thumbRight.thumb.classList.remove(`${styleClasses.THUMB_VERTICAL}`);
-      components.thumbRight.tip.classList.remove(`${styleClasses.TIP_VERTICAL}`);
-      components.steps.getDom().classList.remove(`${styleClasses.STEP_VERTICAL}`);
+      components.thumbRight.thumb.classList.remove(
+        `${styleClasses.THUMB_VERTICAL}`,
+      );
+      components.thumbRight.tip.classList.remove(
+        `${styleClasses.TIP_VERTICAL}`,
+      );
+      components.steps
+        .getDom()
+        .classList.remove(`${styleClasses.STEP_VERTICAL}`);
 
       components.steps.getItems().forEach((item) => {
         item.classList.remove(`${styleClasses.STEP_ITEM}`);
       });
     }
 
-    components.range.style[sideStart] = '0';
-    components.range.style[sideFinish] = '0';
+    components.range.style[sideStart] = "0";
+    components.range.style[sideFinish] = "0";
     components.thumbLeft.thumb.style.removeProperty(sideStart);
     components.thumbRight.thumb.style.removeProperty(sideStart);
 
     if (isVertical) {
       components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
-      components.thumbLeft.thumb.classList.add(`${styleClasses.THUMB_VERTICAL}`);
-      components.thumbRight.thumb.classList.add(`${styleClasses.THUMB_VERTICAL}`);
+      components.thumbLeft.thumb.classList.add(
+        `${styleClasses.THUMB_VERTICAL}`,
+      );
+      components.thumbRight.thumb.classList.add(
+        `${styleClasses.THUMB_VERTICAL}`,
+      );
       components.thumbLeft.tip.classList.add(`${styleClasses.TIP_VERTICAL}`);
       components.thumbRight.tip.classList.add(`${styleClasses.TIP_VERTICAL}`);
       components.bar.classList.add(`${styleClasses.BAR_VERTICAL}`);
@@ -188,13 +214,19 @@ class View extends Observer {
       });
     } else {
       components.slider.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
-      components.thumbLeft.thumb.classList.add(`${styleClasses.THUMB_HORIZONTAL}`);
-      components.thumbRight.thumb.classList.add(`${styleClasses.THUMB_HORIZONTAL}`);
+      components.thumbLeft.thumb.classList.add(
+        `${styleClasses.THUMB_HORIZONTAL}`,
+      );
+      components.thumbRight.thumb.classList.add(
+        `${styleClasses.THUMB_HORIZONTAL}`,
+      );
       components.thumbLeft.tip.classList.add(`${styleClasses.TIP_HORIZONTAL}`);
       components.thumbRight.tip.classList.add(`${styleClasses.TIP_HORIZONTAL}`);
       components.bar.classList.add(`${styleClasses.BAR_HORIZONTAL}`);
       components.range.classList.add(`${styleClasses.RANGE_HORIZONTAL}`);
-      components.steps.getDom().classList.add(`${styleClasses.STEP_HORIZONTAL}`);
+      components.steps
+        .getDom()
+        .classList.add(`${styleClasses.STEP_HORIZONTAL}`);
       components.steps.getItems().forEach((item) => {
         item.classList.add(`${styleClasses.STEP_ITEM}`);
       });
@@ -204,16 +236,16 @@ class View extends Observer {
   private setCurrentValue () {
     const { valueFrom, isRange } = this.modelSettings;
 
-    if (typeof valueFrom === 'object') {
-      this.setThumbPosition('thumbLeft', valueFrom.minValue);
+    if (typeof valueFrom === "object") {
+      this.setThumbPosition("thumbLeft", valueFrom.minValue);
       if (isRange) {
-        this.setThumbPosition('thumbRight', valueFrom.maxValue);
+        this.setThumbPosition("thumbRight", valueFrom.maxValue);
       }
     }
-    if (typeof valueFrom === 'number') {
-      this.setThumbPosition('thumbLeft', valueFrom);
+    if (typeof valueFrom === "number") {
+      this.setThumbPosition("thumbLeft", valueFrom);
       if (isRange) {
-        this.setThumbPosition('thumbRight', valueFrom);
+        this.setThumbPosition("thumbRight", valueFrom);
       }
     }
   }
@@ -222,10 +254,11 @@ class View extends Observer {
     const { isVertical } = this.modelSettings;
 
     const { components } = this;
-    const thumbLength = isVertical ? 'offsetHeight' : 'offsetWidth';
-    const offsetType = isVertical ? 'offsetTop' : 'offsetLeft';
+    const thumbLength = isVertical ? "offsetHeight" : "offsetWidth";
+    const offsetType = isVertical ? "offsetTop" : "offsetLeft";
     const barLength = this.getBarLength();
-    const posOfPixel = components[thumb].thumb[offsetType] + (components[thumb].thumb[thumbLength] / 2);
+    const posOfPixel = components[thumb].thumb[offsetType]
+      + components[thumb].thumb[thumbLength] / 2;
     const res = isVertical ? barLength - posOfPixel : posOfPixel;
 
     return res;
@@ -233,7 +266,7 @@ class View extends Observer {
 
   private setActiveThumb (thumb: THandles) {
     const { components } = this;
-    const activeThumb = `${styleClasses.THUMB}` + '_active';
+    const activeThumb = `${styleClasses.THUMB}_active`;
 
     if (!components[thumb].thumb.classList.contains(`${activeThumb}`)) {
       components.thumbLeft.thumb.classList.remove(`${activeThumb}`);
@@ -242,17 +275,17 @@ class View extends Observer {
     }
   }
 
-  private getBarLength ():number {
+  private getBarLength (): number {
     const { isVertical } = this.modelSettings;
-    const lengthType = isVertical ? 'offsetHeight' : 'offsetWidth';
+    const lengthType = isVertical ? "offsetHeight" : "offsetWidth";
     const length = this.components.bar[lengthType];
 
     return length;
   }
 
-  private getBarOffset ():number {
+  private getBarOffset (): number {
     const { isVertical } = this.modelSettings;
-    const offsetSide = isVertical ? 'bottom' : 'left';
+    const offsetSide = isVertical ? "bottom" : "left";
     const offset = this.components.bar.getBoundingClientRect()[offsetSide];
 
     return offset;
@@ -261,37 +294,41 @@ class View extends Observer {
   private convertCoordsToValue (coords: number): number {
     const { maxValue, minValue } = this.modelSettings;
     const barLength = this.getBarLength();
-    const value = Number((coords * (maxValue - minValue) / barLength + minValue).toFixed(10));
+    const value = Number(
+      ((coords * (maxValue - minValue)) / barLength + minValue).toFixed(10),
+    );
 
     return value;
   }
 
   private getValidatedCoords (event: PointerEvent): number {
     const { isVertical } = this.modelSettings;
-    const coords = isVertical ? 'clientY' : 'clientX';
+    const coords = isVertical ? "clientY" : "clientX";
     const barOffset = this.getBarOffset();
-    const result = isVertical ? barOffset - event[coords] : event[coords] - barOffset;
+    const result = isVertical
+      ? barOffset - event[coords]
+      : event[coords] - barOffset;
 
     return result;
   }
 
   private changePositonThumb (event: PointerEvent): THandles {
     const { isRange } = this.modelSettings;
-    const thumbLeftValue = this.getThumbPosition('thumbLeft');
+    const thumbLeftValue = this.getThumbPosition("thumbLeft");
     const mouseCoords = this.getValidatedCoords(event);
 
     if (isRange) {
-      const thumbRightValue = this.getThumbPosition('thumbRight');
+      const thumbRightValue = this.getThumbPosition("thumbRight");
       const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
-      const valueFromRangeMiddle = (mouseCoords - thumbLeftValue);
+      const valueFromRangeMiddle = mouseCoords - thumbLeftValue;
 
-      if (mouseCoords <= thumbLeftValue) return 'thumbLeft';
-      if (mouseCoords >= thumbRightValue) return 'thumbRight';
-      if (valueFromRangeMiddle <= rangeMiddle) return 'thumbLeft';
-      if (valueFromRangeMiddle > rangeMiddle) return 'thumbRight';
+      if (mouseCoords <= thumbLeftValue) return "thumbLeft";
+      if (mouseCoords >= thumbRightValue) return "thumbRight";
+      if (valueFromRangeMiddle <= rangeMiddle) return "thumbLeft";
+      if (valueFromRangeMiddle > rangeMiddle) return "thumbRight";
     }
 
-    return 'thumbLeft';
+    return "thumbLeft";
   }
 
   private setTipValue (thumb: THandles, percent: number) {
@@ -308,7 +345,7 @@ class View extends Observer {
 
   private setThumbPosition (toggle: THandles, val: number) {
     const { isVertical, isBarRange, isTip } = this.modelSettings;
-    const typeStyleSide = isVertical ? 'top' : 'left';
+    const typeStyleSide = isVertical ? "top" : "left";
     const percent = this.convertPercentValueTo(val);
     this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
 
@@ -320,7 +357,9 @@ class View extends Observer {
   private convertPercentValueTo (val: number) {
     const { isVertical, minValue, maxValue } = this.modelSettings;
 
-    const percent = Number(((val - minValue) * 100 / (maxValue - minValue)).toFixed(10));
+    const percent = Number(
+      (((val - minValue) * 100) / (maxValue - minValue)).toFixed(10),
+    );
     const okPercent = isVertical ? 100 - percent : percent;
 
     return okPercent;
@@ -329,17 +368,39 @@ class View extends Observer {
   private setClickRangePosition () {
     const { isVertical, isBarRange, isRange } = this.modelSettings;
     const { components } = this;
-    const startPosition = isVertical ? 'top' : 'left';
-    const endPosition = isVertical ? 'bottom' : 'right';
+    const startPosition = isVertical ? "top" : "left";
+    const endPosition = isVertical ? "bottom" : "right";
 
     if (isBarRange) {
-      const fromPercent = parseFloat(components.thumbLeft.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
-      const toPercent = 100 - parseFloat(components.thumbRight.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
+      const fromPercent = parseFloat(
+        components.thumbLeft.thumb.style[startPosition].replace(
+          /[^0-9,.]/g,
+          " ",
+        ),
+      );
+      const toPercent = 100
+        - parseFloat(
+          components.thumbRight.thumb.style[startPosition].replace(
+            /[^0-9,.]/g,
+            " ",
+          ),
+        );
 
       if (isRange) {
         if (isVertical) {
-          const VerticalFromPercent = parseFloat(components.thumbRight.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
-          const VerticalToPercent = 100 - parseFloat(components.thumbLeft.thumb.style[startPosition].replace(/[^0-9,.]/g, ' '));
+          const VerticalFromPercent = parseFloat(
+            components.thumbRight.thumb.style[startPosition].replace(
+              /[^0-9,.]/g,
+              " ",
+            ),
+          );
+          const VerticalToPercent = 100
+            - parseFloat(
+              components.thumbLeft.thumb.style[startPosition].replace(
+                /[^0-9,.]/g,
+                " ",
+              ),
+            );
           components.range.style[startPosition] = `${VerticalFromPercent}%`;
           components.range.style[endPosition] = `${VerticalToPercent}%`;
         } else {
@@ -347,10 +408,10 @@ class View extends Observer {
           components.range.style[endPosition] = `${toPercent}%`;
         }
       } else if (isVertical) {
-        components.range.style[startPosition] = '0';
+        components.range.style[startPosition] = "0";
         components.range.style.top = `${fromPercent}%`;
       } else {
-        components.range.style[startPosition] = '0';
+        components.range.style[startPosition] = "0";
         components.range.style[endPosition] = `${100 - fromPercent}%`;
       }
     }
@@ -363,8 +424,8 @@ class View extends Observer {
     if (this.dragThumb) {
       this.setActiveThumb(this.dragThumb);
       this.draggable(event);
-      window.addEventListener('pointermove', this.draggable);
-      window.addEventListener('pointerup', this.draggableEnd);
+      window.addEventListener("pointermove", this.draggable);
+      window.addEventListener("pointerup", this.draggableEnd);
     }
   }
 
@@ -374,26 +435,32 @@ class View extends Observer {
       const coords = this.getValidatedCoords(event);
       const value = this.convertCoordsToValue(coords);
 
-      this._events.slide.notify({ handle: this.dragThumb, value, valueFromStep: true });
+      this.slideEvents.slide.notify({
+        handle: this.dragThumb,
+        value,
+        valueFromStep: true,
+      });
     }
   }
 
   @bind
   private draggableEnd () {
     if (this.dragThumb) {
-      window.removeEventListener('pointermove', this.draggable);
-      window.removeEventListener('pointerup', this.draggableEnd);
+      window.removeEventListener("pointermove", this.draggable);
+      window.removeEventListener("pointerup", this.draggableEnd);
 
       this.dragThumb = null;
     }
   }
 
   private initThumbsListeners () {
-    window.removeEventListener('pointermove', this.draggable);
-    window.removeEventListener('pointerup', this.draggableEnd);
-    this.components.bar.addEventListener('pointerdown', this.click);
-    this.components.bar.addEventListener('pointerdown', this.draggableStart);
-    this.components.steps.getDom().addEventListener('pointerdown', this.setItemStepsPosition);
+    window.removeEventListener("pointermove", this.draggable);
+    window.removeEventListener("pointerup", this.draggableEnd);
+    this.components.bar.addEventListener("pointerdown", this.click);
+    this.components.bar.addEventListener("pointerdown", this.draggableStart);
+    this.components.steps
+      .getDom()
+      .addEventListener("pointerdown", this.setItemStepsPosition);
   }
 
   @bind
@@ -409,13 +476,13 @@ class View extends Observer {
   @bind
   private setItemStepsPosition (event: PointerEvent) {
     this.components.steps.getItems().forEach((item) => {
-      if (event.target == item) {
-        const value = Number(item.getAttribute('data-val'));
+      if (event.target === item) {
+        const value = Number(item.getAttribute("data-val"));
         const thumb = this.changePositonThumb(event);
 
-        this._events.slide.notify({ handle: thumb, value });
+        this.slideEvents.slide.notify({ handle: thumb, value });
       }
-    })
+    });
   }
 
   private getStepsValue (): number[] {
@@ -438,13 +505,15 @@ class View extends Observer {
   private renderSteps () {
     const { isVertical } = this.modelSettings;
     const values = this.getStepsValue();
-    const side = isVertical ? 'top' : 'left';
-    this.components.steps.getDom().innerHTML = '';
+    const side = isVertical ? "top" : "left";
+    this.components.steps.getDom().innerHTML = "";
 
     values.map((item) => {
       const domItem = this.components.steps.addItem(Number(item.toFixed(2)));
       const percent = this.convertPercentValueTo(item);
       domItem.style[side] = `${percent}%`;
+
+      return 0;
     });
   }
 }

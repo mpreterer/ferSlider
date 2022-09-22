@@ -1,15 +1,16 @@
 /// <reference path="./utils/typings/globals/IJQuery.d.ts" />
-import ferSlider from "./View/ferSlider";
+import FerSlider from "./View/FerSlider";
 import { IModelSettings } from "./interfaces/IModelSettings";
 import { TDOMParents } from "./interfaces/types";
 import defaultSettings from "./Model/defaultSettings";
 
-(function ($) {
-  $.fn.ferSlider = function (settings?: IModelSettings) {
+(function init ($) {
+  const jquery = $;
+  jquery.fn.FerSlider = function createDOM (settings?: IModelSettings) {
     const validOptions: IModelSettings = $.extend({}, defaultSettings, settings);
     const domParent: TDOMParents = this[0];
 
-    const range = new ferSlider(domParent, validOptions);
+    const range = new FerSlider(domParent, validOptions);
     return range;
   }
 }(jQuery));
