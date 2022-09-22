@@ -53,6 +53,7 @@ class Model extends Observer {
     const valueWithStep = hasStep
       ? Model.getValueWithStep(bodyThumb.value, minValue, step)
       : bodyThumb.value;
+
     const validValueWithStep = Model.getDiapason(
       valueWithStep,
       minValue,
