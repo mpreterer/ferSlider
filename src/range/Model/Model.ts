@@ -46,6 +46,7 @@ class Model extends Observer {
       step,
     } = this.modelSettings;
     const bodyThumb = thumb;
+
     const isFrom = bodyThumb.handle === "thumbLeft";
     const isTo = bodyThumb.handle === "thumbRight";
     const hasStep = bodyThumb.valueFromStep;
@@ -138,9 +139,7 @@ class Model extends Observer {
   }
 
   static getValueWithStep (value: number, minValue: number, step: number) {
-    const valueWithStep = Math.round((
-      (value - minValue) / step)
-      * step + minValue);
+    const valueWithStep = Math.round((value - minValue) / step) * step + minValue;
 
     return valueWithStep;
   }
