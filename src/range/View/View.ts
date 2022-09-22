@@ -488,12 +488,19 @@ class View extends Observer {
   private getStepsValue (): number[] {
     const { maxValue, minValue, step } = this.modelSettings;
     const middleValue = Math.ceil((maxValue - minValue) / step);
-    const viewStep = Math.ceil(middleValue / 6) * step;
+    let quantitySteps = 6;
+    const limitationSteps = maxValue > 1e7 && maxValue <= 1e9;
+
+    if (limitationSteps) quantitySteps = 4;
+    if (maxValue > 1e9) quantitySteps = 2;
+
+    const viewStep = Math.ceil(middleValue / quantitySteps) * step;
     const middleArr = [];
     let value = minValue;
 
     for (let i = 0; value < maxValue; i += 1) {
       value += viewStep;
+
       if (value < maxValue) {
         middleArr.push(value);
       }
