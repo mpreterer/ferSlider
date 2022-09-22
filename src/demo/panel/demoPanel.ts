@@ -1,8 +1,7 @@
 import FerSlider from '../../range/View/FerSlider';
 import { TDOMParents } from '../../range/interfaces/types';
 import { bind } from "decko";
-import { IModelSettings } from '../../range/interfaces/IModelSettings';
-import { TUpdateThumb, TValueFrom } from '../../range/interfaces/types';
+import { TValueFrom } from '../../range/interfaces/types';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
 import IValidSettings from '../../range/interfaces/IValidSettings';
@@ -19,7 +18,6 @@ class demoPanel {
     this.slider = slider;
     this.modelSettings = this.slider.settings;
     this.render();
-    this.subscribeToEvents();
     this.initListenersFromPanel();
   }
 
@@ -47,18 +45,13 @@ class demoPanel {
     this.changeSettings(this.modelSettings);
   }
 
-  private subscribeToEvents(): void {
-    this.slider.events.modelChangedSettings!.subscribe(this.changeSettings);
-    this.slider.events.currentValueChanged!.subscribe(this.onSlideUpdate);
-  }
-
   private initListenersFromPanel(): void {
     const components = this.components;
     
     components.minValue.addEventListener('change', (element)  => {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateSettings({
-          minValue: parseInt((element.target).value)
+          minValue: parseFloat((element.target).value)
         })
       }
     })
@@ -66,7 +59,7 @@ class demoPanel {
     components.maxValue.addEventListener('change', (element) => {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateSettings({
-          maxValue: parseInt((element.target).value)
+          maxValue: parseFloat((element.target).value)
         })
       }
     })
@@ -75,7 +68,7 @@ class demoPanel {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateCurrentValue({
           handle: 'thumbLeft',
-          value: parseInt((element.target).value)
+          value: parseFloat((element.target).value)
         })
       }
     })
@@ -84,7 +77,7 @@ class demoPanel {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateCurrentValue({
           handle: 'thumbRight',
-          value: parseInt((element.target).value)
+          value: parseFloat((element.target).value)
         })
       }
     })
@@ -92,7 +85,7 @@ class demoPanel {
     components.step.addEventListener('change', (element) => {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateSettings({
-          step: parseInt((element.target).value)
+          step: parseFloat((element.target).value)
         })
       }
     })
@@ -142,11 +135,6 @@ class demoPanel {
     })
    }
 
-  @bind
-  private onSlideUpdate (thumb: TUpdateThumb): void {
-    this.components[thumb.handle].value = `${thumb.value}`;
-  }
-
   private changeCurrentValue (valueFrom: TValueFrom): void {
     const components = this.components;
 
@@ -162,7 +150,16 @@ class demoPanel {
 
   @bind
   private changeSettings (settings: IValidSettings): void {
-    const { minValue, maxValue, valueFrom, step, isBarRange, isRange, isTip, isStep } = settings;
+    const {
+      minValue,
+      maxValue,
+      valueFrom,
+      step,
+      isBarRange,
+      isRange,
+      isTip,
+      isStep
+    } = settings;
     const components = this.components;
 
     components.minValue.value = `${minValue}`;

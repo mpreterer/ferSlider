@@ -1,4 +1,4 @@
-import IObserver from './IObserver';
+import IObserver from "./IObserver";
 
 class Observer implements IObserver {
   private observers: any[];
@@ -12,7 +12,9 @@ class Observer implements IObserver {
   }
 
   public unsubscribe (fun: Function) {
-    this.observers = this.observers.filter((subscriber: Function) => subscriber !== fun);
+    this.observers = this.observers.filter(
+      (subscriber: Function) => subscriber !== fun,
+    );
   }
 
   public notify (data: any) {

@@ -1,6 +1,6 @@
 import { bind } from "decko";
 import { IModelSettings } from "../interfaces/IModelSettings";
-import { TDOMParents, TUpdateThumb } from '../interfaces/types';
+import { TDOMParents, TUpdateThumb } from "../interfaces/types";
 import { IExtendsEvents } from "../interfaces/IEvents";
 import Observer from "../Observer/Observer";
 import Model from "../Model/Model";
@@ -51,11 +51,12 @@ class Controller extends Observer {
 
   private subscribeToLayers () {
     this.model.subscribe(this.modelUpdate);
-    this.view.subscribe(this.viewUpdate);
   }
 
   private subscribeToEvents () {
-    this.model.events.currentValueChanged.subscribe(this.updateViewFromModelEvents);
+    this.model.events.currentValueChanged.subscribe(
+      this.updateViewFromModelEvents,
+    );
     this.view.events.slide.subscribe(this.updateModelFromViewEvents);
   }
 
@@ -73,11 +74,6 @@ class Controller extends Observer {
   private modelUpdate (modelSettings: IValidSettings) {
     this.view.updateModelSettings(modelSettings);
     this.model.events.modelChangedSettings.notify(modelSettings);
-  }
-
-  @bind
-  private viewUpdate (modelSettings: IValidSettings) {
-    this.model.updateModelSettings(modelSettings);
   }
 }
 

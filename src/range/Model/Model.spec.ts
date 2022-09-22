@@ -1,14 +1,14 @@
-import defaultModelSettings from '../utils/defaultModelSettings';
-import { TUpdateThumb } from '../interfaces/types';
-import Model from './Model';
-import IValidSettings from '../interfaces/IValidSettings';
+import defaultModelSettings from "../utils/defaultModelSettings";
+import { TUpdateThumb } from "../interfaces/types";
+import Model from "./Model";
+import IValidSettings from "../interfaces/IValidSettings";
 
-describe('Model:', () => {
+describe("Model:", () => {
   const settings = defaultModelSettings;
   const model = new Model(settings);
 
-  describe('updateModelSettings:', () => {
-    test('Обновляются настройки слайдера на вводимые', () => {
+  describe("updateModelSettings:", () => {
+    test("Обновляются настройки слайдера на вводимые", () => {
       const startSettings: IValidSettings = {
         minValue: 0,
         maxValue: 100,
@@ -20,7 +20,7 @@ describe('Model:', () => {
         isBarRange: true,
         isVertical: false,
         isStep: false,
-      }
+      };
 
       model.updateModelSettings(startSettings);
 
@@ -28,9 +28,9 @@ describe('Model:', () => {
     });
   });
 
-  describe('updateCurrentValueSettings:', () => {
-    test('Обновление valueFrom на проверенное', () => {
-      const thumb: TUpdateThumb = { handle: 'thumbLeft', value: 10 };
+  describe("updateCurrentValueSettings:", () => {
+    test("Обновление valueFrom на проверенное", () => {
+      const thumb: TUpdateThumb = { handle: "thumbLeft", value: 10 };
 
       model.updateCurrentValueSettings(thumb);
       const UpdateValueSettings = model.settings;
@@ -38,11 +38,11 @@ describe('Model:', () => {
       expect(UpdateValueSettings.valueFrom).toBe(10);
     });
 
-    test('Оповещение наблюдателей event currentValueChanged об обновлении thumb', () => {
+    test("Оповещение наблюдателей event currentValueChanged об обновлении thumb", () => {
       const subscriber = jest.fn();
       model.events.currentValueChanged.subscribe(subscriber);
 
-      const thumb: TUpdateThumb = { handle: 'thumbLeft', value: 65 };
+      const thumb: TUpdateThumb = { handle: "thumbLeft", value: 65 };
       model.updateCurrentValueSettings(thumb);
 
       expect(subscriber).toHaveBeenCalledWith(thumb);

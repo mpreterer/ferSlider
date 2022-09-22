@@ -19,9 +19,7 @@ const sliderContainer3 = {
   containerPanel: $(".js-container__panel-3"),
 };
 
-const slider_1 = sliderContainer1.containerSlider.FerSlider({
-  step: 0.01,
-});
+const slider_1 = sliderContainer1.containerSlider.FerSlider({});
 const slider_2 = sliderContainer2.containerSlider.FerSlider({
   minValue: -42,
   maxValue: 42,
