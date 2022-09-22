@@ -332,10 +332,11 @@ class View extends Observer {
   }
 
   private setTipValue (thumb: THandles, percent: number) {
-    const { isTip } = this.modelSettings;
+    const { isTip, step } = this.modelSettings;
+    const quantitySymbols = step.toString().match(/\.(\d+)/)?.[1].length;
 
     if (isTip) {
-      this.components[thumb].tip.innerHTML = percent.toFixed();
+      this.components[thumb].tip.innerHTML = percent.toFixed(quantitySymbols);
     }
   }
 
