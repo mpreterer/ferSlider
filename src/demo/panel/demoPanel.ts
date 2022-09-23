@@ -47,7 +47,7 @@ class demoPanel {
 
   private initListenersFromPanel(): void {
     const components = this.components;
-    
+
     components.minValue.addEventListener('change', (element)  => {
       if (element.target instanceof HTMLInputElement) {
         this.slider.updateSettings({
@@ -107,7 +107,10 @@ class demoPanel {
         this.slider.updateSettings({
           isRange: Boolean((element.target).checked)
         })
-     }
+        
+        components.thumbRight.disabled = !Boolean((element.target).checked);
+        components.thumbRight.value = '';
+      }
     })
 
     components.isBarRange.addEventListener('change', (element) => {
@@ -133,7 +136,7 @@ class demoPanel {
         })
       }
     })
-   }
+  }
 
   private changeCurrentValue (valueFrom: TValueFrom): void {
     const components = this.components;
@@ -161,7 +164,6 @@ class demoPanel {
       isStep
     } = settings;
     const components = this.components;
-
     components.minValue.value = `${minValue}`;
     components.maxValue.value = `${maxValue}`;
 
