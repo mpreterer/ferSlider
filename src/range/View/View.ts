@@ -341,7 +341,9 @@ class View extends Observer {
   }
 
   public updateCurrentValue (thumb: TUpdateThumb) {
-    this.setThumbPosition(thumb.handle, thumb.value);
+    if (!Number.isNaN(thumb.value)) {
+      this.setThumbPosition(thumb.handle, thumb.value);
+    }
   }
 
   private setThumbPosition (toggle: THandles, val: number) {

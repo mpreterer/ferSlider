@@ -31,10 +31,23 @@ class Model extends Observer {
   }
 
   public updateModelSettings (settings: IValidSettings): void {
-    this.modelSettings = settings;
-    this.validModelSettings(settings);
+    if (Model.checkNewSettings(settings)) {
+      this.modelSettings = settings;
+      this.validModelSettings(settings);
+      this.notify(this.modelSettings);
+    }
+  }
 
-    this.notify(this.modelSettings);
+  static checkNewSettings (settings: IValidSettings): boolean {
+    const validMinValue = Number.isNaN(settings.minValue);
+    const validMaxValue = Number.isNaN(settings.maxValue);
+    const validStep = Number.isNaN(settings.step);
+
+    const validNewSettings = !validMinValue
+    && !validMaxValue
+    && !validStep
+
+    return validNewSettings;
   }
 
   public updateCurrentValueSettings (thumb: TUpdateThumb): void {
@@ -104,6 +117,7 @@ class Model extends Observer {
       maxValue,
       step,
     } = settings;
+
     const validatedMiddle = Model.getMiddleValue(minValue, maxValue);
 
     this.modelSettings.minValue = validatedMiddle.minValue;
