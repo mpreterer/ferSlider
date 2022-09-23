@@ -38,7 +38,9 @@ describe("Model:", () => {
       expect(UpdateValueSettings.valueFrom).toBe(10);
     });
 
-    test("Оповещение наблюдателей event currentValueChanged об обновлении thumb", () => {
+    test(`Оповещение наблюдателей 
+      event currentValueChanged 
+      об обновлении thumb`, () => {
       const subscriber = jest.fn();
       model.events.currentValueChanged.subscribe(subscriber);
 
