@@ -348,6 +348,8 @@ class View extends Observer {
     const { isVertical, isBarRange, isTip } = this.modelSettings;
     const typeStyleSide = isVertical ? "top" : "left";
     const percent = this.convertPercentValueTo(val);
+
+    if (!isVertical) this.components[toggle].thumb.style.top = '';
     this.components[toggle].thumb.style[typeStyleSide] = `${percent}%`;
 
     this.setActiveThumb(toggle);
