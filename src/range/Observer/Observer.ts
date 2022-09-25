@@ -1,7 +1,7 @@
 import IObserver from "./IObserver";
 
 class Observer implements IObserver {
-  private observers: any[];
+  private observers: Function[];
 
   constructor () {
     this.observers = [];
@@ -17,7 +17,7 @@ class Observer implements IObserver {
     );
   }
 
-  public notify (data: any) {
+  public notify (data: Object) {
     this.observers.forEach((subscriber: Function) => {
       subscriber(data);
     });
