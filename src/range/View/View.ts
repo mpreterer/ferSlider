@@ -428,19 +428,19 @@ class View extends Observer {
   }
 
   @bind
-  private draggableStart (event: PointerEvent) {
+  private handlePointerDownBar (event: PointerEvent) {
     this.dragThumb = this.changePositonThumb(event);
 
     if (this.dragThumb) {
       this.setActiveThumb(this.dragThumb);
-      this.draggable(event);
-      window.addEventListener("pointermove", this.draggable);
-      window.addEventListener("pointerup", this.draggableEnd);
+      this.handlePointerMoveWindow(event);
+      window.addEventListener("pointermove", this.handlePointerMoveWindow);
+      window.addEventListener("pointerup", this.handlePointerUpWindow);
     }
   }
 
   @bind
-  private draggable (event: PointerEvent) {
+  private handlePointerMoveWindow (event: PointerEvent) {
     if (this.dragThumb) {
       const coords = this.getValidatedCoords(event);
       const value = this.convertCoordsToValue(coords);
@@ -454,33 +454,22 @@ class View extends Observer {
   }
 
   @bind
-  private draggableEnd () {
+  private handlePointerUpWindow () {
     if (this.dragThumb) {
-      window.removeEventListener("pointermove", this.draggable);
-      window.removeEventListener("pointerup", this.draggableEnd);
+      window.removeEventListener("pointermove", this.handlePointerMoveWindow);
+      window.removeEventListener("pointerup", this.handlePointerUpWindow);
 
       this.dragThumb = null;
     }
   }
 
   private initThumbsListeners () {
-    window.removeEventListener("pointermove", this.draggable);
-    window.removeEventListener("pointerup", this.draggableEnd);
-    this.components.bar.addEventListener("pointerdown", this.click);
-    this.components.bar.addEventListener("pointerdown", this.draggableStart);
+    window.removeEventListener("pointermove", this.handlePointerMoveWindow);
+    window.removeEventListener("pointerup", this.handlePointerUpWindow);
+    this.components.bar.addEventListener("pointerdown", this.handlePointerDownBar);
     this.components.steps
       .getDom()
       .addEventListener("pointerdown", this.setItemStepsPosition);
-  }
-
-  @bind
-  private click (event: PointerEvent) {
-    this.dragThumb = this.changePositonThumb(event);
-
-    if (this.dragThumb) {
-      this.setActiveThumb(this.dragThumb);
-      this.draggable(event);
-    }
   }
 
   @bind
