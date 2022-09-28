@@ -79,51 +79,61 @@ class View extends Observer {
     const hasRange = components.bar.contains(components.range);
     const hasStep = components.slider.contains(components.steps.getDom());
 
+    const isRenderStep = isStep && !hasStep;
+    const isRenderFromThumb = isRange && !hasFromThumb;
+    const isRenderToThumb = isRange && !hasToThumb;
+    const isRenderRange = isBarRange && !hasRange;
+    const isRenderTips = isTip && !hasTip;
+
+    const removeStep = !isStep && hasStep;
+    const removeToThumb = !isRange && hasToThumb;
+    const removeRange = !isBarRange && hasRange;
+    const removeTips = !isTip && hasTip;
+
     if (!hasBar) {
       components.slider.appendChild(components.bar);
     }
 
     if (isStep) {
       this.renderSteps();
-
-      if (!hasStep) {
-        components.slider.appendChild(components.steps.getDom());
-      }
     }
 
-    if (!isStep && hasStep) {
+    if (isRenderStep) {
+      components.slider.appendChild(components.steps.getDom());
+    }
+
+    if (removeStep) {
       components.slider.removeChild(components.steps.getDom());
     }
 
-    if (isRange) {
-      if (!hasFromThumb) {
-        components.bar.appendChild(components.thumbLeft.thumb);
-      }
-      if (!hasToThumb) {
-        components.bar.appendChild(components.thumbRight.thumb);
-      }
+    if (isRenderFromThumb) {
+      components.bar.appendChild(components.thumbLeft.thumb);
+    }
+
+    if (isRenderToThumb) {
+      components.bar.appendChild(components.thumbRight.thumb);
     } else {
       components.bar.appendChild(components.thumbLeft.thumb);
     }
 
-    if (!isRange && hasToThumb) {
+    if (removeToThumb) {
       components.bar.removeChild(components.thumbRight.thumb);
     }
 
-    if (isBarRange && !hasRange) {
+    if (isRenderRange) {
       components.bar.appendChild(components.range);
     }
 
-    if (!isBarRange && hasRange) {
+    if (removeRange) {
       components.bar.removeChild(components.range);
     }
 
-    if (isTip && !hasTip) {
+    if (isRenderTips) {
       components.thumbLeft.thumb.appendChild(components.thumbLeft.tip);
       components.thumbRight.thumb.appendChild(components.thumbRight.tip);
     }
 
-    if (!isTip && hasTip) {
+    if (removeTips) {
       components.thumbLeft.thumb.removeChild(components.thumbLeft.tip);
       components.thumbRight.thumb.removeChild(components.thumbRight.tip);
     }
@@ -234,19 +244,14 @@ class View extends Observer {
   }
 
   private setCurrentValue () {
-    const { valueFrom, isRange } = this.modelSettings;
+    const { valueFrom } = this.modelSettings;
 
     if (typeof valueFrom === "object") {
       this.setThumbPosition("thumbLeft", valueFrom.minValue);
-      if (isRange) {
-        this.setThumbPosition("thumbRight", valueFrom.maxValue);
-      }
+      this.setThumbPosition("thumbRight", valueFrom.maxValue);
     }
     if (typeof valueFrom === "number") {
       this.setThumbPosition("thumbLeft", valueFrom);
-      if (isRange) {
-        this.setThumbPosition("thumbRight", valueFrom);
-      }
     }
   }
 
@@ -317,16 +322,16 @@ class View extends Observer {
     const thumbLeftValue = this.getThumbPosition("thumbLeft");
     const mouseCoords = this.getValidatedCoords(event);
 
-    if (isRange) {
-      const thumbRightValue = this.getThumbPosition("thumbRight");
-      const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
-      const valueFromRangeMiddle = mouseCoords - thumbLeftValue;
+    if (!isRange) return "thumbLeft";
 
-      if (mouseCoords <= thumbLeftValue) return "thumbLeft";
-      if (mouseCoords >= thumbRightValue) return "thumbRight";
-      if (valueFromRangeMiddle <= rangeMiddle) return "thumbLeft";
-      if (valueFromRangeMiddle > rangeMiddle) return "thumbRight";
-    }
+    const thumbRightValue = this.getThumbPosition("thumbRight");
+    const rangeMiddle = (thumbRightValue - thumbLeftValue) / 2;
+    const valueFromRangeMiddle = mouseCoords - thumbLeftValue;
+
+    if (mouseCoords <= thumbLeftValue) return "thumbLeft";
+    if (mouseCoords >= thumbRightValue) return "thumbRight";
+    if (valueFromRangeMiddle <= rangeMiddle) return "thumbLeft";
+    if (valueFromRangeMiddle > rangeMiddle) return "thumbRight";
 
     return "thumbLeft";
   }
@@ -375,50 +380,50 @@ class View extends Observer {
     const { components } = this;
     const startPosition = isVertical ? "top" : "left";
     const endPosition = isVertical ? "bottom" : "right";
+    const verticalRange = isRange && isVertical;
+    const horizontalRange = isRange && !isVertical;
 
-    if (isBarRange) {
-      const fromPercent = parseFloat(
-        components.thumbLeft.thumb.style[startPosition].replace(
+    if (!isBarRange) return;
+
+    const fromPercent = parseFloat(
+      components.thumbLeft.thumb.style[startPosition].replace(
+        /[^0-9,.]/g,
+        " ",
+      ),
+    );
+    const toPercent = 100
+      - parseFloat(
+        components.thumbRight.thumb.style[startPosition].replace(
           /[^0-9,.]/g,
           " ",
         ),
       );
-      const toPercent = 100
+
+    if (verticalRange) {
+      const VerticalFromPercent = parseFloat(
+        components.thumbRight.thumb.style[startPosition].replace(
+          /[^0-9,.]/g,
+          " ",
+        ),
+      );
+      const VerticalToPercent = 100
         - parseFloat(
-          components.thumbRight.thumb.style[startPosition].replace(
+          components.thumbLeft.thumb.style[startPosition].replace(
             /[^0-9,.]/g,
             " ",
           ),
         );
-
-      if (isRange) {
-        if (isVertical) {
-          const VerticalFromPercent = parseFloat(
-            components.thumbRight.thumb.style[startPosition].replace(
-              /[^0-9,.]/g,
-              " ",
-            ),
-          );
-          const VerticalToPercent = 100
-            - parseFloat(
-              components.thumbLeft.thumb.style[startPosition].replace(
-                /[^0-9,.]/g,
-                " ",
-              ),
-            );
-          components.range.style[startPosition] = `${VerticalFromPercent}%`;
-          components.range.style[endPosition] = `${VerticalToPercent}%`;
-        } else {
-          components.range.style[startPosition] = `${fromPercent}%`;
-          components.range.style[endPosition] = `${toPercent}%`;
-        }
-      } else if (isVertical) {
-        components.range.style[startPosition] = "0";
-        components.range.style.top = `${fromPercent}%`;
-      } else {
-        components.range.style[startPosition] = "0";
-        components.range.style[endPosition] = `${100 - fromPercent}%`;
-      }
+      components.range.style[startPosition] = `${VerticalFromPercent}%`;
+      components.range.style[endPosition] = `${VerticalToPercent}%`;
+    } else if (horizontalRange) {
+      components.range.style[startPosition] = `${fromPercent}%`;
+      components.range.style[endPosition] = `${toPercent}%`;
+    } else if (isVertical) {
+      components.range.style[startPosition] = "0";
+      components.range.style.top = `${fromPercent}%`;
+    } else {
+      components.range.style[startPosition] = "0";
+      components.range.style[endPosition] = `${100 - fromPercent}%`;
     }
   }
 

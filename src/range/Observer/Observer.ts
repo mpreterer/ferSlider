@@ -1,4 +1,7 @@
 import IObserver from "./IObserver";
+// type ObserverEvent = { type: string; data: unknown }
+// type Narrow<T, K> = T extends { type: K } ? T : never;
+// type EventCallback<T extends ObserverEvent, K> = (data: Narrow<T, K>['data']) => void;
 
 class Observer implements IObserver {
   private observers: Function[];

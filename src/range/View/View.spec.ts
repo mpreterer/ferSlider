@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import $ from 'jquery';
 import View from './View';
 import IValidSettings from '../interfaces/IValidSettings';
 import styleClasses from './styleClasses';
