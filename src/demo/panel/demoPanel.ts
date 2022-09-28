@@ -1,10 +1,10 @@
-import FerSlider from "../../range/View/FerSlider";
-import { TDOMParents } from "../../range/interfaces/types";
-import { bind } from "decko";
-import { TValueFrom } from "../../range/interfaces/types";
-import IComponents from "./utils/interfaces/IComponents";
-import tplPanel from "./utils/tplPanel";
-import IValidSettings from "../../range/interfaces/IValidSettings";
+import { bind } from 'decko';
+
+import IValidSettings from '../../range/interfaces/IValidSettings';
+import { TDOMParents, TValueFrom } from '../../range/interfaces/types';
+import FerSlider from '../../range/View/FerSlider';
+import IComponents from './utils/interfaces/IComponents';
+import tplPanel from './utils/tplPanel';
 
 class demoPanel {
   private domParent: TDOMParents;

@@ -1,5 +1,5 @@
-import Step from "../View/components/step/step";
-import { TDOMParents } from "./types";
+import Step from '../View/components/step/step';
+import { TDOMParents } from './types';
 
 interface IUnitComponents {
   slider: HTMLDivElement;

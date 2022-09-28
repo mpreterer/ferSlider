@@ -1,9 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-import Controller from "./Controller";
-import defaultSettings from "../Model/defaultSettings";
-import { IModelSettings } from "../interfaces/IModelSettings";
+import IModelSettings from '../interfaces/IModelSettings';
+import defaultSettings from '../Model/defaultSettings';
+import Controller from './Controller';
 
 describe("Controller:", () => {
   describe("update settings:", () => {

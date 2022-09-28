@@ -1,16 +1,17 @@
-import { bind } from "decko";
-import Observer from "../Observer/Observer";
-import IUnitComponents from "../interfaces/IUnitComponents";
-import styleClasses from "./styleClasses";
-import { IEvents } from "../interfaces/IEvents";
-import { TDOMParents, THandles, TUpdateThumb } from "../interfaces/types";
-import Range from "./components/range/range";
-import Thumb from "./components/thumb/thumb";
-import Bar from "./components/bar/bar";
-import Step from "./components/step/step";
-import Tip from "./components/tip/tip";
-import IValidSettings from "../interfaces/IValidSettings";
-import Slider from "./components/slider/slider";
+import { bind } from 'decko';
+
+import { IEvents } from '../interfaces/IEvents';
+import IUnitComponents from '../interfaces/IUnitComponents';
+import IValidSettings from '../interfaces/IValidSettings';
+import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
+import Observer from '../Observer/Observer';
+import Bar from './components/bar/bar';
+import Range from './components/range/range';
+import Slider from './components/slider/slider';
+import Step from './components/step/step';
+import Thumb from './components/thumb/thumb';
+import Tip from './components/tip/tip';
+import styleClasses from './styleClasses';
 
 class View extends Observer {
   private modelSettings: IValidSettings;

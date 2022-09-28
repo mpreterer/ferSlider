@@ -1,8 +1,8 @@
-import { IModelSettings } from "../interfaces/IModelSettings";
-import { TDOMParents, TUpdateThumb } from "../interfaces/types";
-import { IExtendsEvents } from "../interfaces/IEvents";
-import Controller from "../Controller/Controller";
-import IValidSettings from "../interfaces/IValidSettings";
+import Controller from '../Controller/Controller';
+import { IExtendsEvents } from '../interfaces/IEvents';
+import IModelSettings from '../interfaces/IModelSettings';
+import IValidSettings from '../interfaces/IValidSettings';
+import { TDOMParents, TUpdateThumb } from '../interfaces/types';
 
 class FerSlider {
   private controller: Controller;

@@ -1,5 +1,3 @@
-import { TDOMParents } from "../../../../range/interfaces/types";
-
 interface IComponents {
   minValue: HTMLInputElement;
   maxValue: HTMLInputElement;

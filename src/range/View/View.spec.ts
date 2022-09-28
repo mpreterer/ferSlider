@@ -1,11 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import View from './View';
 import IValidSettings from '../interfaces/IValidSettings';
-import styleClasses from './styleClasses';
 import { TUpdateThumb } from '../interfaces/types';
 import defaultSettings from '../Model/defaultSettings';
+import styleClasses from './styleClasses';
+import View from './View';
 
 describe('View:', () => {
   describe('updateModelSettings:', () => {

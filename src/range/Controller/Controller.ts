@@ -1,11 +1,12 @@
-import { bind } from "decko";
-import { IModelSettings } from "../interfaces/IModelSettings";
-import { TDOMParents, TUpdateThumb } from "../interfaces/types";
-import { IExtendsEvents } from "../interfaces/IEvents";
-import Observer from "../Observer/Observer";
-import Model from "../Model/Model";
-import View from "../View/View";
-import IValidSettings from "../interfaces/IValidSettings";
+import { bind } from 'decko';
+
+import { IExtendsEvents } from '../interfaces/IEvents';
+import IModelSettings from '../interfaces/IModelSettings';
+import IValidSettings from '../interfaces/IValidSettings';
+import { TDOMParents, TUpdateThumb } from '../interfaces/types';
+import Model from '../Model/Model';
+import Observer from '../Observer/Observer';
+import View from '../View/View';
 
 class Controller extends Observer {
   private domParent: TDOMParents;

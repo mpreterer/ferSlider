@@ -1,7 +1,7 @@
-import defaultModelSettings from "../utils/defaultModelSettings";
-import { TUpdateThumb } from "../interfaces/types";
-import Model from "./Model";
-import IValidSettings from "../interfaces/IValidSettings";
+import IValidSettings from '../interfaces/IValidSettings';
+import { TUpdateThumb } from '../interfaces/types';
+import defaultModelSettings from '../utils/defaultModelSettings';
+import Model from './Model';
 
 describe("Model:", () => {
   const settings = defaultModelSettings;

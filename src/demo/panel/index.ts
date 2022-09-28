@@ -1,8 +1,8 @@
-/// <reference path="./utils/typings/globals/IJQueryPanel.d.ts" />
-
 import { TDOMParents } from '../../range/interfaces/types';
-import FerSlider from "../../range/View/FerSlider";
-import demoPanel from "./demoPanel";
+import FerSlider from '../../range/View/FerSlider';
+import demoPanel from './demoPanel';
+
+/// <reference path="./utils/typings/globals/IJQueryPanel.d.ts" />
 
 (function ( $ ) {
   $.fn.demoPanel = function(slider: FerSlider) {

@@ -1,7 +1,7 @@
-import Observer from "../Observer/Observer";
-import IValidSettings from "../interfaces/IValidSettings";
-import { TValueFrom, TUpdateThumb } from "../interfaces/types";
-import { IModelEvents } from "../interfaces/IEvents";
+import { IModelEvents } from '../interfaces/IEvents';
+import IValidSettings from '../interfaces/IValidSettings';
+import { TUpdateThumb, TValueFrom } from '../interfaces/types';
+import Observer from '../Observer/Observer';
 
 class Model extends Observer {
   private modelSettings: IValidSettings;
