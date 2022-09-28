@@ -25,6 +25,22 @@
 >```npm run test```
 ---
 
+Запустить eslint
+>```npm run eslint```
+---
+
+Запустить фикс eslint
+>```npm run eslint:fix```
+---
+
+Запустить stylelint
+>```npm run stylelint```
+---
+
+Запустить фикс стилей
+>```npm run stylelint:fix```
+---
+
 ## Настройки
 | Название   | Тип  | Значение по умолчанию | Описание |
 | :-: | :-: | :-: | :-: |
@@ -70,6 +86,10 @@ $('.sliderContainer').ferSlider({settings});
 ## Использованные библиотеки
 * [jQuery ^3.6.0](https://github.com/jquery/jquery),
 * [decko ^1.2.0](https://www.npmjs.com/package/decko),
+
+## Дополнительные используемые технологии
+* [Node.js v14.17.1](https://nodejs.org/ru),
+* [npm ^6.14.13](https://www.npmjs.com),
 
 **Проект написан с использованием паттерна MVC с Passive View**
 
