@@ -41,6 +41,6 @@ const slider_3 = sliderContainer3.containerSlider.FerSlider({
   valueFrom: 0,
 });
 
-sliderContainer1.containerPanel.demoPanel(slider_1);
-sliderContainer2.containerPanel.demoPanel(slider_2);
-sliderContainer3.containerPanel.demoPanel(slider_3);
+sliderContainer1.containerPanel.DemoPanel(slider_1);
+sliderContainer2.containerPanel.DemoPanel(slider_2);
+sliderContainer3.containerPanel.DemoPanel(slider_3);

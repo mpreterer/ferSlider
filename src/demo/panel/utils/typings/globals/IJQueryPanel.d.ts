@@ -1,8 +1,8 @@
 import IModelSettings from "../../../../../range/interfaces/IModelSettings";
-import demoPanel from "../../../demoPanel";
+import DemoPanel from "../../../DemoPanel";
 
 declare global {
   interface JQuery {
-    demoPanel(settings?: IModelSettings): demoPanel;
+    DemoPanel(settings?: IModelSettings): DemoPanel;
   }
 }

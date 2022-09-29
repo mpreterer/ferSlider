@@ -1,4 +1,4 @@
-import Step from '../View/components/step/step';
+import Step from '../View/components/step/Step';
 import { TDOMParents } from './types';
 
 interface IUnitComponents {

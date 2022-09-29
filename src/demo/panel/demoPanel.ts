@@ -5,7 +5,7 @@ import { TDOMParents, TValueFrom } from '../../range/interfaces/types';
 import FerSlider from '../../range/View/FerSlider';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
-class demoPanel {
+class DemoPanel {
   constructor(domParent: TDOMParents, slider: FerSlider) {
     this.domParent = domParent;
     this.slider = slider;
@@ -234,4 +234,4 @@ class demoPanel {
   }
 }
 
-export default demoPanel;
+export default DemoPanel;
