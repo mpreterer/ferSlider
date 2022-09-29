@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Thumb {
-  private dom: HTMLDivElement;
-
   public saveDom (element: HTMLDivElement) {
     this.dom = element;
   }
@@ -19,6 +17,8 @@ class Thumb {
 
     return thumbHTML;
   }
+
+  private dom: HTMLDivElement;
 }
 
 export default Thumb;

@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Step {
-  private dom: HTMLElement;
-
   constructor () {
     this.getHTML();
   }
@@ -36,6 +34,8 @@ class Step {
     const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP} li`);
     return stepsList as NodeListOf<HTMLElement>;
   }
+
+  private dom: HTMLElement;
 }
 
 export default Step;

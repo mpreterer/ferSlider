@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Slider {
-  private dom: HTMLDivElement;
-
   constructor () {
     this.getHTML();
   }
@@ -21,6 +19,8 @@ class Slider {
 
     this.saveDom(sliderHTML);
   }
+
+  private dom: HTMLDivElement;
 }
 
 export default Slider;

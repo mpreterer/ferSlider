@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Tip {
-  private dom: HTMLDivElement;
-
   public saveDom (element: HTMLDivElement) {
     this.dom = element;
   }
@@ -19,6 +17,8 @@ class Tip {
 
     return tipHTML;
   }
+
+  private dom: HTMLDivElement;
 }
 
 export default Tip;

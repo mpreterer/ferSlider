@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Bar {
-  private dom: HTMLDivElement;
-
   constructor () {
     this.getHTML();
   }
@@ -21,6 +19,8 @@ class Bar {
 
     this.saveDom(htmlBar);
   }
+
+  private dom: HTMLDivElement;
 }
 
 export default Bar;

@@ -1,8 +1,6 @@
 import styleClasses from "../../styleClasses";
 
 class Range {
-  private dom: HTMLDivElement;
-
   constructor () {
     this.getHTML();
   }
@@ -21,6 +19,8 @@ class Range {
 
     this.saveDom(htmlRange);
   }
+
+  private dom: HTMLDivElement;
 }
 
 export default Range;
