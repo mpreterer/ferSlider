@@ -9,23 +9,6 @@ import Observer from '../Observer/Observer';
 import View from '../View/View';
 
 class Controller extends Observer {
-  private domParent: TDOMParents;
-
-  private model: Model;
-
-  private view: View;
-
-  get events (): IExtendsEvents {
-    return {
-      ...this.model.events,
-      ...this.view.events,
-    };
-  }
-
-  get settings (): IValidSettings {
-    return this.model.settings;
-  }
-
   constructor (domParent: TDOMParents, settings: IValidSettings) {
     super();
 
@@ -49,6 +32,23 @@ class Controller extends Observer {
     this.subscribeToLayers();
     this.subscribeToEvents();
   }
+
+  get events (): IExtendsEvents {
+    return {
+      ...this.model.events,
+      ...this.view.events,
+    };
+  }
+
+  get settings (): IValidSettings {
+    return this.model.settings;
+  }
+
+  private domParent: TDOMParents;
+
+  private model: Model;
+
+  private view: View;
 
   private subscribeToLayers () {
     this.model.subscribe(this.modelUpdate);

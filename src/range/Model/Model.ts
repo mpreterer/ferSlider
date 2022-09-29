@@ -4,27 +4,12 @@ import { TUpdateThumb, TValueFrom } from '../interfaces/types';
 import Observer from '../Observer/Observer';
 
 class Model extends Observer {
-  private modelSettings: IValidSettings;
-
   constructor (settings: IValidSettings) {
     super();
 
     this.modelSettings = settings;
     this.validModelSettings(settings);
   }
-
-  get settings (): IValidSettings {
-    return this.modelSettings;
-  }
-
-  get events (): IModelEvents {
-    return this.modelEvents;
-  }
-
-  private modelEvents: IModelEvents = {
-    currentValueChanged: new Observer(),
-    modelChangedSettings: new Observer(),
-  };
 
   public getModelSettings (): IValidSettings {
     return this.modelSettings;
@@ -36,18 +21,6 @@ class Model extends Observer {
       this.validModelSettings(settings);
       this.notify(this.modelSettings);
     }
-  }
-
-  static checkNewSettings (settings: IValidSettings): boolean {
-    const validMinValue = Number.isNaN(settings.minValue);
-    const validMaxValue = Number.isNaN(settings.maxValue);
-    const validStep = Number.isNaN(settings.step);
-
-    const validNewSettings = !validMinValue
-    && !validMaxValue
-    && !validStep
-
-    return validNewSettings;
   }
 
   public updateCurrentValueSettings (thumb: TUpdateThumb): void {
@@ -109,20 +82,12 @@ class Model extends Observer {
     this.modelEvents.currentValueChanged.notify(bodyThumb);
   }
 
-  private validModelSettings (settings: IValidSettings) {
-    const {
-      valueFrom,
-      minValue,
-      maxValue,
-      step,
-    } = settings;
+  get settings (): IValidSettings {
+    return this.modelSettings;
+  }
 
-    const validatedMiddle = Model.getMiddleValue(minValue, maxValue);
-
-    this.modelSettings.minValue = validatedMiddle.minValue;
-    this.modelSettings.maxValue = validatedMiddle.maxValue;
-    this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom);
-    this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
+  get events (): IModelEvents {
+    return this.modelEvents;
   }
 
   static getValidStep (
@@ -165,6 +130,41 @@ class Model extends Observer {
     const checkValue = minValue > maxValue ? maxValue : minValue;
 
     return { minValue: checkValue, maxValue };
+  }
+
+  static checkNewSettings (settings: IValidSettings): boolean {
+    const validMinValue = Number.isNaN(settings.minValue);
+    const validMaxValue = Number.isNaN(settings.maxValue);
+    const validStep = Number.isNaN(settings.step);
+
+    const validNewSettings = !validMinValue
+    && !validMaxValue
+    && !validStep
+
+    return validNewSettings;
+  }
+
+  private modelSettings: IValidSettings;
+
+  private modelEvents: IModelEvents = {
+    currentValueChanged: new Observer(),
+    modelChangedSettings: new Observer(),
+  };
+
+  private validModelSettings (settings: IValidSettings) {
+    const {
+      valueFrom,
+      minValue,
+      maxValue,
+      step,
+    } = settings;
+
+    const validatedMiddle = Model.getMiddleValue(minValue, maxValue);
+
+    this.modelSettings.minValue = validatedMiddle.minValue;
+    this.modelSettings.maxValue = validatedMiddle.maxValue;
+    this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom);
+    this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
   }
 
   private getValidCurrentValue (valueFrom: TValueFrom): TValueFrom {

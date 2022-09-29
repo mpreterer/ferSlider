@@ -5,13 +5,7 @@ import { TDOMParents, TValueFrom } from '../../range/interfaces/types';
 import FerSlider from '../../range/View/FerSlider';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
-
 class demoPanel {
-  private domParent: TDOMParents;
-  private slider: FerSlider;
-  private components: IComponents;
-  private modelSettings: IValidSettings;
-
   constructor(domParent: TDOMParents, slider: FerSlider) {
     this.domParent = domParent;
     this.slider = slider;
@@ -19,6 +13,11 @@ class demoPanel {
     this.render();
     this.initListenersFromPanel();
   }
+
+  private domParent: TDOMParents;
+  private slider: FerSlider;
+  private components: IComponents;
+  private modelSettings: IValidSettings;
 
   private render(): void {
     const panel = document.createElement("div");

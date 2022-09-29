@@ -14,12 +14,6 @@ import Tip from './components/tip/tip';
 import styleClasses from './styleClasses';
 
 class View extends Observer {
-  private modelSettings: IValidSettings;
-
-  private components: IUnitComponents;
-
-  private dragThumb: THandles | null;
-
   constructor (domParent: TDOMParents, modelSettings: IValidSettings) {
     super();
 
@@ -27,13 +21,24 @@ class View extends Observer {
     this.initSubViewComponents(domParent);
   }
 
-  private slideEvents: IEvents = {
-    slide: new Observer(),
-  };
+  public updateModelSettings (newModelOptions: IValidSettings) {
+    this.modelSettings = newModelOptions;
+    this.render();
+  }
 
   get events (): IEvents {
     return this.slideEvents;
   }
+
+  private modelSettings: IValidSettings;
+
+  private components: IUnitComponents;
+
+  private dragThumb: THandles | null;
+
+  private slideEvents: IEvents = {
+    slide: new Observer(),
+  };
 
   private initSubViewComponents (htmlParent: TDOMParents) {
     this.components = {
@@ -55,11 +60,6 @@ class View extends Observer {
 
     this.render();
     this.initThumbsListeners();
-  }
-
-  public updateModelSettings (newModelOptions: IValidSettings) {
-    this.modelSettings = newModelOptions;
-    this.render();
   }
 
   private render () {
