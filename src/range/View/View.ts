@@ -470,11 +470,11 @@ class View extends Observer {
     this.components.bar.addEventListener("pointerdown", this.handlePointerDownBar);
     this.components.steps
       .getDom()
-      .addEventListener("pointerdown", this.setItemStepsPosition);
+      .addEventListener("pointerdown", this.handlePointerDownSteps);
   }
 
   @bind
-  private setItemStepsPosition (event: PointerEvent) {
+  private handlePointerDownSteps (event: PointerEvent) {
     this.components.steps.getItems().forEach((item) => {
       if (event.target === item) {
         const value = Number(item.getAttribute("data-val"));
