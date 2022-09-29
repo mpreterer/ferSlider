@@ -126,7 +126,7 @@ class demoPanel {
     }
   }
 
-  private handeChangeIsTip(element: Event) {
+  private handleChangeIsTip(element: Event) {
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateSettings({
         isTip: Boolean(element.target.checked),
@@ -184,7 +184,7 @@ class demoPanel {
 
     components.isTip.addEventListener(
       "change",
-      this.handeChangeIsTip.bind(this),
+      this.handleChangeIsTip.bind(this),
     );
 
     components.isStep.addEventListener(

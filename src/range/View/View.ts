@@ -318,7 +318,7 @@ class View extends Observer {
     return result;
   }
 
-  private changePositonThumb (event: PointerEvent): THandles {
+  private changePositionThumb (event: PointerEvent): THandles {
     const { isRange } = this.modelSettings;
     const thumbLeftValue = this.getThumbPosition("thumbLeft");
     const mouseCoords = this.getValidatedCoords(event);
@@ -430,7 +430,7 @@ class View extends Observer {
 
   @bind
   private handlePointerDownBar (event: PointerEvent) {
-    this.dragThumb = this.changePositonThumb(event);
+    this.dragThumb = this.changePositionThumb(event);
 
     if (this.dragThumb) {
       this.setActiveThumb(this.dragThumb);
@@ -478,7 +478,7 @@ class View extends Observer {
     this.components.steps.getItems().forEach((item) => {
       if (event.target === item) {
         const value = Number(item.getAttribute("data-val"));
-        const thumb = this.changePositonThumb(event);
+        const thumb = this.changePositionThumb(event);
 
         this.slideEvents.slide.notify({ handle: thumb, value });
       }
