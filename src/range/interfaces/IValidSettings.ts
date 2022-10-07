@@ -1,10 +1,8 @@
-import { TValueFrom } from './types';
-
 interface IValidSettings {
   minValue: number;
   maxValue: number;
   step: number;
-  valueFrom: TValueFrom;
+  valueFrom: number;
   valueTo: number;
   isRange: boolean;
   isTip: boolean;

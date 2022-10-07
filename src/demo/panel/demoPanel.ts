@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 
 import IValidSettings from '../../range/interfaces/IValidSettings';
-import { TDOMParents, TValueFrom } from '../../range/interfaces/types';
+import { TDOMParents } from '../../range/interfaces/types';
 import FerSlider from '../../range/View/FerSlider';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
@@ -193,16 +193,14 @@ class DemoPanel {
     );
   }
 
-  private changeCurrentValue(valueFrom: TValueFrom): void {
+  private changeCurrentValue() {
     const components = this.components;
-
-    if (typeof valueFrom === "object") {
-      components.thumbLeft.value = `${valueFrom.minValue}`;
-      components.thumbRight.value = `${valueFrom.maxValue}`;
-    }
-
-    if (typeof valueFrom === "number") {
-      components.thumbLeft.value = `${valueFrom}`;
+    
+    if (this.slider.settings.isRange) {
+      components.thumbLeft.value = `${this.modelSettings.valueFrom}`;
+      components.thumbRight.value = `${this.modelSettings.valueTo}`;
+    } else {
+      components.thumbLeft.value = `${this.modelSettings.valueFrom}`;
     }
   }
 
@@ -211,7 +209,6 @@ class DemoPanel {
     const {
       minValue,
       maxValue,
-      valueFrom,
       step,
       isBarRange,
       isRange,
@@ -223,7 +220,7 @@ class DemoPanel {
     components.maxValue.value = `${maxValue}`;
 
     components.thumbRight.disabled = !isRange;
-    this.changeCurrentValue(valueFrom);
+    this.changeCurrentValue();
 
     components.step.value = `${step}`;
 

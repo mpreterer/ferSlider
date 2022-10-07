@@ -245,13 +245,12 @@ class View extends Observer {
   }
 
   private setCurrentValue () {
-    const { valueFrom } = this.modelSettings;
+    const { valueFrom, valueTo, isRange } = this.modelSettings;
 
-    if (typeof valueFrom === "object") {
-      this.setThumbPosition("thumbLeft", valueFrom.minValue);
-      this.setThumbPosition("thumbRight", valueFrom.maxValue);
-    }
-    if (typeof valueFrom === "number") {
+    if (isRange) {
+      this.setThumbPosition("thumbLeft", valueFrom);
+      this.setThumbPosition("thumbRight", valueTo);
+    } else {
       this.setThumbPosition("thumbLeft", valueFrom);
     }
   }

@@ -1,10 +1,10 @@
-import { TValueFrom, TUpdateThumb } from './types';
+import { TUpdateThumb } from './types';
 
 interface IModelSettings extends API {
   minValue?: number;
   maxValue?: number;
   step?: number;
-  valueFrom?: TValueFrom;
+  valueFrom?: number;
   valueTo?: number;
   isRange?: boolean;
   isTip?: boolean;

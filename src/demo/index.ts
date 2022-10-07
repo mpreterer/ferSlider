@@ -24,10 +24,8 @@ const slider_2 = sliderContainer2.containerSlider.FerSlider({
   minValue: -42,
   maxValue: 42,
   isRange: true,
-  valueFrom: {
-    minValue: -32,
-    maxValue: 32,
-  },
+  valueFrom: -32,
+  valueTo: 32,
   step: 5,
   isTip: true,
   isStep: true,
