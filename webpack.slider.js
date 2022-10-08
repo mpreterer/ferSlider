@@ -15,7 +15,7 @@ module.exports = {
   devtool: false,
   entry: {
     index: './src/range/index.ts',
-    demo: './src/demo/index.ts',
+    demo: './demo/index.ts',
   },
   output: {
     filename: '[name].js',

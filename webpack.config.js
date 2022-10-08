@@ -12,7 +12,7 @@ const isProd = !isDev;
 
 module.exports = {
   mode: 'development',
-  entry: './src/demo/index.ts',
+  entry: './demo/index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
@@ -95,7 +95,7 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new HtmlWebpackPlugin({
-      template: './src/demo/index.pug',
+      template: './demo/index.pug',
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin({

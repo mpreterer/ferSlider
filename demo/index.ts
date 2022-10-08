@@ -1,5 +1,5 @@
-import '../range';
-import '../range/styleRange.scss';
+import '../src';
+import '../src/styleRange.scss';
 import './options.scss';
 import './panel';
 import './panel/panel.scss';
