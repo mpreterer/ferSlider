@@ -162,8 +162,6 @@ class Model extends Observer {
 
     this.modelSettings.minValue = validatedMiddle.minValue;
     this.modelSettings.maxValue = validatedMiddle.maxValue;
-    // this.modelSettings.valueFrom = this.getValidCurrentValue(valueFrom, valueTo);
-    // this.modelSettings.valueTo = this.getValidCurrentValue(valueFrom, valueTo);
     this.getValidCurrentValue(valueFrom, valueTo);
     this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
   }
@@ -184,7 +182,6 @@ class Model extends Observer {
       );
 
       this.modelSettings.valueFrom = confirmedCurrentValue
-      // return (maxValue - minValue) / 2;
     }
   }
 }

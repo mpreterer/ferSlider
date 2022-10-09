@@ -24,13 +24,21 @@ describe("Controller:", () => {
         ...newSettings,
       });
     });
+
+    test('должен оставить текущие опции при пустом переданном объекте', () => {
+      const mockParent = document.createElement("div");
+      const controller = new Controller(mockParent, defaultSettings);
+
+      controller.updateSettings({});
+
+      expect(controller.settings).toStrictEqual(defaultSettings);
+    });
   });
 
   describe('updateSettingsValue:', () => {
     test('должен обновлять текущее значение слайдера', () => {
       const newFrom:UpdateValues = { handle: 'thumbLeft', value: 23 };
       const newTo:UpdateValues = { handle: 'thumbRight', value: 25 };
-
       const mockParent = document.createElement("div");
       const controller = new Controller(mockParent, defaultSettings);
 

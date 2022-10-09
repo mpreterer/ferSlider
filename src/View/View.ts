@@ -26,6 +26,12 @@ class View extends Observer {
     this.render();
   }
 
+  public updateCurrentValue (thumb: TUpdateThumb) {
+    if (!Number.isNaN(thumb.value)) {
+      this.setThumbPosition(thumb.handle, thumb.value);
+    }
+  }
+
   get events (): IEvents {
     return this.slideEvents;
   }
@@ -342,12 +348,6 @@ class View extends Observer {
 
     if (isTip) {
       this.components[thumb].tip.innerHTML = percent.toFixed(quantitySymbols);
-    }
-  }
-
-  public updateCurrentValue (thumb: TUpdateThumb) {
-    if (!Number.isNaN(thumb.value)) {
-      this.setThumbPosition(thumb.handle, thumb.value);
     }
   }
 

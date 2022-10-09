@@ -24,18 +24,18 @@ describe('View:', () => {
       };
 
       const getNodes = (body: HTMLElement) => ({
-        isRange: body.querySelector(`.${styleClasses.RANGE}`),
-        isVertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`),
+        range: body.querySelector(`.${styleClasses.RANGE}`),
+        vertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`),
       })
 
       const domParent = document.createElement('div');
       const view = new View(domParent, defaultSettings);
       view.updateModelSettings(newSettings);
 
-      const { isRange, isVertical } = getNodes(domParent)
+      const { range, vertical } = getNodes(domParent)
 
-      expect(isRange).toBeTruthy();
-      expect(isVertical).toBeFalsy();
+      expect(range).toBeTruthy();
+      expect(vertical).toBeFalsy();
     });
   });
   describe('updateCurrentValue:', () => {
@@ -151,6 +151,131 @@ describe('View:', () => {
       expect(STEP.classList.contains(`${styleClasses.STEP}`)).toBeTruthy();
       STEP_ITEM.forEach((item) => {
         expect(item.classList.contains(`${styleClasses.STEP_ITEM}`)).toBeTruthy();
+      });
+    });
+
+    test('должен удалять лишние dom-элементы subView', () => {
+      const newSettings: IValidSettings = {
+        ...defaultSettings,
+        ...{
+          valueFrom: 15,
+          isRange: false,
+          isBarRange: false,
+          isStep: false,
+          isTip: false,
+        },
+      };
+
+      const getNodes = (body: HTMLElement) => ({
+        isBarRange: body.querySelector(`.${styleClasses.RANGE}`),
+        valueTo: body.querySelectorAll(`.${styleClasses.THUMB}`)[1],
+        isStep: body.querySelector(`.${styleClasses.STEP}`),
+        isTip: body.querySelector(`.${styleClasses.TIP}`),
+      })
+
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, defaultSettings);
+
+      view.updateModelSettings(newSettings);
+
+      const {
+        isBarRange,
+        valueTo,
+        isStep,
+        isTip,
+      } = getNodes(mockParent);
+
+      expect(isBarRange).toBeFalsy();
+      expect(valueTo).toBeFalsy();
+      expect(isStep).toBeFalsy();
+      expect(isTip).toBeFalsy();
+    });
+
+    test('должен добавлять отсутствующие subView dom-элементы', () => {
+      const newSettings: IValidSettings = {
+        ...defaultSettings,
+        ...{
+          valueTo: 33,
+          isRange: true,
+        },
+      };
+
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, defaultSettings);
+
+      view.updateModelSettings(newSettings);
+
+      const getNodes = (body: HTMLElement) => ({
+        valueFrom: body.querySelectorAll(`.${styleClasses.THUMB}`)[0],
+        valueFromTip: body.querySelectorAll(`.${styleClasses.TIP}`)[0],
+        valueTo: body.querySelectorAll(`.${styleClasses.THUMB}`)[1],
+        valueToTip: body.querySelectorAll(`.${styleClasses.TIP}`)[1],
+      })
+
+      const {
+        valueFrom,
+        valueTo,
+        valueToTip,
+        valueFromTip,
+      } = getNodes(mockParent);
+
+      expect(valueFrom).toBeInstanceOf(HTMLElement);
+      expect(valueFromTip).toBeInstanceOf(HTMLElement);
+      expect(valueTo).toBeInstanceOf(HTMLElement);
+      expect(valueToTip).toBeInstanceOf(HTMLElement);
+    });
+  });
+
+  describe('setRangePosition:', () => {
+    describe('должен корректно задавать стили для DOM range элеменета слайдера:', () => {
+      test('при vertical положении', () => {
+        const newSettings: IValidSettings = {
+          ...defaultSettings,
+          ...{
+            isVertical: true,
+            valueFrom: 99.9,
+            maxValue: 100,
+          },
+        };
+
+        const getNodes = (body: HTMLElement) => ({
+          range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
+        })
+
+        const mockParent = document.createElement('div');
+        const view = new View(mockParent, defaultSettings);
+
+        view.updateModelSettings(newSettings);
+
+        const { range } = getNodes(mockParent);
+        const rangeTopNum = Number((parseFloat(range.style.top).toFixed(1)));
+        const rangeBottomNum = parseFloat(range.style.bottom);
+
+        expect(rangeTopNum).toEqual(0.1);
+        expect(rangeBottomNum).toEqual(0);
+      });
+
+      test('при ltr положении', () => {
+        const newOptions: IValidSettings = {
+          ...defaultSettings,
+          ...{ valueFrom: 30, maxValue: 100 },
+        };
+
+        const mockParent = document.createElement('div');
+        const view = new View(mockParent, defaultSettings);
+
+        const getNodes = (body: HTMLElement) => ({
+          range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
+        })
+
+        view.updateModelSettings(newOptions);
+
+        const { range } = getNodes(mockParent);
+        const rangeLeftNum = parseFloat(range.style.left);
+        const rangeRightNum = parseFloat(range.style.right);
+
+        expect(rangeLeftNum).toEqual(0);
+        expect(rangeRightNum).toEqual(70);
       });
     });
   });

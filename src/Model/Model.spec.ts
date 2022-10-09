@@ -1,10 +1,10 @@
 import IValidSettings from '../interfaces/IValidSettings';
 import { TUpdateThumb } from '../interfaces/types';
-import defaultModelSettings from '../utils/defaultModelSettings';
+import defaultSettings from './defaultSettings';
 import Model from './Model';
 
 describe("Model:", () => {
-  const settings = defaultModelSettings;
+  const settings = defaultSettings;
   const model = new Model(settings);
 
   describe("updateModelSettings:", () => {
@@ -25,6 +25,23 @@ describe("Model:", () => {
       model.updateModelSettings(startSettings);
 
       expect(model.settings).toStrictEqual(startSettings);
+    });
+
+    test('должен прировнять входящие значения, если минимальное больше максимального', () => {
+      const newOptions: IValidSettings = {
+        ...defaultSettings,
+        ...{
+          isRange: true,
+          valueFrom: 33,
+          valueTo: 10,
+        },
+      };
+      const { valueTo } = newOptions;
+
+      model.updateModelSettings(newOptions);
+
+      expect(model.settings.valueFrom).toEqual(valueTo);
+      expect(model.settings.valueTo).toEqual(valueTo);
     });
   });
 
@@ -48,6 +65,70 @@ describe("Model:", () => {
       model.updateCurrentValueSettings(thumb);
 
       expect(subscriber).toHaveBeenCalledWith(thumb);
+    });
+  });
+
+  describe('getValidStep:', () => {
+    test('должен преобразовать отрицательное значение на максимальный шаг', () => {
+      const { step, min, max } = {
+        step: -10,
+        min: -99,
+        max: -1,
+      };
+
+      expect(Model.getValidStep(min, max, step)).toEqual(98);
+    });
+
+    test('должен преобразовать нуль-значение на максимальный шаг', () => {
+      const { step, min, max } = {
+        step: 0,
+        min: 0,
+        max: 0.1,
+      };
+
+      expect(Model.getValidStep(min, max, step)).toEqual(0.1);
+    });
+
+    test('должен преобразовать значение в максимальный шаг, если оно больше максимального значения слайдера и неравно нулю', () => {
+      const { step, min, max } = {
+        step: 100.1,
+        min: 0,
+        max: 100,
+      };
+
+      expect(Model.getValidStep(min, max, step)).toEqual(100);
+    });
+  });
+
+  describe('getDiapason:', () => {
+    test('Вернёт минимальное значение, если текущее значение меньше или равно минимальному', () => {
+      const { value, min, max } = {
+        value: -0.1,
+        min: 0,
+        max: 100,
+      };
+
+      expect(Model.getDiapason(value, min, max)).toEqual(min);
+    });
+
+    test('Вернёт максимальное значение, если текущее значение больше или равно максимальному', () => {
+      const { value, min, max } = {
+        value: 100.1,
+        min: 0,
+        max: 100,
+      };
+
+      expect(Model.getDiapason(value, min, max)).toEqual(max);
+    });
+
+    test('Вернёт текущее значение, если оно в диапазоне значений', () => {
+      const { value, min, max } = {
+        value: 50,
+        min: 0,
+        max: 100,
+      };
+
+      expect(Model.getDiapason(value, min, max)).toEqual(value);
     });
   });
 });
