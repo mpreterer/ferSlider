@@ -1,0 +1,16 @@
+.j-fer-slider__bar {
+  position: relative;
+  background: #afafaf80;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &_horizontal {
+    width: 100%;
+    height: 10px;
+  }
+
+  &_vertical {
+    width: 10px;
+    height: 100%;
+  }
+}

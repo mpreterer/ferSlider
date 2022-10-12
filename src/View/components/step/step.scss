@@ -1,0 +1,35 @@
+.j-fer-slider__step {
+  position: relative;
+  display: flex;
+  padding: 0;
+  list-style: none;
+  user-select: none;
+
+  &_vertical {
+    width: 15px;
+    margin: 0 15px;
+
+    & li {
+      transform: translateY(-50%);
+    }
+  }
+
+  &_horizontal {
+    height: 15px;
+
+    & li {
+      transform: translateX(-50%);
+    }
+  }
+
+  & li {
+    position: absolute;
+    padding: 5px;
+    cursor: pointer;
+  }
+}
+
+.j-fer-slider__step-item:hover {
+  background-color: #d7d7d7;
+  border-radius: 5px;
+}
