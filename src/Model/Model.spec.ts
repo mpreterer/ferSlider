@@ -1,9 +1,14 @@
 import IValidSettings from '../interfaces/IValidSettings';
+<<<<<<< HEAD
 import { TUpdateThumb, UpdateValues } from '../interfaces/types';
+=======
+import { TUpdateThumb } from '../interfaces/types';
+>>>>>>> 614cae7f3445824151e31d15c5dbe5150210ac79
 import defaultSettings from './defaultSettings';
 import Model from './Model';
 
 describe("Model:", () => {
+<<<<<<< HEAD
   let model: Model;
 
   beforeEach(() => {
@@ -13,6 +18,10 @@ describe("Model:", () => {
   test('Возвращает экземпляр класса', () => {
     expect(model).toBeInstanceOf(Model);
   });
+=======
+  const settings = defaultSettings;
+  const model = new Model(settings);
+>>>>>>> 614cae7f3445824151e31d15c5dbe5150210ac79
 
   describe("updateModelSettings:", () => {
     test("Обновляются настройки слайдера на вводимые", () => {
@@ -50,6 +59,7 @@ describe("Model:", () => {
       expect(model.settings.valueFrom).toEqual(valueTo);
       expect(model.settings.valueTo).toEqual(valueTo);
     });
+<<<<<<< HEAD
 
     test('Не будет принимать не валидные значения', () => {
       const newSettings = {
@@ -82,6 +92,11 @@ describe("Model:", () => {
       expect(model.settings.valueFrom).toEqual(defaultSettings.valueFrom);
     });
 
+=======
+  });
+
+  describe("updateCurrentValueSettings:", () => {
+>>>>>>> 614cae7f3445824151e31d15c5dbe5150210ac79
     test("Обновление valueFrom на проверенное", () => {
       const thumb: TUpdateThumb = { handle: "thumbLeft", value: 10 };
 
@@ -91,6 +106,7 @@ describe("Model:", () => {
       expect(UpdateValueSettings.valueFrom).toBe(10);
     });
 
+<<<<<<< HEAD
     test('должен обновлять текущее значение слайдера', () => {
       const newFrom:UpdateValues = { handle: 'thumbLeft', value: 23 };
       const newTo:UpdateValues = { handle: 'thumbRight', value: 25 };
@@ -110,6 +126,8 @@ describe("Model:", () => {
       expect(model.settings.valueTo).toEqual(newTo.value);
     });
 
+=======
+>>>>>>> 614cae7f3445824151e31d15c5dbe5150210ac79
     test(`Оповещение наблюдателей 
       event currentValueChanged 
       об обновлении thumb`, () => {
@@ -186,6 +204,7 @@ describe("Model:", () => {
       expect(Model.getDiapason(value, min, max)).toEqual(value);
     });
   });
+<<<<<<< HEAD
 
   describe('getDiapason:', () => {
     test('getModelSettings вернет дефолтную настройку', () => {
@@ -207,4 +226,6 @@ describe("Model:", () => {
       expect(model.getModelSettings()).toBe(newSettings);
     });
   });
+=======
+>>>>>>> 614cae7f3445824151e31d15c5dbe5150210ac79
 });

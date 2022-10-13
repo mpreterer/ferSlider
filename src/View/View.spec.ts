@@ -8,14 +8,6 @@ import styleClasses from './styleClasses';
 import View from './View';
 
 describe('View:', () => {
-  let view: View;
-  let mockParent: HTMLElement;
-
-  beforeEach(() => {
-    mockParent = document.createElement('div');
-    view = new View(mockParent, defaultSettings);
-  });
-
   describe('updateModelSettings:', () => {
     test('Обновление настроек', () => {
       const newSettings: IValidSettings = {
@@ -36,37 +28,14 @@ describe('View:', () => {
         vertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`),
       })
 
+      const domParent = document.createElement('div');
+      const view = new View(domParent, defaultSettings);
       view.updateModelSettings(newSettings);
 
-      const { range, vertical } = getNodes(mockParent)
+      const { range, vertical } = getNodes(domParent)
 
       expect(range).toBeTruthy();
       expect(vertical).toBeFalsy();
-    });
-
-    test('Не обновит не валидные значения', () => {
-      const newSettings = {
-        ...defaultSettings,
-        ...{
-          isRange: true,
-          valueFrom: NaN,
-          valueTo: NaN,
-        },
-      }
-      const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
-      const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
-
-      view.updateModelSettings(newSettings);
-
-      if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement) {
-        const valueTo = valueToSelector.querySelector(`.${styleClasses.THUMB}`);
-        const valueFrom = valueFromSelector.querySelector(`.${styleClasses.THUMB}`)
-
-        if (valueTo instanceof HTMLDivElement && valueFrom instanceof HTMLDivElement) {
-          expect(valueTo.textContent).toBe(`${defaultSettings.valueFrom}`);
-          expect(valueFrom.textContent).toBe(`${defaultSettings.valueTo}`);
-        }
-      }
     });
   });
   describe('updateCurrentValue:', () => {
@@ -92,7 +61,8 @@ describe('View:', () => {
         value: 60,
       }
 
-      view.updateModelSettings(newSettings);
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, newSettings);
 
       view.updateCurrentValue(newToValue);
       view.updateCurrentValue(newFromValue);
@@ -106,42 +76,6 @@ describe('View:', () => {
         if (valueTo instanceof HTMLDivElement && valueFrom instanceof HTMLDivElement) {
           expect(valueTo.innerHTML).toBe(`${newToValue.value}`);
           expect(valueFrom.innerHTML).toBe(`${newFromValue.value}`);
-        }
-      }
-    });
-
-    test('Не примит не валидные значения', () => {
-      const newSettings: IValidSettings = {
-        ...defaultSettings,
-        ...{
-          isRange: true,
-          valueFrom: 10,
-          valueTo: 20,
-        },
-      };
-      const newFromValue: TUpdateThumb = {
-        handle: 'thumbLeft',
-        value: NaN,
-      }
-      const newToValue: TUpdateThumb = {
-        handle: 'thumbRight',
-        value: NaN,
-      }
-
-      view.updateModelSettings(newSettings);
-
-      view.updateCurrentValue(newToValue);
-      view.updateCurrentValue(newFromValue);
-      const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
-      const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
-
-      if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement) {
-        const valueTo = valueToSelector.querySelector(`.${styleClasses.TIP}`);
-        const valueFrom = valueFromSelector.querySelector(`.${styleClasses.TIP}`)
-
-        if (valueTo instanceof HTMLDivElement && valueFrom instanceof HTMLDivElement) {
-          expect(valueTo.innerHTML).toBe(`${newSettings.valueTo}`);
-          expect(valueFrom.innerHTML).toBe(`${newSettings.valueFrom}`);
         }
       }
     });
@@ -162,7 +96,8 @@ describe('View:', () => {
         isStep: true,
       };
 
-      view.updateModelSettings(newSettings);
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, newSettings);
 
       expect(mockParent.querySelector(`.${styleClasses.SLIDER}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.BAR}`)).toBeInstanceOf(HTMLElement);
@@ -172,32 +107,6 @@ describe('View:', () => {
       expect(mockParent.querySelector(`.${styleClasses.STEP}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[0]).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelectorAll(`.${styleClasses.TIP}`)[1]).toBeInstanceOf(HTMLElement);
-    });
-
-    test('Валидный DOM слайдера при vertical', () => {
-      const newSettings: IValidSettings = {
-        minValue: 0,
-        maxValue: 100,
-        step: 1,
-        valueFrom: 0,
-        valueTo: 30,
-        isRange: true,
-        isTip: true,
-        isBarRange: true,
-        isVertical: true,
-        isStep: true,
-      };
-
-      view.updateModelSettings(newSettings);
-
-      expect(mockParent.querySelector(`.${styleClasses.SLIDER_VERTICAL}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelector(`.${styleClasses.BAR_VERTICAL}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelector(`.${styleClasses.RANGE_VERTICAL}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB_VERTICAL}`)[0]).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.THUMB_VERTICAL}`)[1]).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelector(`.${styleClasses.STEP_VERTICAL}`)).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.TIP_VERTICAL}`)[0]).toBeInstanceOf(HTMLElement);
-      expect(mockParent.querySelectorAll(`.${styleClasses.TIP_VERTICAL}`)[1]).toBeInstanceOf(HTMLElement);
     });
   });
 
@@ -216,7 +125,8 @@ describe('View:', () => {
         isStep: true,
       };
 
-      view.updateModelSettings(newSettings);
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, newSettings);
 
       const SLIDER = mockParent.querySelector(`.${styleClasses.SLIDER}`)!;
       const BAR = mockParent.querySelector(`.${styleClasses.BAR}`)!;
@@ -260,9 +170,11 @@ describe('View:', () => {
         isBarRange: body.querySelector(`.${styleClasses.RANGE}`),
         valueTo: body.querySelectorAll(`.${styleClasses.THUMB}`)[1],
         isStep: body.querySelector(`.${styleClasses.STEP}`),
-        isTipFrom: body.querySelectorAll(`.${styleClasses.TIP}`)[0],
-        isTipTo: body.querySelectorAll(`.${styleClasses.TIP}`)[1],
+        isTip: body.querySelector(`.${styleClasses.TIP}`),
       })
+
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, defaultSettings);
 
       view.updateModelSettings(newSettings);
 
@@ -270,15 +182,13 @@ describe('View:', () => {
         isBarRange,
         valueTo,
         isStep,
-        isTipFrom,
-        isTipTo,
+        isTip,
       } = getNodes(mockParent);
 
       expect(isBarRange).toBeFalsy();
       expect(valueTo).toBeFalsy();
       expect(isStep).toBeFalsy();
-      expect(isTipFrom).toBeFalsy();
-      expect(isTipTo).toBeFalsy();
+      expect(isTip).toBeFalsy();
     });
 
     test('должен добавлять отсутствующие subView dom-элементы', () => {
@@ -289,6 +199,9 @@ describe('View:', () => {
           isRange: true,
         },
       };
+
+      const mockParent = document.createElement('div');
+      const view = new View(mockParent, defaultSettings);
 
       view.updateModelSettings(newSettings);
 
@@ -329,6 +242,9 @@ describe('View:', () => {
           range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
         })
 
+        const mockParent = document.createElement('div');
+        const view = new View(mockParent, defaultSettings);
+
         view.updateModelSettings(newSettings);
 
         const { range } = getNodes(mockParent);
@@ -339,11 +255,14 @@ describe('View:', () => {
         expect(rangeBottomNum).toEqual(0);
       });
 
-      test('при horizontal положении', () => {
+      test('при ltr положении', () => {
         const newOptions: IValidSettings = {
           ...defaultSettings,
           ...{ valueFrom: 30, maxValue: 100 },
         };
+
+        const mockParent = document.createElement('div');
+        const view = new View(mockParent, defaultSettings);
 
         const getNodes = (body: HTMLElement) => ({
           range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
