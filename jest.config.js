@@ -18,7 +18,10 @@ module.exports = {
       "src/**/*.ts",
       "!src/utils/typings/globals/IJQuery.d.ts",
       "!src/index.ts",
+      "!src/interfaces/*.ts",
+      "!src/Model/defaultSettings.ts",
       "!src/View/FerSlider.ts",
+      "!src/Controller/Controller.ts",
     ],
     moduleNameMapper: {
       "\\.(css|scss|sass)$": "identity-obj-proxy"
