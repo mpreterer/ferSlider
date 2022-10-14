@@ -2,13 +2,19 @@ import { IModelEvents } from '../interfaces/IEvents';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TUpdateThumb } from '../interfaces/types';
 import Observer from '../Observer/Observer';
+import defaultSettings from './defaultSettings';
 
 class Model extends Observer {
   constructor (settings: IValidSettings) {
     super();
+    const validSettings = {
+      ...{},
+      ...defaultSettings,
+      ...settings,
+    };
 
-    this.modelSettings = settings;
-    this.validModelSettings(settings);
+    this.modelSettings = validSettings;
+    this.validModelSettings(validSettings);
   }
 
   public getModelSettings (): IValidSettings {
