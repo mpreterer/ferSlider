@@ -77,7 +77,9 @@ class Model extends Observer {
       bodyThumb.value = validValueWithStep;
     }
 
-    this.modelEvents.currentValueChanged.notify(bodyThumb);
+    if (!Number.isNaN(this.settings.valueFrom)) {
+      this.modelEvents.currentValueChanged.notify(bodyThumb);
+    }
   }
 
   get settings (): IValidSettings {
@@ -117,7 +119,6 @@ class Model extends Observer {
 
   static getValueWithStep (value: number, minValue: number, step: number) {
     const valueWithStep = Math.round((value - minValue) / step) * step + minValue;
-
     return valueWithStep;
   }
 
@@ -131,6 +132,9 @@ class Model extends Observer {
   }
 
   static checkNewSettings (settings: IValidSettings): boolean {
+    let validValueTo = false;
+    if (settings.valueTo) validValueTo = Number.isNaN(settings.valueTo);
+    const validValueFrom = Number.isNaN(settings.valueFrom);
     const validMinValue = Number.isNaN(settings.minValue);
     const validMaxValue = Number.isNaN(settings.maxValue);
     const validStep = Number.isNaN(settings.step);
@@ -138,6 +142,8 @@ class Model extends Observer {
     const validNewSettings = !validMinValue
     && !validMaxValue
     && !validStep
+    && !validValueFrom
+    && !validValueTo
 
     return validNewSettings;
   }
