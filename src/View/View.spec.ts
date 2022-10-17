@@ -16,7 +16,7 @@ describe('View:', () => {
     view = new View(mockParent, defaultSettings);
   });
 
-  describe('updateModelSettings:', () => {
+  describe('updateSettings:', () => {
     test('Обновление настроек', () => {
       const newSettings: IValidSettings = {
         minValue: 1,
@@ -36,7 +36,7 @@ describe('View:', () => {
         vertical: body.querySelector(`.${styleClasses.SLIDER_VERTICAL}`),
       })
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       const { range, vertical } = getNodes(mockParent)
 
@@ -56,7 +56,7 @@ describe('View:', () => {
       const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
       const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       if (valueToSelector instanceof HTMLElement && valueFromSelector instanceof HTMLElement) {
         const valueTo = valueToSelector.querySelector(`.${styleClasses.THUMB}`);
@@ -69,7 +69,7 @@ describe('View:', () => {
       }
     });
   });
-  describe('updateCurrentValue:', () => {
+  describe('updateValues:', () => {
     test('Обновление значения позлунков слайдера', () => {
       const newSettings: IValidSettings = {
         minValue: 0,
@@ -84,18 +84,18 @@ describe('View:', () => {
         isStep: true,
       };
       const newFromValue: TUpdateThumb = {
-        handle: 'thumbLeft',
+        handle: 'valueFrom',
         value: 5,
       }
       const newToValue: TUpdateThumb = {
-        handle: 'thumbRight',
+        handle: 'valueTo',
         value: 60,
       }
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
-      view.updateCurrentValue(newToValue);
-      view.updateCurrentValue(newFromValue);
+      view.updateValues(newToValue);
+      view.updateValues(newFromValue);
       const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
       const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
 
@@ -120,18 +120,18 @@ describe('View:', () => {
         },
       };
       const newFromValue: TUpdateThumb = {
-        handle: 'thumbLeft',
+        handle: 'valueFrom',
         value: NaN,
       }
       const newToValue: TUpdateThumb = {
-        handle: 'thumbRight',
+        handle: 'valueTo',
         value: NaN,
       }
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
-      view.updateCurrentValue(newToValue);
-      view.updateCurrentValue(newFromValue);
+      view.updateValues(newToValue);
+      view.updateValues(newFromValue);
       const valueToSelector = (mockParent.querySelector('[data-thumb="2"]'));
       const valueFromSelector = (mockParent.querySelector('[data-thumb="1"]'));
 
@@ -162,7 +162,7 @@ describe('View:', () => {
         isStep: true,
       };
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       expect(mockParent.querySelector(`.${styleClasses.SLIDER}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.BAR}`)).toBeInstanceOf(HTMLElement);
@@ -188,7 +188,7 @@ describe('View:', () => {
         isStep: true,
       };
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       expect(mockParent.querySelector(`.${styleClasses.SLIDER_VERTICAL}`)).toBeInstanceOf(HTMLElement);
       expect(mockParent.querySelector(`.${styleClasses.BAR_VERTICAL}`)).toBeInstanceOf(HTMLElement);
@@ -216,7 +216,7 @@ describe('View:', () => {
         isStep: true,
       };
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       const SLIDER = mockParent.querySelector(`.${styleClasses.SLIDER}`)!;
       const BAR = mockParent.querySelector(`.${styleClasses.BAR}`)!;
@@ -264,7 +264,7 @@ describe('View:', () => {
         isTipTo: body.querySelectorAll(`.${styleClasses.TIP}`)[1],
       })
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       const {
         isBarRange,
@@ -290,7 +290,7 @@ describe('View:', () => {
         },
       };
 
-      view.updateModelSettings(newSettings);
+      view.updateSettings(newSettings);
 
       const getNodes = (body: HTMLElement) => ({
         valueFrom: body.querySelectorAll(`.${styleClasses.THUMB}`)[0],
@@ -329,7 +329,7 @@ describe('View:', () => {
           range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
         })
 
-        view.updateModelSettings(newSettings);
+        view.updateSettings(newSettings);
 
         const { range } = getNodes(mockParent);
         const rangeTopNum = Number((parseFloat(range.style.top).toFixed(1)));
@@ -349,7 +349,7 @@ describe('View:', () => {
           range: body.querySelector(`.${styleClasses.RANGE}`) as HTMLElement,
         })
 
-        view.updateModelSettings(newOptions);
+        view.updateSettings(newOptions);
 
         const { range } = getNodes(mockParent);
         const rangeLeftNum = parseFloat(range.style.left);

@@ -1,6 +1,6 @@
 import { bind } from 'decko';
 
-import { IExtendsEvents } from '../interfaces/IEvents';
+// import { IExtendsEvents } from '../interfaces/IEvents';
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, TUpdateThumb } from '../interfaces/types';
@@ -21,23 +21,17 @@ class Controller extends Observer {
 
   public updateSettings (settings: IModelSettings) {
     const newSettings = { ...this.model.settings, ...settings };
-    this.model.updateModelSettings(newSettings);
+    this.model.updateSettings(newSettings);
   }
 
-  public updateCurrentValue (thumb: TUpdateThumb): void {
-    this.model.updateCurrentValueSettings(thumb);
+  public updateValues (thumb: TUpdateThumb): void {
+    this.model.updateValues(thumb);
   }
 
   private init () {
-    this.subscribeToLayers();
-    this.subscribeToEvents();
-  }
-
-  get events (): IExtendsEvents {
-    return {
-      ...this.model.events,
-      ...this.view.events,
-    };
+    this.model.subscribe('updateSettings', this.handleModelUpdateOptions);
+    this.model.subscribe('updateValues', this.handleModelUpdateValues);
+    this.view.subscribe('onSlide', this.handleViewOnSlide);
   }
 
   get settings (): IValidSettings {
@@ -50,31 +44,21 @@ class Controller extends Observer {
 
   private view: View;
 
-  private subscribeToLayers () {
-    this.model.subscribe(this.modelUpdate);
-  }
-
-  private subscribeToEvents () {
-    this.model.events.currentValueChanged.subscribe(
-      this.updateViewFromModelEvents,
-    );
-    this.view.events.slide.subscribe(this.updateModelFromViewEvents);
+  @bind
+  private handleModelUpdateOptions (settings: IValidSettings) {
+    this.view.updateSettings(settings);
+    this.notify('updateSettings', settings);
   }
 
   @bind
-  private updateViewFromModelEvents (thumb: TUpdateThumb) {
-    this.view.updateCurrentValue(thumb);
+  private handleModelUpdateValues (value: TUpdateThumb) {
+    this.view.updateValues(value);
+    this.notify('updateValues', value);
   }
 
   @bind
-  private updateModelFromViewEvents (thumb: TUpdateThumb) {
-    this.model.updateCurrentValueSettings(thumb);
-  }
-
-  @bind
-  private modelUpdate (modelSettings: IValidSettings) {
-    this.view.updateModelSettings(modelSettings);
-    this.model.events.modelChangedSettings.notify(modelSettings);
+  private handleViewOnSlide (value: TUpdateThumb) {
+    this.model.updateValues(value)
   }
 }
 

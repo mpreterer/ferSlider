@@ -14,7 +14,7 @@ describe("Model:", () => {
     expect(model).toBeInstanceOf(Model);
   });
 
-  describe("updateModelSettings:", () => {
+  describe("updateSettings:", () => {
     test("Обновляются настройки слайдера на вводимые", () => {
       const startSettings: IValidSettings = {
         minValue: 0,
@@ -29,7 +29,7 @@ describe("Model:", () => {
         isStep: false,
       };
 
-      model.updateModelSettings(startSettings);
+      model.updateSettings(startSettings);
 
       expect(model.settings).toStrictEqual(startSettings);
     });
@@ -45,7 +45,7 @@ describe("Model:", () => {
       };
       const { valueTo } = newOptions;
 
-      model.updateModelSettings(newOptions);
+      model.updateSettings(newOptions);
 
       expect(model.settings.valueFrom).toEqual(valueTo);
       expect(model.settings.valueTo).toEqual(valueTo);
@@ -64,7 +64,7 @@ describe("Model:", () => {
         },
       }
 
-      model.updateModelSettings(newSettings);
+      model.updateSettings(newSettings);
       expect(model.settings.maxValue).toBe(defaultSettings.maxValue);
       expect(model.settings.maxValue).toBe(defaultSettings.maxValue);
       expect(model.settings.valueFrom).toBe(defaultSettings.valueFrom);
@@ -73,27 +73,27 @@ describe("Model:", () => {
     });
   });
 
-  describe("updateCurrentValueSettings:", () => {
+  describe("updateValues:", () => {
     test('Не будет принимать не валидные значения', () => {
-      const thumb: TUpdateThumb = { handle: "thumbLeft", value: NaN };
+      const thumb: TUpdateThumb = { handle: "valueFrom", value: NaN };
 
-      model.updateCurrentValueSettings(thumb)
+      model.updateValues(thumb)
 
       expect(model.settings.valueFrom).toEqual(defaultSettings.valueFrom);
     });
 
     test("Обновление valueFrom на проверенное", () => {
-      const thumb: TUpdateThumb = { handle: "thumbLeft", value: 10 };
+      const thumb: TUpdateThumb = { handle: "valueFrom", value: 10 };
 
-      model.updateCurrentValueSettings(thumb);
+      model.updateValues(thumb);
       const UpdateValueSettings = model.settings;
 
       expect(UpdateValueSettings.valueFrom).toBe(10);
     });
 
     test('должен обновлять текущее значение слайдера', () => {
-      const newFrom:UpdateValues = { handle: 'thumbLeft', value: 23 };
-      const newTo:UpdateValues = { handle: 'thumbRight', value: 25 };
+      const newFrom:UpdateValues = { handle: 'valueFrom', value: 23 };
+      const newTo:UpdateValues = { handle: 'valueTo', value: 25 };
       const newSettings: IValidSettings = {
         ...defaultSettings,
         ...{
@@ -101,10 +101,10 @@ describe("Model:", () => {
         },
       };
 
-      model.updateModelSettings(newSettings);
+      model.updateSettings(newSettings);
 
-      model.updateCurrentValueSettings(newFrom);
-      model.updateCurrentValueSettings(newTo);
+      model.updateValues(newFrom);
+      model.updateValues(newTo);
 
       expect(model.settings.valueFrom).toEqual(newFrom.value);
       expect(model.settings.valueTo).toEqual(newTo.value);
@@ -114,10 +114,10 @@ describe("Model:", () => {
       event currentValueChanged 
       об обновлении thumb`, () => {
       const subscriber = jest.fn();
-      model.events.currentValueChanged.subscribe(subscriber);
+      model.subscribe('updateValues', subscriber);
 
-      const thumb: TUpdateThumb = { handle: "thumbLeft", value: 65 };
-      model.updateCurrentValueSettings(thumb);
+      const thumb: TUpdateThumb = { handle: "valueFrom", value: 65 };
+      model.updateValues(thumb);
 
       expect(subscriber).toHaveBeenCalledWith(thumb);
     });
@@ -202,7 +202,7 @@ describe("Model:", () => {
           isTip: false,
         },
       }
-      model.updateModelSettings(newSettings);
+      model.updateSettings(newSettings);
 
       expect(model.getModelSettings()).toBe(newSettings);
     });

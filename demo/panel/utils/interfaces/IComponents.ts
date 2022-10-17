@@ -2,8 +2,8 @@ interface IComponents {
   minValue: HTMLInputElement;
   maxValue: HTMLInputElement;
   step: HTMLInputElement;
-  thumbLeft: HTMLInputElement;
-  thumbRight: HTMLInputElement;
+  valueFrom: HTMLInputElement;
+  valueTo: HTMLInputElement;
   horizontal: HTMLInputElement;
   vertical: HTMLInputElement;
   isRange: HTMLInputElement;

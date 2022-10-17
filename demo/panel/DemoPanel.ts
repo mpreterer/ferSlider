@@ -27,8 +27,8 @@ class DemoPanel {
     this.components = {
       minValue: panel.querySelector(".js-panel__min-input")!,
       maxValue: panel.querySelector(".js-panel__max-input")!,
-      thumbLeft: panel.querySelector(".js-panel__from-input")!,
-      thumbRight: panel.querySelector(".js-panel__to-input")!,
+      valueFrom: panel.querySelector(".js-panel__from-input")!,
+      valueTo: panel.querySelector(".js-panel__to-input")!,
       step: panel.querySelector(".js-panel__step-input")!,
       horizontal: panel.querySelector(".js-panel__horizontal-input")!,
       vertical: panel.querySelector(".js-panel__vertical-input")!,
@@ -38,7 +38,7 @@ class DemoPanel {
       isBarRange: panel.querySelector(".js-panel__isBarRange-input")!,
     };
 
-    this.components.thumbRight.disabled;
+    this.components.valueTo.disabled;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
   }
@@ -59,19 +59,19 @@ class DemoPanel {
     }
   }
 
-  private handleChangeThumbLeft(element: Event) {
+  private handleChangevalueFrom(element: Event) {
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateCurrentValue({
-        handle: "thumbLeft",
+        handle: "valueFrom",
         value: parseFloat(element.target.value),
       });
     }
   }
 
-  private handleChangeThumbRight(element: Event) {
+  private handleChangevalueTo(element: Event) {
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateCurrentValue({
-        handle: "thumbRight",
+        handle: "valueTo",
         value: parseFloat(element.target.value),
       });
     }
@@ -105,8 +105,8 @@ class DemoPanel {
         isRange: Boolean(element.target.checked),
       });
 
-      components.thumbRight.disabled = !Boolean(element.target.checked);
-      components.thumbRight.value = "";
+      components.valueTo.disabled = !Boolean(element.target.checked);
+      components.valueTo.value = "";
     }
   }
 
@@ -147,14 +147,14 @@ class DemoPanel {
       this.handleChangeMaxValue.bind(this),
     );
 
-    components.thumbLeft.addEventListener(
+    components.valueFrom.addEventListener(
       "change",
-      this.handleChangeThumbLeft.bind(this),
+      this.handleChangevalueFrom.bind(this),
     );
 
-    components.thumbRight.addEventListener(
+    components.valueTo.addEventListener(
       "change",
-      this.handleChangeThumbRight.bind(this),
+      this.handleChangevalueTo.bind(this),
     );
 
     components.step.addEventListener(
@@ -197,10 +197,10 @@ class DemoPanel {
     const components = this.components;
     
     if (this.slider.settings.isRange) {
-      components.thumbLeft.value = `${this.modelSettings.valueFrom}`;
-      components.thumbRight.value = `${this.modelSettings.valueTo}`;
+      components.valueFrom.value = `${this.modelSettings.valueFrom}`;
+      components.valueTo.value = `${this.modelSettings.valueTo}`;
     } else {
-      components.thumbLeft.value = `${this.modelSettings.valueFrom}`;
+      components.valueFrom.value = `${this.modelSettings.valueFrom}`;
     }
   }
 
@@ -219,7 +219,7 @@ class DemoPanel {
     components.minValue.value = `${minValue}`;
     components.maxValue.value = `${maxValue}`;
 
-    components.thumbRight.disabled = !isRange;
+    components.valueTo.disabled = !isRange;
     this.changeCurrentValue();
 
     components.step.value = `${step}`;

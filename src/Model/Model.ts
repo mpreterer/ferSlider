@@ -1,4 +1,4 @@
-import { IModelEvents } from '../interfaces/IEvents';
+// import { IModelEvents } from '../interfaces/IEvents';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TUpdateThumb } from '../interfaces/types';
 import Observer from '../Observer/Observer';
@@ -21,15 +21,14 @@ class Model extends Observer {
     return this.modelSettings;
   }
 
-  public updateModelSettings (settings: IValidSettings): void {
+  public updateSettings (settings: IValidSettings): void {
     if (Model.checkNewSettings(settings)) {
       this.modelSettings = settings;
       this.validModelSettings(settings);
-      this.notify(this.modelSettings);
     }
   }
 
-  public updateCurrentValueSettings (thumb: TUpdateThumb): void {
+  public updateValues (thumb: TUpdateThumb): void {
     const {
       minValue,
       maxValue,
@@ -40,14 +39,11 @@ class Model extends Observer {
     } = this.modelSettings;
     const bodyThumb = thumb;
 
-    const isFrom = bodyThumb.handle === "thumbLeft"
+    const isFrom = bodyThumb.handle === "valueFrom"
       && isRange;
-    const isTo = bodyThumb.handle === "thumbRight"
+    const isTo = bodyThumb.handle === "valueTo"
       && isRange;
-    const hasStep = bodyThumb.valueFromStep;
-    const valueWithStep = hasStep
-      ? Model.getValueWithStep(bodyThumb.value, minValue, step)
-      : bodyThumb.value;
+    const valueWithStep = Model.getValueWithStep(bodyThumb.value, minValue, step);
 
     const validValueWithStep = Model.getDiapason(
       valueWithStep,
@@ -64,6 +60,17 @@ class Model extends Observer {
       this.modelSettings.valueFrom = val;
       this.modelSettings.valueTo = valueTo;
       bodyThumb.value = val;
+
+      this.notify('updateValues',
+        {
+          handle: 'valueFrom',
+          value: val,
+        });
+      this.notify('updateValues',
+        {
+          handle: 'valueTo',
+          value: valueTo,
+        });
     }
 
     if (isTo) {
@@ -76,24 +83,36 @@ class Model extends Observer {
       this.modelSettings.valueTo = val;
 
       bodyThumb.value = val;
+      this.notify('updateValues',
+        {
+          handle: 'valueFrom',
+          value: valueFrom,
+        });
+      this.notify('updateValues',
+        {
+          handle: 'valueTo',
+          value: val,
+        });
     }
 
     if (!isRange) {
       this.modelSettings.valueFrom = validValueWithStep;
       bodyThumb.value = validValueWithStep;
+
+      this.notify('updateValues',
+        {
+          handle: 'valueFrom',
+          value: validValueWithStep,
+        });
     }
 
-    if (!Number.isNaN(this.settings.valueFrom)) {
-      this.modelEvents.currentValueChanged.notify(bodyThumb);
-    }
+    // if (!Number.isNaN(this.settings.valueFrom)) {
+    //   this.notify('updateValues', bodyThumb);
+    // }
   }
 
   get settings (): IValidSettings {
     return this.modelSettings;
-  }
-
-  get events (): IModelEvents {
-    return this.modelEvents;
   }
 
   static getValidStep (
@@ -156,10 +175,10 @@ class Model extends Observer {
 
   private modelSettings: IValidSettings;
 
-  private modelEvents: IModelEvents = {
-    currentValueChanged: new Observer(),
-    modelChangedSettings: new Observer(),
-  };
+  // private modelEvents: IModelEvents = {
+  //   currentValueChanged: new Observer(),
+  //   modelChangedSettings: new Observer(),
+  // };
 
   private validModelSettings (settings: IValidSettings) {
     const {
@@ -171,11 +190,16 @@ class Model extends Observer {
     } = settings;
 
     const validatedMiddle = Model.getMiddleValue(minValue, maxValue);
+    const hasSettings = settings !== undefined && settings !== null;
 
     this.modelSettings.minValue = validatedMiddle.minValue;
     this.modelSettings.maxValue = validatedMiddle.maxValue;
     this.getValidCurrentValue(valueFrom, valueTo);
     this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
+
+    if (hasSettings) {
+      this.notify('updateSettings', this.modelSettings);
+    }
   }
 
   private getValidCurrentValue (valueFrom: number, valueTo: number) {

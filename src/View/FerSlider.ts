@@ -1,5 +1,5 @@
 import Controller from '../Controller/Controller';
-import { IExtendsEvents } from '../interfaces/IEvents';
+// import { IExtendsEvents } from '../interfaces/IEvents';
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, TUpdateThumb } from '../interfaces/types';
@@ -7,21 +7,21 @@ import { TDOMParents, TUpdateThumb } from '../interfaces/types';
 class FerSlider {
   constructor (domParent: TDOMParents, settings: IModelSettings) {
     this.controller = new Controller(domParent, settings as IValidSettings);
-    this.init(settings);
+    // this.init(settings);
   }
 
   public updateCurrentValue (thumb: TUpdateThumb) {
-    this.controller.updateCurrentValue(thumb);
+    this.controller.updateValues(thumb);
   }
 
   public updateSettings (settings: IModelSettings): void {
     this.controller.updateSettings(settings);
-    this.init(settings);
+    // this.init(settings);
   }
 
-  get events (): IExtendsEvents {
-    return this.controller.events;
-  }
+  // get events (): IExtendsEvents {
+  //   return this.controller.events;
+  // }
 
   get settings (): IValidSettings {
     return this.controller.settings;
@@ -29,13 +29,13 @@ class FerSlider {
 
   private controller: Controller;
 
-  private init (settings: IModelSettings) {
-    const { hasSlide } = settings;
+  // private init (settings: IModelSettings) {
+  //   // const { hasSlide } = settings;
 
-    if (hasSlide) {
-      this.controller.events.currentValueChanged.subscribe(hasSlide);
-    }
-  }
+  //   // if (hasSlide) {
+  //   //   this.controller.subscribe(hasSlide);
+  //   // }
+  // }
 }
 
 export default FerSlider;

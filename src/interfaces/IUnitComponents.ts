@@ -6,8 +6,8 @@ interface IUnitComponents {
   tip: HTMLDivElement;
   range: HTMLDivElement;
   bar: HTMLDivElement;
-  thumbLeft: ITip;
-  thumbRight: ITip;
+  valueFrom: ITip;
+  valueTo: ITip;
   steps: Step;
   domParent: TDOMParents;
 }
