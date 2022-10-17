@@ -1,6 +1,5 @@
 import { bind } from 'decko';
 
-import { IEvents } from '../interfaces/IEvents';
 import IUnitComponents from '../interfaces/IUnitComponents';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
@@ -14,6 +13,12 @@ import Tip from './components/tip/Tip';
 import styleClasses from './styleClasses';
 
 class View extends Observer {
+  private modelSettings: IValidSettings;
+
+  private components: IUnitComponents;
+
+  private dragThumb: THandles | null;
+
   constructor (domParent: TDOMParents, modelSettings: IValidSettings) {
     super();
 
@@ -35,20 +40,6 @@ class View extends Observer {
       this.setThumbPosition(thumb.handle, thumb.value);
     }
   }
-
-  get events (): IEvents {
-    return this.slideEvents;
-  }
-
-  private modelSettings: IValidSettings;
-
-  private components: IUnitComponents;
-
-  private dragThumb: THandles | null;
-
-  private slideEvents: IEvents = {
-    slide: new Observer(),
-  };
 
   private initSubViewComponents (htmlParent: TDOMParents) {
     this.components = {

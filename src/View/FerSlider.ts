@@ -1,41 +1,34 @@
 import Controller from '../Controller/Controller';
-// import { IExtendsEvents } from '../interfaces/IEvents';
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
-import { TDOMParents, TUpdateThumb } from '../interfaces/types';
+import { TDOMParents, TUpdateThumb, SliderEvents } from '../interfaces/types';
 
 class FerSlider {
-  constructor (domParent: TDOMParents, settings: IModelSettings) {
-    this.controller = new Controller(domParent, settings as IValidSettings);
-    // this.init(settings);
-  }
-
-  public updateCurrentValue (thumb: TUpdateThumb) {
-    this.controller.updateValues(thumb);
-  }
-
-  public updateSettings (settings: IModelSettings): void {
-    this.controller.updateSettings(settings);
-    // this.init(settings);
-  }
-
-  // get events (): IExtendsEvents {
-  //   return this.controller.events;
-  // }
+  private controller: Controller;
 
   get settings (): IValidSettings {
     return this.controller.settings;
   }
 
-  private controller: Controller;
+  constructor (domParent: TDOMParents, settings: IModelSettings) {
+    this.controller = new Controller(domParent, settings as IValidSettings);
+  }
 
-  // private init (settings: IModelSettings) {
-  //   // const { hasSlide } = settings;
+  public updateValues (thumb: TUpdateThumb) {
+    this.controller.updateValues(thumb);
+  }
 
-  //   // if (hasSlide) {
-  //   //   this.controller.subscribe(hasSlide);
-  //   // }
-  // }
+  public updateSettings (settings: IModelSettings): void {
+    this.controller.updateSettings(settings);
+  }
+
+  public subscribe (event: SliderEvents, fun: Function): void {
+    this.controller.subscribe(event, fun);
+  }
+
+  public unsubscribe (event: SliderEvents, fun: Function): void {
+    this.controller.unsubscribe(event, fun);
+  }
 }
 
 export default FerSlider;

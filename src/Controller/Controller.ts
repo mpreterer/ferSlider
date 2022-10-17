@@ -9,6 +9,12 @@ import Observer from '../Observer/Observer';
 import View from '../View/View';
 
 class Controller extends Observer {
+  private domParent: TDOMParents;
+
+  private model: Model;
+
+  private view: View;
+
   constructor (domParent: TDOMParents, settings: IValidSettings) {
     super();
 
@@ -37,12 +43,6 @@ class Controller extends Observer {
   get settings (): IValidSettings {
     return this.model.settings;
   }
-
-  private domParent: TDOMParents;
-
-  private model: Model;
-
-  private view: View;
 
   @bind
   private handleModelUpdateOptions (settings: IValidSettings) {

@@ -1,10 +1,15 @@
-// import { IModelEvents } from '../interfaces/IEvents';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TUpdateThumb } from '../interfaces/types';
 import Observer from '../Observer/Observer';
 import defaultSettings from './defaultSettings';
 
 class Model extends Observer {
+  private modelSettings: IValidSettings;
+
+  get settings (): IValidSettings {
+    return this.modelSettings;
+  }
+
   constructor (settings: IValidSettings) {
     super();
     const validSettings = {
@@ -105,14 +110,6 @@ class Model extends Observer {
           value: validValueWithStep,
         });
     }
-
-    // if (!Number.isNaN(this.settings.valueFrom)) {
-    //   this.notify('updateValues', bodyThumb);
-    // }
-  }
-
-  get settings (): IValidSettings {
-    return this.modelSettings;
   }
 
   static getValidStep (
@@ -172,13 +169,6 @@ class Model extends Observer {
 
     return validNewSettings;
   }
-
-  private modelSettings: IValidSettings;
-
-  // private modelEvents: IModelEvents = {
-  //   currentValueChanged: new Observer(),
-  //   modelChangedSettings: new Observer(),
-  // };
 
   private validModelSettings (settings: IValidSettings) {
     const {

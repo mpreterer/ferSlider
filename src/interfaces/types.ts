@@ -5,3 +5,4 @@ export type TUpdateThumb = {
 };
 export type TDOMParents = HTMLDivElement | HTMLSpanElement;
 export type UpdateValues = { handle: THandles, value: number };
+export type SliderEvents = 'updateSettings' | 'updateValues';

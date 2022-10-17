@@ -61,7 +61,7 @@ class DemoPanel {
 
   private handleChangevalueFrom(element: Event) {
     if (element.target instanceof HTMLInputElement) {
-      this.slider.updateCurrentValue({
+      this.slider.updateValues({
         handle: "valueFrom",
         value: parseFloat(element.target.value),
       });
@@ -70,7 +70,7 @@ class DemoPanel {
 
   private handleChangevalueTo(element: Event) {
     if (element.target instanceof HTMLInputElement) {
-      this.slider.updateCurrentValue({
+      this.slider.updateValues({
         handle: "valueTo",
         value: parseFloat(element.target.value),
       });
