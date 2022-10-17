@@ -83,6 +83,45 @@ $('.sliderContainer').ferSlider({settings});
 ```
 В settings можно добавить нужные настройки
 
+## API
+* subscribe: (eventName: SliderEvents, callback: Function) => void;
+
+Это публичный метод, подписывающий переданную callback функцию на наблюдаемый эвент типа SliderEvents = "updateSettings" | "updateValues".
+
+"updateSettings" - вызывается при каждом обновлении настройки слайдера; "updateValues" - вызывается при каждом обновлении valueFrom и valueTo значений слайдера;
+
+Создаем слайдер
+```
+$('.slider').FerSlider();
+```
+
+Сохраняем инстанс слайдера
+```
+const dataSlider = $('.slider').data("FerSlider");
+```
+
+Создаем callback функцию
+```
+function viewValues ({ handle, value }) {
+  console.log(`Ползунок: ${handle}, значение: ${value}`);
+}
+```
+
+Используем публичный метод
+```
+dataSlider.subscribe('updateValues', ({ handle, value }) => {
+  viewValues({ handle, value })
+});
+
+dataSlider.subscribe('updateSettings', (settings) => {
+  console.log(settings);
+});
+```
+
+* unsubscribe: (eventName: SliderEvents, callback: Function) => void;
+
+Это публичный метод, отписывающий переданную callback функцию от переданного эвента типа SliderEvents = "updateSettings" | "updateValues".
+
 ## Использованные библиотеки
 * [jQuery ^3.6.0](https://github.com/jquery/jquery),
 * [decko ^1.2.0](https://www.npmjs.com/package/decko),
