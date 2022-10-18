@@ -7,8 +7,9 @@ import FerSlider from './View/FerSlider';
   const jquery = $;
   jquery.fn.FerSlider = function createDOM (settings: IModelSettings) {
     const domParent: TDOMParents = this[0];
-
     const range = new FerSlider(domParent, settings);
+
+    $(domParent).data('FerSlider', range);
     return range;
   }
 }(jQuery));

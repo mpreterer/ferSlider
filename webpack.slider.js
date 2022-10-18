@@ -13,10 +13,7 @@ const isProd = !isDev;
 module.exports = {
   mode: 'development',
   devtool: false,
-  entry: {
-    index: './src/range/index.ts',
-    demo: './demo/index.ts',
-  },
+  entry: './src/index.ts',
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
