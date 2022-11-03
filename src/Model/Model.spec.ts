@@ -74,14 +74,6 @@ describe("Model:", () => {
   });
 
   describe("updateValues:", () => {
-    test('Не будет принимать не валидные значения', () => {
-      const thumb: TUpdateThumb = { handle: "valueFrom", value: NaN };
-
-      model.updateValues(thumb)
-
-      expect(model.settings.valueFrom).toEqual(defaultSettings.valueFrom);
-    });
-
     test("Обновление valueFrom на проверенное", () => {
       const thumb: TUpdateThumb = { handle: "valueFrom", value: 10 };
 
@@ -189,7 +181,7 @@ describe("Model:", () => {
 
   describe('getDiapason:', () => {
     test('getModelSettings вернет дефолтную настройку', () => {
-      expect(model.getModelSettings()).toBe(defaultSettings);
+      expect(model.getModelSettings()).toStrictEqual(defaultSettings);
     });
 
     test('getModelSettings новые настройки', () => {
