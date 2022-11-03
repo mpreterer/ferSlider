@@ -41,6 +41,14 @@ class DemoPanel {
     this.components.valueTo.disabled;
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
+
+    this.slider.subscribe('updateValues', ({ handle, value }:any) => {
+      if (handle === 'valueFrom') {
+        this.components.valueFrom.value = value;
+      } else {
+        this.components.valueTo.value = value;
+      }
+    });
   }
 
   private handleChangeMinValue (element: Event) {
