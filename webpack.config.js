@@ -15,10 +15,10 @@ module.exports = {
   entry: './demo/index.ts',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'demo-build'),
   },
   devServer: {
-    contentBase: './dist'
+    contentBase: './demo-build'
   },
   optimization: {
     minimize: isProd
@@ -50,7 +50,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.s[ac]ss$/,
+        test: /\.scss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -82,7 +82,7 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, './assets/images'),
-          to: path.resolve(__dirname, 'dist/assets/images'),
+          to: path.resolve(__dirname, 'demo-build/assets/images'),
         },
       ],
     }),

@@ -1,4 +1,6 @@
 /// <reference path="./utils/typings/globals/IJQuery.d.ts" />
+import './styleRange.scss';
+
 import IModelSettings from './interfaces/IModelSettings';
 import { TDOMParents } from './interfaces/types';
 import FerSlider from './View/FerSlider';
