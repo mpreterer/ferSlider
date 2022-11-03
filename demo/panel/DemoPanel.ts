@@ -68,7 +68,7 @@ class DemoPanel {
     }
   }
 
-  private handleChangevalueFrom(element: Event) {
+  private handleChangeValueFrom(element: Event) {
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateValues({
         handle: "valueFrom",
@@ -77,7 +77,7 @@ class DemoPanel {
     }
   }
 
-  private handleChangevalueTo(element: Event) {
+  private handleChangeValueTo(element: Event) {
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateValues({
         handle: "valueTo",
@@ -158,12 +158,12 @@ class DemoPanel {
 
     components.valueFrom.addEventListener(
       "change",
-      this.handleChangevalueFrom.bind(this),
+      this.handleChangeValueFrom.bind(this),
     );
 
     components.valueTo.addEventListener(
       "change",
-      this.handleChangevalueTo.bind(this),
+      this.handleChangeValueTo.bind(this),
     );
 
     components.step.addEventListener(
