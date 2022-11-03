@@ -1,10 +1,11 @@
 import { bind } from 'decko';
 
 import IValidSettings from '../../src/interfaces/IValidSettings';
-import { TDOMParents } from '../../src/interfaces/types';
+import { TDOMParents, UpdateValues } from '../../src/interfaces/types';
 import FerSlider from '../../src/View/FerSlider';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
+
 class DemoPanel {
   constructor(domParent: TDOMParents, slider: FerSlider) {
     this.domParent = domParent;
@@ -42,11 +43,11 @@ class DemoPanel {
     this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
 
-    this.slider.subscribe('updateValues', ({ handle, value }:any) => {
+    this.slider.subscribe('updateValues', ({ handle, value }:UpdateValues) => {
       if (handle === 'valueFrom') {
-        this.components.valueFrom.value = value;
+        this.components.valueFrom.value = String(value);
       } else {
-        this.components.valueTo.value = value;
+        this.components.valueTo.value = String(value);
       }
     });
   }
