@@ -4,12 +4,6 @@ import Observer from '../Observer/Observer';
 import defaultSettings from './defaultSettings';
 
 class Model extends Observer {
-  private modelSettings: IValidSettings;
-
-  get settings (): IValidSettings {
-    return this.modelSettings;
-  }
-
   constructor (settings: IValidSettings) {
     super();
     const validSettings = {
@@ -111,6 +105,12 @@ class Model extends Observer {
         });
     }
   }
+
+  get settings (): IValidSettings {
+    return this.modelSettings;
+  }
+
+  private modelSettings: IValidSettings;
 
   static getValidStep (
     minValue: number,

@@ -13,12 +13,6 @@ import Tip from './components/tip/Tip';
 import styleClasses from './styleClasses';
 
 class View extends Observer {
-  private modelSettings: IValidSettings;
-
-  private components: IUnitComponents;
-
-  private dragThumb: THandles | null;
-
   constructor (domParent: TDOMParents, modelSettings: IValidSettings) {
     super();
 
@@ -39,28 +33,6 @@ class View extends Observer {
       }
       this.setThumbPosition(thumb.handle, thumb.value);
     }
-  }
-
-  private initSubViewComponents (htmlParent: TDOMParents) {
-    this.components = {
-      domParent: htmlParent,
-      slider: new Slider().getDom(),
-      bar: new Bar().getDom(),
-      range: new Range().getDom(),
-      valueFrom: {
-        thumb: new Thumb().getHTML(),
-        tip: new Tip().getHTML(),
-      },
-      valueTo: {
-        thumb: new Thumb().getHTML(),
-        tip: new Tip().getHTML(),
-      },
-      steps: new Step(),
-      tip: new Tip().getHTML(),
-    };
-
-    this.render();
-    this.initThumbsListeners();
   }
 
   private render () {
@@ -146,6 +118,34 @@ class View extends Observer {
     if (!hasSlider) {
       components.domParent.appendChild(components.slider);
     }
+  }
+
+  private modelSettings: IValidSettings;
+
+  private components: IUnitComponents;
+
+  private dragThumb: THandles | null;
+
+  private initSubViewComponents (htmlParent: TDOMParents) {
+    this.components = {
+      domParent: htmlParent,
+      slider: new Slider().getDom(),
+      bar: new Bar().getDom(),
+      range: new Range().getDom(),
+      valueFrom: {
+        thumb: new Thumb().getHTML(),
+        tip: new Tip().getHTML(),
+      },
+      valueTo: {
+        thumb: new Thumb().getHTML(),
+        tip: new Tip().getHTML(),
+      },
+      steps: new Step(),
+      tip: new Tip().getHTML(),
+    };
+
+    this.render();
+    this.initThumbsListeners();
   }
 
   private renderSubComponentsStyles () {

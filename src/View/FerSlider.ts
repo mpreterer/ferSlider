@@ -4,12 +4,6 @@ import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, TUpdateThumb, SliderEvents } from '../interfaces/types';
 
 class FerSlider {
-  private controller: Controller;
-
-  get settings (): IValidSettings {
-    return this.controller.settings;
-  }
-
   constructor (domParent: TDOMParents, settings: IModelSettings) {
     this.controller = new Controller(domParent, settings as IValidSettings);
   }
@@ -28,6 +22,12 @@ class FerSlider {
 
   public unsubscribe (event: SliderEvents, fun: Function): void {
     this.controller.unsubscribe(event, fun);
+  }
+
+  private controller: Controller;
+
+  get settings (): IValidSettings {
+    return this.controller.settings;
   }
 }
 

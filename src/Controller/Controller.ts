@@ -9,12 +9,6 @@ import Observer from '../Observer/Observer';
 import View from '../View/View';
 
 class Controller extends Observer {
-  private domParent: TDOMParents;
-
-  private model: Model;
-
-  private view: View;
-
   constructor (domParent: TDOMParents, settings: IValidSettings) {
     super();
 
@@ -33,6 +27,12 @@ class Controller extends Observer {
   public updateValues (thumb: TUpdateThumb): void {
     this.model.updateValues(thumb);
   }
+
+  private domParent: TDOMParents;
+
+  private model: Model;
+
+  private view: View;
 
   private init () {
     this.model.subscribe('updateSettings', this.handleModelUpdateOptions);
