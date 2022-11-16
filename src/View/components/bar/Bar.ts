@@ -1,4 +1,4 @@
-import styleClasses from "../../styleClasses";
+import styleClasses from '../../styleClasses';
 
 class Bar {
   constructor () {

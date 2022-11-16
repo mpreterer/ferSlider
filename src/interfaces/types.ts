@@ -1,8 +1,16 @@
-export type THandles = "valueFrom" | "valueTo";
-export type TUpdateThumb = {
+type THandles = "valueFrom" | "valueTo";
+type TUpdateThumb = {
   handle: THandles;
   value: number;
 };
-export type TDOMParents = HTMLDivElement | HTMLSpanElement;
-export type UpdateValues = { handle: THandles, value: number };
-export type SliderEvents = 'updateSettings' | 'updateValues';
+type TDOMParents = HTMLDivElement | HTMLSpanElement;
+type UpdateValues = { handle: THandles, value: number };
+type SliderEvents = 'updateSettings' | 'updateValues';
+
+export {
+  THandles,
+  TUpdateThumb,
+  TDOMParents,
+  UpdateValues,
+  SliderEvents,
+}

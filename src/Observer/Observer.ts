@@ -1,4 +1,4 @@
-import IObserver, { ObserverData, IObservers } from './IObserver';
+import IObserver, { IObservers, ObserverData } from './IObserver';
 
 class Observer implements IObserver {
   constructor () {

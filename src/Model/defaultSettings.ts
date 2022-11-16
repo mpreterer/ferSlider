@@ -1,4 +1,4 @@
-import IValidSettings from "../interfaces/IValidSettings";
+import IValidSettings from '../interfaces/IValidSettings';
 
 const defaultSettings: IValidSettings = {
   minValue: 0,

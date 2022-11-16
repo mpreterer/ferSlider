@@ -1,7 +1,7 @@
 import Controller from '../Controller/Controller';
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
-import { TDOMParents, TUpdateThumb, SliderEvents } from '../interfaces/types';
+import { SliderEvents, TDOMParents, TUpdateThumb } from '../interfaces/types';
 
 class FerSlider {
   constructor (domParent: TDOMParents, settings: IModelSettings) {

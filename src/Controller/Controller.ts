@@ -1,6 +1,5 @@
 import { bind } from 'decko';
 
-// import { IExtendsEvents } from '../interfaces/IEvents';
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, TUpdateThumb } from '../interfaces/types';
@@ -8,6 +7,7 @@ import Model from '../Model/Model';
 import Observer from '../Observer/Observer';
 import View from '../View/View';
 
+// import { IExtendsEvents } from '../interfaces/IEvents';
 class Controller extends Observer {
   constructor (domParent: TDOMParents, settings: IValidSettings) {
     super();
