@@ -480,9 +480,13 @@ class View extends Observer {
     const middleValue = Math.ceil((maxValue - minValue) / step);
     let quantitySteps = 6;
     const limitationSteps = maxValue > 1e7 && maxValue <= 1e9;
+    const limitationStepsMin = minValue < -1e7 && minValue >= -1e9;
 
     if (limitationSteps) quantitySteps = 4;
+    if (limitationStepsMin) quantitySteps = 4;
+
     if (maxValue > 1e9) quantitySteps = 2;
+    if (minValue < -1e9) quantitySteps = 2;
 
     const viewStep = Math.ceil(middleValue / quantitySteps) * step;
     const middleArr = [];
