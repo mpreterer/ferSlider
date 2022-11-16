@@ -7,7 +7,6 @@ import Model from '../Model/Model';
 import Observer from '../Observer/Observer';
 import View from '../View/View';
 
-// import { IExtendsEvents } from '../interfaces/IEvents';
 class Controller extends Observer {
   constructor (domParent: TDOMParents, settings: IValidSettings) {
     super();
@@ -58,7 +57,7 @@ class Controller extends Observer {
 
   @bind
   private handleViewOnSlide (value: TUpdateThumb) {
-    this.model.updateValues(value)
+    this.model.updateValues(value);
   }
 }
 
