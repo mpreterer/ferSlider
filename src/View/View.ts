@@ -44,14 +44,14 @@ class View extends Observer {
     } = this.modelSettings;
     const { components } = this;
 
-    const hasSlider = components.domParent.contains(components.slider);
-    const hasBar = components.slider.contains(components.bar.getDom());
+    const hasSlider = components.domParent.contains(components.slider.getDom());
+    const hasBar = components.slider.getDom().contains(components.bar.getDom());
     const hasFromThumb = components.bar.getDom().contains(components.valueFrom.thumb.getDom());
     const hasToThumb = components.bar.getDom().contains(components.valueTo.thumb.getDom());
     const hasTip = components.valueFrom.thumb.getDom().contains(components.valueFrom.tip.getDom())
       && components.valueTo.thumb.getDom().contains(components.valueTo.tip.getDom());
     const hasRange = components.bar.getDom().contains(components.range.getDom());
-    const hasStep = components.slider.contains(components.steps.getDom());
+    const hasStep = components.slider.getDom().contains(components.steps.getDom());
 
     const isRenderStep = isStep && !hasStep;
     const isRenderFromThumb = isRange && !hasFromThumb;
@@ -65,7 +65,7 @@ class View extends Observer {
     const removeTips = !isTip && hasTip;
 
     if (!hasBar) {
-      components.slider.appendChild(components.bar.getDom());
+      components.slider.getDom().appendChild(components.bar.getDom());
     }
 
     if (isStep) {
@@ -73,11 +73,11 @@ class View extends Observer {
     }
 
     if (isRenderStep) {
-      components.slider.appendChild(components.steps.getDom());
+      components.slider.getDom().appendChild(components.steps.getDom());
     }
 
     if (removeStep) {
-      components.slider.removeChild(components.steps.getDom());
+      components.slider.getDom().removeChild(components.steps.getDom());
     }
 
     if (isRenderFromThumb) {
@@ -116,7 +116,7 @@ class View extends Observer {
     this.setCurrentValue();
 
     if (!hasSlider) {
-      components.domParent.appendChild(components.slider);
+      components.domParent.appendChild(components.slider.getDom());
     }
   }
 
@@ -131,7 +131,7 @@ class View extends Observer {
 
     this.components = {
       domParent: htmlParent,
-      slider: new Slider().getDom(),
+      slider: new Slider(modelSettings),
       bar: new Bar(modelSettings),
       range: new Range(modelSettings),
       valueFrom: {
@@ -151,11 +151,9 @@ class View extends Observer {
   }
 
   private renderSubComponentsStyles () {
-    const { isVertical } = this.modelSettings;
     const { components } = this;
     const { modelSettings } = this;
 
-    components.slider.setAttribute("class", `${styleClasses.SLIDER}`);
     components.valueFrom.thumb.getDom().setAttribute("data-thumb", "1");
     components.valueTo.thumb.getDom().setAttribute("data-thumb", "2");
 
@@ -166,12 +164,7 @@ class View extends Observer {
     components.bar.updateState(modelSettings);
     components.range.updateState(modelSettings);
     components.steps.updateState(modelSettings);
-
-    if (isVertical) {
-      components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
-    } else {
-      components.slider.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
-    }
+    components.slider.updateState(modelSettings);
   }
 
   private setCurrentValue () {

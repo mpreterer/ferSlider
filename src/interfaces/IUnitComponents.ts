@@ -4,9 +4,10 @@ import Thumb from '../View/components/thumb/Thumb';
 import Tip from '../View/components/tip/Tip';
 import Range from '../View/components/range/Range';
 import { TDOMParents } from './types';
+import Slider from '../View/components/slider/Slider';
 
 interface IUnitComponents {
-  slider: HTMLDivElement;
+  slider: Slider;
   tip: Tip;
   range: Range;
   bar: Bar;
