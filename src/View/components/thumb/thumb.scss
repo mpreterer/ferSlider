@@ -8,11 +8,7 @@
   border: 1px solid #000;
   border-radius: 3px;
   box-shadow: 1px 1px 0 #000;
-  cursor: grab;
-
-  &:focus {
-    cursor: grabbing;
-  }
+  cursor: pointer;
 
   &_horizontal {
     transform: translateX(-50%);
