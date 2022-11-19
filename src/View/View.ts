@@ -69,7 +69,7 @@ class View extends Observer {
     }
 
     if (isStep) {
-      this.renderSteps();
+      components.steps.renderSteps();
     }
 
     if (isRenderStep) {
@@ -142,7 +142,7 @@ class View extends Observer {
         thumb: new Thumb(modelSettings),
         tip: new Tip(modelSettings),
       },
-      steps: new Step(),
+      steps: new Step(modelSettings),
       tip: new Tip(modelSettings),
     };
 
@@ -154,7 +154,6 @@ class View extends Observer {
     const { isVertical } = this.modelSettings;
     const { components } = this;
     const { modelSettings } = this;
-    const beforeOrient = !!isVertical;
 
     components.slider.setAttribute("class", `${styleClasses.SLIDER}`);
     components.valueFrom.thumb.getDom().setAttribute("data-thumb", "1");
@@ -166,39 +165,12 @@ class View extends Observer {
     components.valueTo.tip.updateState(modelSettings);
     components.bar.updateState(modelSettings);
     components.range.updateState(modelSettings);
-
-    if (beforeOrient) {
-      components.steps
-        .getDom()
-        .classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
-
-      components.steps.getItems().forEach((item) => {
-        item.classList.remove(`${styleClasses.STEP_ITEM}`);
-      });
-    } else {
-      components.steps
-        .getDom()
-        .classList.remove(`${styleClasses.STEP_VERTICAL}`);
-
-      components.steps.getItems().forEach((item) => {
-        item.classList.remove(`${styleClasses.STEP_ITEM}`);
-      });
-    }
+    components.steps.updateState(modelSettings);
 
     if (isVertical) {
       components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
-      components.steps.getDom().classList.add(`${styleClasses.STEP_VERTICAL}`);
-      components.steps.getItems().forEach((item) => {
-        item.classList.add(`${styleClasses.STEP_ITEM}`);
-      });
     } else {
       components.slider.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
-      components.steps
-        .getDom()
-        .classList.add(`${styleClasses.STEP_HORIZONTAL}`);
-      components.steps.getItems().forEach((item) => {
-        item.classList.add(`${styleClasses.STEP_ITEM}`);
-      });
     }
   }
 
@@ -281,16 +253,6 @@ class View extends Observer {
 
     if (isTip) this.setTipValue(toggle, val);
     if (isBarRange) this.setClickRangePosition();
-  }
-
-  private convertPercentValueTo (val: number) {
-    const { isVertical, minValue, maxValue } = this.modelSettings;
-    const percent = Number(
-      (((val - minValue) * 100) / (maxValue - minValue)).toFixed(10),
-    );
-    const okPercent = isVertical ? 100 - percent : percent;
-
-    return okPercent;
   }
 
   private setClickRangePosition () {
@@ -395,49 +357,6 @@ class View extends Observer {
 
         this.notify('onSlide', { handle: thumb, value });
       }
-    });
-  }
-
-  private getStepsValue (): number[] {
-    const { maxValue, minValue, step } = this.modelSettings;
-    const middleValue = Math.ceil((maxValue - minValue) / step);
-    let quantitySteps = 6;
-    const limitationSteps = maxValue > 1e7 && maxValue <= 1e9;
-    const limitationStepsMin = minValue < -1e7 && minValue >= -1e9;
-
-    if (limitationSteps) quantitySteps = 4;
-    if (limitationStepsMin) quantitySteps = 4;
-
-    if (maxValue > 1e9) quantitySteps = 2;
-    if (minValue < -1e9) quantitySteps = 2;
-
-    const viewStep = Math.ceil(middleValue / quantitySteps) * step;
-    const middleArr = [];
-    let value = minValue;
-
-    for (let i = 0; value < maxValue; i += 1) {
-      value += viewStep;
-
-      if (value < maxValue) {
-        middleArr.push(value);
-      }
-    }
-
-    return [minValue, ...middleArr, maxValue];
-  }
-
-  private renderSteps () {
-    const { isVertical } = this.modelSettings;
-    const values = this.getStepsValue();
-    const side = isVertical ? "top" : "left";
-    this.components.steps.getDom().innerHTML = "";
-
-    values.map((item) => {
-      const domItem = this.components.steps.addItem(Number(item.toFixed(2)));
-      const percent = this.convertPercentValueTo(item);
-      domItem.style[side] = `${percent}%`;
-
-      return 0;
     });
   }
 }
