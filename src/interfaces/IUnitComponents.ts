@@ -1,9 +1,11 @@
 import Step from '../View/components/step/Step';
+import Thumb from '../View/components/thumb/Thumb';
+import Tip from '../View/components/tip/Tip';
 import { TDOMParents } from './types';
 
 interface IUnitComponents {
   slider: HTMLDivElement;
-  tip: HTMLDivElement;
+  tip: Tip;
   range: HTMLDivElement;
   bar: HTMLDivElement;
   valueFrom: ITip;
@@ -13,8 +15,8 @@ interface IUnitComponents {
 }
 
 interface ITip {
-  thumb: HTMLDivElement,
-  tip: HTMLDivElement
+  thumb: Thumb,
+  tip: Tip
 }
 
 export default IUnitComponents;

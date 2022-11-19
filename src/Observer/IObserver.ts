@@ -7,10 +7,3 @@ export interface IObservers {
   event: string,
   fun: Function,
 }
-interface IObserver {
-  subscribe: (event: string, fun: Function) => void;
-  unsubscribe: (event: string, fun: Function) => void;
-  notify: (event: string, data: ObserverData) => void;
-}
-
-export default IObserver;

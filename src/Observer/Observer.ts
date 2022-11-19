@@ -1,15 +1,15 @@
-import IObserver, { IObservers, ObserverData } from './IObserver';
+import { IObservers, ObserverData } from './IObserver';
 
-class Observer implements IObserver {
+class Observer {
   constructor () {
     this.observers = [];
   }
 
-  public subscribe (event: string, fun: Function) {
+  public subscribe (event: string, fun: Function): void {
     this.observers.push({ event, fun });
   }
 
-  public unsubscribe (event: string, fun: Function) {
+  public unsubscribe (event: string, fun: Function): void {
     this.observers = this.observers.filter((item) => {
       const current = item.fun === fun && item.event === event;
 
@@ -18,7 +18,7 @@ class Observer implements IObserver {
     });
   }
 
-  public notify (event: string, data: ObserverData) {
+  public notify (event: string, data: ObserverData): void {
     this.observers.forEach((subscriber) => {
       if (subscriber.event === event) {
         subscriber.fun(data);
