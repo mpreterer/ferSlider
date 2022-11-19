@@ -43,6 +43,16 @@ class Thumb {
     this.dom = thumbHTML;
   }
 
+  public setActive (): void {
+    const activeThumb = `${styleClasses.THUMB}_active`;
+    this.dom.classList.add(`${activeThumb}`);
+  }
+
+  public removeActive (): void {
+    const activeThumb = `${styleClasses.THUMB}_active`;
+    this.dom.classList.remove(`${activeThumb}`);
+  }
+
   public getThumbPosition (barLenth: number): number {
     const { isVertical } = this.settings;
 

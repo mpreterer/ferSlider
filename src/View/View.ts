@@ -10,7 +10,6 @@ import Slider from './components/slider/Slider';
 import Step from './components/step/Step';
 import Thumb from './components/thumb/Thumb';
 import Tip from './components/tip/Tip';
-import styleClasses from './styleClasses';
 
 class View extends Observer {
   constructor (domParent: TDOMParents, modelSettings: IValidSettings) {
@@ -179,14 +178,11 @@ class View extends Observer {
   }
 
   private setActiveThumb (thumb: THandles) {
-    const { components } = this;
-    const activeThumb = `${styleClasses.THUMB}_active`;
+    const isFromThumb = thumb === 'valueFrom';
+    const beforeState: THandles = isFromThumb ? 'valueTo' : 'valueFrom';
 
-    if (!components[thumb].thumb.getDom().classList.contains(`${activeThumb}`)) {
-      components.valueFrom.thumb.getDom().classList.remove(`${activeThumb}`);
-      components.valueTo.thumb.getDom().classList.remove(`${activeThumb}`);
-      components[thumb].thumb.getDom().classList.add(`${activeThumb}`);
-    }
+    this.components[beforeState].thumb.removeActive();
+    this.components[thumb].thumb.setActive();
   }
 
   private convertCoordsToValue (coords: number): number {
@@ -332,6 +328,7 @@ class View extends Observer {
     }
   }
 
+  @bind
   private initThumbsListeners () {
     window.removeEventListener("pointermove", this.handlePointerMoveWindow);
     window.removeEventListener("pointerup", this.handlePointerUpWindow);
