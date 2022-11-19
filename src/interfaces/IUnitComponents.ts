@@ -1,3 +1,4 @@
+import Bar from '../View/components/bar/Bar';
 import Step from '../View/components/step/Step';
 import Thumb from '../View/components/thumb/Thumb';
 import Tip from '../View/components/tip/Tip';
@@ -7,7 +8,7 @@ interface IUnitComponents {
   slider: HTMLDivElement;
   tip: Tip;
   range: HTMLDivElement;
-  bar: HTMLDivElement;
+  bar: Bar;
   valueFrom: ITip;
   valueTo: ITip;
   steps: Step;
