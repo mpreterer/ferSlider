@@ -16,7 +16,7 @@ class Thumb {
     this.updateStyles();
   }
 
-  public updateStyles ():void {
+  private updateStyles ():void {
     const { isVertical } = this.settings;
     const beforeOrient = !!isVertical;
     const sideStart = isVertical ? "left" : "bottom";

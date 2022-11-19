@@ -50,7 +50,7 @@ class View extends Observer {
     const hasToThumb = components.bar.getDom().contains(components.valueTo.thumb.getDom());
     const hasTip = components.valueFrom.thumb.getDom().contains(components.valueFrom.tip.getDom())
       && components.valueTo.thumb.getDom().contains(components.valueTo.tip.getDom());
-    const hasRange = components.bar.getDom().contains(components.range);
+    const hasRange = components.bar.getDom().contains(components.range.getDom());
     const hasStep = components.slider.contains(components.steps.getDom());
 
     const isRenderStep = isStep && !hasStep;
@@ -95,11 +95,11 @@ class View extends Observer {
     }
 
     if (isRenderRange) {
-      components.bar.getDom().appendChild(components.range);
+      components.bar.getDom().appendChild(components.range.getDom());
     }
 
     if (removeRange) {
-      components.bar.getDom().removeChild(components.range);
+      components.bar.getDom().removeChild(components.range.getDom());
     }
 
     if (isRenderTips) {
@@ -133,7 +133,7 @@ class View extends Observer {
       domParent: htmlParent,
       slider: new Slider().getDom(),
       bar: new Bar(modelSettings),
-      range: new Range().getDom(),
+      range: new Range(modelSettings),
       valueFrom: {
         thumb: new Thumb(modelSettings),
         tip: new Tip(modelSettings),
@@ -154,8 +154,6 @@ class View extends Observer {
     const { isVertical } = this.modelSettings;
     const { components } = this;
     const { modelSettings } = this;
-    const sideStart = isVertical ? "left" : "bottom";
-    const sideFinish = isVertical ? "right" : "top";
     const beforeOrient = !!isVertical;
 
     components.slider.setAttribute("class", `${styleClasses.SLIDER}`);
@@ -167,9 +165,9 @@ class View extends Observer {
     components.valueFrom.tip.updateState(modelSettings);
     components.valueTo.tip.updateState(modelSettings);
     components.bar.updateState(modelSettings);
+    components.range.updateState(modelSettings);
 
     if (beforeOrient) {
-      components.range.classList.remove(`${styleClasses.RANGE_HORIZONTAL}`);
       components.steps
         .getDom()
         .classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
@@ -178,7 +176,6 @@ class View extends Observer {
         item.classList.remove(`${styleClasses.STEP_ITEM}`);
       });
     } else {
-      components.range.classList.remove(`${styleClasses.RANGE_VERTICAL}`);
       components.steps
         .getDom()
         .classList.remove(`${styleClasses.STEP_VERTICAL}`);
@@ -188,19 +185,14 @@ class View extends Observer {
       });
     }
 
-    components.range.style[sideStart] = "0";
-    components.range.style[sideFinish] = "0";
-
     if (isVertical) {
       components.slider.classList.add(`${styleClasses.SLIDER_VERTICAL}`);
-      components.range.classList.add(`${styleClasses.RANGE_VERTICAL}`);
       components.steps.getDom().classList.add(`${styleClasses.STEP_VERTICAL}`);
       components.steps.getItems().forEach((item) => {
         item.classList.add(`${styleClasses.STEP_ITEM}`);
       });
     } else {
       components.slider.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
-      components.range.classList.add(`${styleClasses.RANGE_HORIZONTAL}`);
       components.steps
         .getDom()
         .classList.add(`${styleClasses.STEP_HORIZONTAL}`);
@@ -339,17 +331,17 @@ class View extends Observer {
             " ",
           ),
         );
-      components.range.style[startPosition] = `${VerticalFromPercent}%`;
-      components.range.style[endPosition] = `${VerticalToPercent}%`;
+      components.range.getDom().style[startPosition] = `${VerticalFromPercent}%`;
+      components.range.getDom().style[endPosition] = `${VerticalToPercent}%`;
     } else if (horizontalRange) {
-      components.range.style[startPosition] = `${fromPercent}%`;
-      components.range.style[endPosition] = `${toPercent}%`;
+      components.range.getDom().style[startPosition] = `${fromPercent}%`;
+      components.range.getDom().style[endPosition] = `${toPercent}%`;
     } else if (isVertical) {
-      components.range.style[startPosition] = "0";
-      components.range.style.top = `${fromPercent}%`;
+      components.range.getDom().style[startPosition] = "0";
+      components.range.getDom().style.top = `${fromPercent}%`;
     } else {
-      components.range.style[startPosition] = "0";
-      components.range.style[endPosition] = `${100 - fromPercent}%`;
+      components.range.getDom().style[startPosition] = "0";
+      components.range.getDom().style[endPosition] = `${100 - fromPercent}%`;
     }
   }
 

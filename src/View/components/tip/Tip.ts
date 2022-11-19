@@ -31,7 +31,7 @@ class Tip {
     this.updateStyles();
   }
 
-  public updateStyles (): void {
+  private updateStyles (): void {
     const { isVertical } = this.settings;
     const beforeOrient = !!isVertical;
 
