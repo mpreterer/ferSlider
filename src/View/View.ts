@@ -30,6 +30,7 @@ class View extends Observer {
         ...this.modelSettings,
         ...{ [thumb.handle]: thumb.value },
       }
+
       this.setPositionComponents(thumb.handle, thumb.value);
     }
   }
@@ -153,17 +154,17 @@ class View extends Observer {
     const { components } = this;
     const { modelSettings } = this;
 
+    components.slider.updateState(modelSettings);
     components.valueFrom.thumb.getDom().setAttribute("data-thumb", "1");
     components.valueTo.thumb.getDom().setAttribute("data-thumb", "2");
 
+    components.bar.updateState(modelSettings);
+    components.range.updateState(modelSettings);
     components.valueFrom.thumb.updateState(modelSettings);
     components.valueTo.thumb.updateState(modelSettings);
     components.valueFrom.tip.updateState(modelSettings);
     components.valueTo.tip.updateState(modelSettings);
-    components.bar.updateState(modelSettings);
-    components.range.updateState(modelSettings);
     components.steps.updateState(modelSettings);
-    components.slider.updateState(modelSettings);
   }
 
   private setCurrentValue () {

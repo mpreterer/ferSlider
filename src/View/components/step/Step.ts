@@ -36,6 +36,7 @@ class Step {
   public updateState (settings: IValidSettings): void {
     this.settings = settings;
     this.updateStyles();
+    this.renderSteps();
   }
 
   private updateStyles (): void {
