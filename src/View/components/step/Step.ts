@@ -72,15 +72,39 @@ class Step {
     const { isVertical } = this.settings;
     const values = this.getStepsValue();
     const side = isVertical ? "top" : "left";
+    let arrayItems = [];
     this.dom.innerHTML = "";
 
-    values.map((item) => {
-      const domItem = this.addItem(Number(item.toFixed(2)));
-      const percent = this.convertPercentValueTo(item);
-      domItem.style[side] = `${percent}%`;
+    values.forEach((el) => {
+      arrayItems.push(el);
+    })
 
-      return 0;
-    });
+    if (arrayItems.length === 5) {
+      let percent = 0;
+      values.map((item) => {
+        const domItem = this.addItem(Number(item.toFixed(2)));
+
+        if (percent > 75) {
+          percent = 100;
+        }
+
+        domItem.style[side] = `${percent}%`;
+        percent = percent + 25;
+
+        return 0;
+      });
+    } else {
+      values.map((item) => {
+        const domItem = this.addItem(Number(item.toFixed(2)));
+        let percent = this.convertPercentValueTo(item);
+        if (percent >= 90 && percent < 100) percent = 85;
+  
+        console.log(percent)
+        domItem.style[side] = `${percent}%`;
+  
+        return 0;
+      });
+    }
   }
 
   private convertPercentValueTo (val: number) {
@@ -97,14 +121,17 @@ class Step {
     const { maxValue, minValue, step } = this.settings;
     const middleValue = Math.ceil((maxValue - minValue) / step);
     let quantitySteps = 6;
-    const limitationSteps = maxValue > 1e7 && maxValue <= 1e9;
-    const limitationStepsMin = minValue < -1e7 && minValue >= -1e9;
+    const limitationSteps = maxValue > 1e5 && maxValue <= 1e7;
+    const limitationStepsMin = minValue < -1e5 && minValue >= -1e7;
 
     if (limitationSteps) quantitySteps = 4;
     if (limitationStepsMin) quantitySteps = 4;
 
-    if (maxValue > 1e9) quantitySteps = 2;
-    if (minValue < -1e9) quantitySteps = 2;
+    if (maxValue > 1e7) quantitySteps = 2;
+    if (maxValue > 1e16) quantitySteps = 1;
+
+    if (minValue < -1e7) quantitySteps = 2;
+    if (minValue < -1e16) quantitySteps = 1;
 
     const viewStep = Math.ceil(middleValue / quantitySteps) * step;
     const middleArr = [];
