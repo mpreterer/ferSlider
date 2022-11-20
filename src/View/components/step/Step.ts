@@ -117,7 +117,7 @@ class Step {
   private getStepsValue (): number[] {
     const { maxValue, minValue, step } = this.settings;
     const middleValue = Math.ceil((maxValue - minValue) / step);
-    let quantitySteps = 6;
+    let quantitySteps = 5;
     const limitationSteps = maxValue > 1e5 && maxValue <= 1e7;
     const limitationStepsMin = minValue < -1e5 && minValue >= -1e7;
 
