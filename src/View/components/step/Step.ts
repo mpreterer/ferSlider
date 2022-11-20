@@ -72,7 +72,7 @@ class Step {
     const { isVertical } = this.settings;
     const values = this.getStepsValue();
     const side = isVertical ? "top" : "left";
-    let arrayItems = [];
+    const arrayItems = [];
     this.dom.innerHTML = "";
 
     values.forEach((el) => {
@@ -89,7 +89,7 @@ class Step {
         }
 
         domItem.style[side] = `${percent}%`;
-        percent = percent + 25;
+        percent += 25;
 
         return 0;
       });
@@ -98,10 +98,7 @@ class Step {
         const domItem = this.addItem(Number(item.toFixed(2)));
         let percent = this.convertPercentValueTo(item);
         if (percent >= 90 && percent < 100) percent = 85;
-  
-        console.log(percent)
         domItem.style[side] = `${percent}%`;
-  
         return 0;
       });
     }
