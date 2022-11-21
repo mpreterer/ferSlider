@@ -196,23 +196,12 @@ class View extends Observer {
     return value;
   }
 
-  private getValidatedCoords (event: PointerEvent): number {
-    const { isVertical } = this.modelSettings;
-    const coords = isVertical ? "clientY" : "clientX";
-    const barOffset = this.components.bar.getOffset();
-    const result = isVertical
-      ? barOffset - event[coords]
-      : event[coords] - barOffset;
-
-    return result;
-  }
-
   private changePositionThumb (event: PointerEvent): THandles {
     const { isRange } = this.modelSettings;
     const { components } = this;
     const length = components.bar.getLength();
     const valueFromValue = components.valueFrom.thumb.getThumbPosition(length);
-    const mouseCoords = this.getValidatedCoords(event);
+    const mouseCoords = components.bar.getValidatedCoords(event);
 
     if (!isRange) return "valueFrom";
 
@@ -312,7 +301,7 @@ class View extends Observer {
   @bind
   private handlePointerMoveWindow (event: PointerEvent) {
     if (this.dragThumb) {
-      const coords = this.getValidatedCoords(event);
+      const coords = this.components.bar.getValidatedCoords(event);
       const value = this.convertCoordsToValue(coords);
 
       this.notify('onSlide', { handle: this.dragThumb, value });

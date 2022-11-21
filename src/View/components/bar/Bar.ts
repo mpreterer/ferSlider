@@ -56,6 +56,17 @@ class Bar {
     return offset;
   }
 
+  public getValidatedCoords (event: PointerEvent): number {
+    const { isVertical } = this.settings;
+    const coords = isVertical ? "clientY" : "clientX";
+    const barOffset = this.getOffset();
+    const result = isVertical
+      ? barOffset - event[coords]
+      : event[coords] - barOffset;
+
+    return result;
+  }
+
   private dom: HTMLDivElement;
 
   private settings: IValidSettings;
