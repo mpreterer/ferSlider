@@ -189,6 +189,7 @@ class View extends Observer {
   private convertCoordsToValue (coords: number): number {
     const { maxValue, minValue } = this.modelSettings;
     const barLength = this.components.bar.getLength();
+
     const value = Number(
       ((coords * (maxValue - minValue)) / barLength + minValue).toFixed(10),
     );

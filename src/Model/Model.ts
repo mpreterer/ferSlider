@@ -43,12 +43,13 @@ class Model extends Observer {
     const isTo = bodyThumb.handle === "valueTo"
       && isRange;
     const valueWithStep = Model.getValueWithStep(bodyThumb.value, minValue, step);
+    const quantitySymbols = step.toString().match(/\.(\d+)/)?.[1].length;
 
-    const validValueWithStep = Model.getDiapason(
+    const validValueWithStep = Number(Model.getDiapason(
       valueWithStep,
       minValue,
       maxValue,
-    );
+    ).toFixed(quantitySymbols));
 
     if (isFrom) {
       const val = Model.getDiapason(
@@ -136,6 +137,7 @@ class Model extends Observer {
     if (value >= maxValue) {
       return maxValue;
     }
+
     return value;
   }
 
