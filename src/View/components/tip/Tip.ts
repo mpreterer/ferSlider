@@ -7,10 +7,6 @@ class Tip {
     this.getHTML();
   }
 
-  public saveDom (element: HTMLDivElement) {
-    this.dom = element;
-  }
-
   public getDom (): HTMLDivElement {
     return this.dom;
   }

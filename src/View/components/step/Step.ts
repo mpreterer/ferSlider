@@ -18,16 +18,6 @@ class Step {
     this.dom = steps;
   }
 
-  public addItem (value: number): HTMLElement {
-    const itemStep = document.createElement('li');
-    itemStep.classList.add(`${styleClasses.STEP_ITEM}`);
-    itemStep.setAttribute('data-val', `${value}`);
-    itemStep.innerHTML = `${value}`;
-    this.dom.appendChild(itemStep);
-
-    return itemStep;
-  }
-
   public getItems (): NodeListOf<HTMLElement> {
     const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP} li`);
     return stepsList as NodeListOf<HTMLElement>;
@@ -37,35 +27,6 @@ class Step {
     this.settings = settings;
     this.updateStyles();
     this.renderSteps();
-  }
-
-  private updateStyles (): void {
-    const { isVertical } = this.settings;
-    const beforeOrient = !!isVertical;
-
-    if (beforeOrient) {
-      this.dom.classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
-      this.getItems().forEach((item) => {
-        item.classList.remove(`${styleClasses.STEP_ITEM}`);
-      });
-    } else {
-      this.dom.classList.remove(`${styleClasses.STEP_VERTICAL}`);
-      this.getItems().forEach((item) => {
-        item.classList.remove(`${styleClasses.STEP_ITEM}`);
-      });
-    }
-
-    if (isVertical) {
-      this.dom.classList.add(`${styleClasses.STEP_VERTICAL}`);
-      this.getItems().forEach((item) => {
-        item.classList.add(`${styleClasses.STEP_ITEM}`);
-      });
-    } else {
-      this.dom.classList.add(`${styleClasses.STEP_HORIZONTAL}`);
-      this.getItems().forEach((item) => {
-        item.classList.add(`${styleClasses.STEP_ITEM}`);
-      });
-    }
   }
 
   public renderSteps ():void {
@@ -143,6 +104,45 @@ class Step {
     }
 
     return [minValue, ...middleArr, maxValue];
+  }
+
+  private addItem (value: number): HTMLElement {
+    const itemStep = document.createElement('li');
+    itemStep.classList.add(`${styleClasses.STEP_ITEM}`);
+    itemStep.setAttribute('data-val', `${value}`);
+    itemStep.innerHTML = `${value}`;
+    this.dom.appendChild(itemStep);
+
+    return itemStep;
+  }
+
+  private updateStyles (): void {
+    const { isVertical } = this.settings;
+    const beforeOrient = !!isVertical;
+
+    if (beforeOrient) {
+      this.dom.classList.remove(`${styleClasses.STEP_HORIZONTAL}`);
+      this.getItems().forEach((item) => {
+        item.classList.remove(`${styleClasses.STEP_ITEM}`);
+      });
+    } else {
+      this.dom.classList.remove(`${styleClasses.STEP_VERTICAL}`);
+      this.getItems().forEach((item) => {
+        item.classList.remove(`${styleClasses.STEP_ITEM}`);
+      });
+    }
+
+    if (isVertical) {
+      this.dom.classList.add(`${styleClasses.STEP_VERTICAL}`);
+      this.getItems().forEach((item) => {
+        item.classList.add(`${styleClasses.STEP_ITEM}`);
+      });
+    } else {
+      this.dom.classList.add(`${styleClasses.STEP_HORIZONTAL}`);
+      this.getItems().forEach((item) => {
+        item.classList.add(`${styleClasses.STEP_ITEM}`);
+      });
+    }
   }
 
   private dom: HTMLElement;

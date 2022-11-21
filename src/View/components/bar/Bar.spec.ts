@@ -6,45 +6,64 @@ import defaultSettings from '../../../Model/defaultSettings';
 import styleClasses from '../../styleClasses';
 import Bar from './Bar';
 
-describe('Bar:', () => {
-    const bar = new Bar(defaultSettings);
+// фикс для распознования PointerEvent
+class MockPointerEvent {}
 
-    beforeEach(() => {
-        bar.updateState(defaultSettings);
+describe("Bar:", () => {
+  const bar = new Bar(defaultSettings);
+
+  /* Фикс получения размера DOM элемента */
+  Object.defineProperties(window.HTMLElement.prototype, {
+    offsetWidth: {
+      get () { return parseFloat(window.getComputedStyle(this).width) || 0; },
+    },
+  });
+
+  beforeEach(() => {
+    bar.updateState(defaultSettings);
+    global.window.PointerEvent = MockPointerEvent as any;
+  });
+
+  describe("updateState:", () => {
+    test("должен обновлять состояние бара", () => {
+      const newOptions: IValidSettings = {
+        ...defaultSettings,
+        ...{ isVertical: true },
+      };
+
+      bar.updateState(newOptions);
+
+      expect(
+        bar.getDom().classList.contains(`${styleClasses.BAR_VERTICAL}`),
+      ).toBeTruthy();
     });
+  });
 
-    describe('updateState:', () => {
-        test('должен обновлять состояние бара', () => {
-            const newOptions: IValidSettings = {
-                ...defaultSettings,
-                ...{ isVertical: true},
-            };
-
-            bar.updateState(newOptions);
-
-            expect(bar.getDom().classList.contains(`${styleClasses.BAR_VERTICAL}`)).toBeTruthy();
-        });
+  describe("getDom:", () => {
+    test("должен вернуть DOM бара", () => {
+      expect(bar.getDom()).toEqual(expect.any(HTMLDivElement));
     });
+  });
 
-    describe('getDom:', () => {
-        test('должен вернуть DOM бара', () => {
-            expect(bar.getDom()).toEqual(expect.any(HTMLDivElement));
-        });
+  describe("getLength:", () => {
+    test("должен вернуть длину бара", () => {
+      bar.getDom().style.width = '375px';
+
+      expect(bar.getLength()).toEqual(375);
     });
+  });
 
-    describe('getLength:', () => {
-        test('должен вернуть длину бара', () => {
-            const width = 175;
-
-            bar.getDom().setAttribute('style', `width: ${width}px; height: 50px;`);
-
-            expect(bar.getLength()).toEqual(width);
-        });
+  describe("getOffset:", () => {
+    test("должен вернуть отступ бара", () => {
+      expect(bar.getOffset()).toEqual(expect.any(Number));
     });
+  });
 
-    describe('getOffset:', () => {
-        test('должен вернуть отступ бара', () => {
-            expect(bar.getOffset()).toEqual(expect.any(Number));
-        });
+  describe("getValidatedCoords:", () => {
+    test("должен вернуть координаты относительно положения слайдера", () => {
+      const mockEvent = new PointerEvent('pointerdown')
+
+      expect(bar.getValidatedCoords(mockEvent)).toEqual(expect.any(Number));
     });
+  });
 });

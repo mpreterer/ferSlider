@@ -18,26 +18,9 @@ class Bar {
     this.dom = htmlBar;
   }
 
-  updateState (settings: IValidSettings): void {
+  public updateState (settings: IValidSettings): void {
     this.settings = settings;
     this.updateStyles();
-  }
-
-  updateStyles (): void {
-    const { isVertical } = this.settings;
-    const beforeOrient = !!isVertical;
-
-    if (beforeOrient) {
-      this.dom.classList.remove(`${styleClasses.BAR_HORIZONTAL}`);
-    } else {
-      this.dom.classList.remove(`${styleClasses.BAR_VERTICAL}`);
-    }
-
-    if (isVertical) {
-      this.dom.classList.add(`${styleClasses.BAR_VERTICAL}`);
-    } else {
-      this.dom.classList.add(`${styleClasses.BAR_HORIZONTAL}`);
-    }
   }
 
   public getLength (): number {
@@ -65,6 +48,23 @@ class Bar {
       : event[coords] - barOffset;
 
     return result;
+  }
+
+  private updateStyles (): void {
+    const { isVertical } = this.settings;
+    const beforeOrient = !!isVertical;
+
+    if (beforeOrient) {
+      this.dom.classList.remove(`${styleClasses.BAR_HORIZONTAL}`);
+    } else {
+      this.dom.classList.remove(`${styleClasses.BAR_VERTICAL}`);
+    }
+
+    if (isVertical) {
+      this.dom.classList.add(`${styleClasses.BAR_VERTICAL}`);
+    } else {
+      this.dom.classList.add(`${styleClasses.BAR_HORIZONTAL}`);
+    }
   }
 
   private dom: HTMLDivElement;
