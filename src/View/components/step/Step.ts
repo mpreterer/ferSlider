@@ -40,29 +40,13 @@ class Step {
       arrayItems.push(el);
     })
 
-    if (arrayItems.length === 5) {
-      let percent = 0;
-      values.map((item) => {
-        const domItem = this.addItem(Number(item.toFixed(2)));
-
-        if (percent > 75) {
-          percent = 100;
-        }
-
-        domItem.style[side] = `${percent}%`;
-        percent += 25;
-
-        return 0;
-      });
-    } else {
-      values.map((item) => {
-        const domItem = this.addItem(Number(item.toFixed(2)));
-        let percent = this.convertPercentValueTo(item);
-        if (percent >= 90 && percent < 100) percent = 85;
-        domItem.style[side] = `${percent}%`;
-        return 0;
-      });
-    }
+    values.map((item) => {
+      const domItem = this.addItem(Number(item.toFixed(2)));
+      let percent = this.convertPercentValueTo(item);
+      if (percent >= 90 && percent < 100) percent = 85;
+      domItem.style[side] = `${percent}%`;
+      return 0;
+    });
   }
 
   private convertPercentValueTo (val: number) {
