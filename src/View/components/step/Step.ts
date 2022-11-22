@@ -11,7 +11,7 @@ class Step {
     return this.dom;
   }
 
-  public getHTML ():void {
+  public getHTML (): void {
     const steps = document.createElement('ul');
     steps.classList.add(`${styleClasses.STEP}`);
 
@@ -29,21 +29,16 @@ class Step {
     this.renderSteps();
   }
 
-  public renderSteps ():void {
+  public renderSteps (): void {
     const { isVertical } = this.settings;
     const values = this.getStepsValue();
     const side = isVertical ? "top" : "left";
-    const arrayItems = [];
     this.dom.innerHTML = "";
-
-    values.forEach((el) => {
-      arrayItems.push(el);
-    })
 
     values.map((item) => {
       const domItem = this.addItem(Number(item.toFixed(2)));
-      let percent = this.convertPercentValueTo(item);
-      if (percent >= 90 && percent < 100) percent = 85;
+      const percent = this.convertPercentValueTo(item);
+      if (percent >= 90 && percent < 100) domItem.style.display = 'none';
       domItem.style[side] = `${percent}%`;
       return 0;
     });

@@ -29,7 +29,9 @@
   }
 }
 
-.j-fer-slider__step-item:hover {
-  background-color: #d7d7d7;
-  border-radius: 5px;
+.j-fer-slider__step-item {
+  &:hover {
+    background-color: #d7d7d7;
+    border-radius: 5px;
+  }
 }

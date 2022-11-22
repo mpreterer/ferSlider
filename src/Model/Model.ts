@@ -49,7 +49,9 @@ class Model extends Observer {
       valueWithStep,
       minValue,
       maxValue,
-    ).toFixed(quantitySymbols));
+    ));
+
+    if (quantitySymbols !== undefined) validValueWithStep.toFixed(quantitySymbols)
 
     if (isFrom) {
       const val = Model.getDiapason(
