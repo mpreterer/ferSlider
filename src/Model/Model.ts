@@ -45,13 +45,15 @@ class Model extends Observer {
     const valueWithStep = Model.getValueWithStep(bodyThumb.value, minValue, step);
     const quantitySymbols = step.toString().match(/\.(\d+)/)?.[1].length;
 
-    const validValueWithStep = Number(Model.getDiapason(
+    let validValueWithStep = Number(Model.getDiapason(
       valueWithStep,
       minValue,
       maxValue,
     ));
 
-    if (quantitySymbols !== undefined) validValueWithStep.toFixed(quantitySymbols)
+    if (quantitySymbols !== undefined) {
+      validValueWithStep = Number(validValueWithStep.toFixed(quantitySymbols));
+    }
 
     if (isFrom) {
       const val = Model.getDiapason(
