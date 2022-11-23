@@ -83,6 +83,23 @@ describe("Model:", () => {
       expect(UpdateValueSettings.valueFrom).toBe(10);
     });
 
+    test("Обновление значения с учётом знаков после запятой", () => {
+      const newSettings = {
+        ...defaultSettings,
+        ...{
+          step: 0.4,
+        },
+      }
+
+      model.updateSettings(newSettings);
+      const thumb: TUpdateThumb = { handle: "valueFrom", value: 72.2 };
+
+      model.updateValues(thumb);
+      const UpdateValueSettings = model.settings;
+
+      expect(UpdateValueSettings.valueFrom).toBe(72.4);
+    });
+
     test('должен обновлять текущее значение слайдера', () => {
       const newFrom:UpdateValues = { handle: 'valueFrom', value: 23 };
       const newTo:UpdateValues = { handle: 'valueTo', value: 25 };

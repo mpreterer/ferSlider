@@ -15,12 +15,25 @@ describe("Step:", () => {
 
   describe("updateState:", () => {
     test("должен обновлять состояние шкалы", () => {
-      const newOptions: IValidSettings = {
+      const newSettings: IValidSettings = {
         ...defaultSettings,
         ...{ isVertical: true },
       };
 
-      step.updateState(newOptions);
+      step.updateState(newSettings);
+
+      expect(
+        step.getDom().classList.contains(`${styleClasses.STEP_VERTICAL}`),
+      ).toBeTruthy();
+    });
+
+    test("должен обновлять состояние шкалы", () => {
+      const newSettings: IValidSettings = {
+        ...defaultSettings,
+        ...{ isVertical: true },
+      };
+
+      step.updateState(newSettings);
 
       expect(
         step.getDom().classList.contains(`${styleClasses.STEP_VERTICAL}`),

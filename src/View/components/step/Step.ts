@@ -19,7 +19,7 @@ class Step {
   }
 
   public getItems (): NodeListOf<HTMLElement> {
-    const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP} li`);
+    const stepsList = this.dom.querySelectorAll(`.${styleClasses.STEP}-item`);
     return stepsList as NodeListOf<HTMLElement>;
   }
 
@@ -38,7 +38,7 @@ class Step {
     values.map((item) => {
       const domItem = this.addItem(Number(item.toFixed(2)));
       const percent = this.convertPercentValueTo(item);
-      if (percent >= 90 && percent < 100) domItem.style.display = 'none';
+      if (percent >= 82 && percent < 100) domItem.style.display = 'none';
       domItem.style[side] = `${percent}%`;
       return 0;
     });
