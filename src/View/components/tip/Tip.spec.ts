@@ -1,10 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import IValidSettings from "../../../interfaces/IValidSettings";
-import defaultSettings from "../../../Model/defaultSettings";
-import styleClasses from "../../styleClasses";
-import Tip from "./Tip";
+import IValidSettings from '../../../interfaces/IValidSettings';
+import defaultSettings from '../../../Model/defaultSettings';
+import styleClasses from '../../styleClasses';
+import Tip from './Tip';
 
 describe("Tip:", () => {
   const tip = new Tip(defaultSettings);

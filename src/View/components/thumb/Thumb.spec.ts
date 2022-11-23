@@ -1,10 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import defaultSettings from "../../../Model/defaultSettings";
-import IValidSettings from "../../../interfaces/IValidSettings";
-import styleClasses from "../../styleClasses";
-import Thumb from "./Thumb";
+import IValidSettings from '../../../interfaces/IValidSettings';
+import defaultSettings from '../../../Model/defaultSettings';
+import styleClasses from '../../styleClasses';
+import Thumb from './Thumb';
 
 describe("Thumb:", () => {
   const thumb = new Thumb(defaultSettings);

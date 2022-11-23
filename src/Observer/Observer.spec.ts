@@ -1,6 +1,6 @@
 import defaultSettings from '../Model/defaultSettings';
-import Observer from './Observer';
 import { ObserverData } from './IObserver';
+import Observer from './Observer';
 
 describe('Observable:', () => {
   const observable = new Observer();
