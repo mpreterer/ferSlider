@@ -11,19 +11,12 @@ class Slider {
     return this.dom;
   }
 
-  private getHTML (): void {
-    const sliderHTML = document.createElement('div');
-    sliderHTML.classList.add(`${styleClasses.SLIDER}`);
-
-    this.dom = sliderHTML;
-  }
-
-  updateState (settings: IValidSettings) {
+  public updateState (settings: IValidSettings) {
     this.settings = settings;
     this.updateStyles();
   }
 
-  updateStyles (): void {
+  private updateStyles (): void {
     const { isVertical } = this.settings;
     this.dom.setAttribute("class", `${styleClasses.SLIDER}`);
 
@@ -32,6 +25,13 @@ class Slider {
     } else {
       this.dom.classList.add(`${styleClasses.SLIDER_HORIZONTAL}`);
     }
+  }
+
+  private getHTML (): void {
+    const sliderHTML = document.createElement('div');
+    sliderHTML.classList.add(`${styleClasses.SLIDER}`);
+
+    this.dom = sliderHTML;
   }
 
   private dom: HTMLDivElement;
