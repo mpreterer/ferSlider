@@ -51,6 +51,8 @@ class Model extends Observer {
       maxValue,
     ));
 
+    if (bodyThumb.value === maxValue) validValueWithStep = maxValue;
+
     if (quantitySymbols !== undefined) {
       validValueWithStep = Number(validValueWithStep.toFixed(quantitySymbols));
     }

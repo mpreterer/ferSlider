@@ -39,6 +39,8 @@ class Step {
       const domItem = this.addItem(Number(item.toFixed(2)));
       const percent = this.convertPercentValueTo(item);
       if (percent >= 82 && percent < 100) domItem.style.display = 'none';
+      if (isVertical && percent <= 15 && percent > 0) domItem.style.display = 'none';
+
       domItem.style[side] = `${percent}%`;
       return 0;
     });
