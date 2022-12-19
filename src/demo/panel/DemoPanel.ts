@@ -109,6 +109,8 @@ class DemoPanel {
         step: parseFloat(element.target.value),
       });
     }
+
+    this.components.step.value = String(this.slider.settings.step);
   }
 
   private handleChangeIsRange(element: Event) {

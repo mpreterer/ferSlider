@@ -125,8 +125,10 @@ class Model extends Observer {
     step: number,
   ): number {
     const maxStep = maxValue - minValue;
-    if (step > maxValue) return maxStep;
-    if (step <= 0) return 1;
+    const hasMoreZero = step > maxValue && maxValue > 0 && step > 0;
+
+    if (hasMoreZero) return maxStep;
+    if (step <= 0) return step * -1;
 
     return step;
   }
