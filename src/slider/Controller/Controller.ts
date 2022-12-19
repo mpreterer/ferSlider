@@ -36,7 +36,7 @@ class Controller extends Observer {
   private init () {
     this.model.subscribe('updateSettings', this.handleModelUpdateOptions);
     this.model.subscribe('updateValues', this.handleModelUpdateValues);
-    this.view.subscribe('onSlide', this.handleViewOnSlide);
+    this.view.subscribe('slide', this.handleViewSlide);
   }
 
   get settings (): IValidSettings {
@@ -56,7 +56,7 @@ class Controller extends Observer {
   }
 
   @bind
-  private handleViewOnSlide (value: TUpdateThumb) {
+  private handleViewSlide (value: TUpdateThumb) {
     this.model.updateValues(value);
   }
 }

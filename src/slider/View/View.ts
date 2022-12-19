@@ -305,7 +305,7 @@ class View extends Observer {
       const coords = this.components.bar.getValidatedCoords(event);
       const value = this.convertCoordsToValue(coords);
 
-      this.notify('onSlide', { handle: this.dragThumb, value });
+      this.notify('slide', { handle: this.dragThumb, value });
     }
   }
 
@@ -336,7 +336,7 @@ class View extends Observer {
         const value = Number(item.getAttribute("data-val"));
         const thumb = this.changePositionThumb(event);
 
-        this.notify('onSlide', { handle: thumb, value });
+        this.notify('slide', { handle: thumb, value });
       }
     });
   }
