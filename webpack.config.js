@@ -95,7 +95,7 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new HtmlWebpackPlugin({
-      template: './demo/index.pug',
+      template: './src/demo/index.pug',
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin({

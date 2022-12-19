@@ -1,5 +1,5 @@
-import { TDOMParents } from '../../src/interfaces/types';
-import FerSlider from '../../src/View/FerSlider';
+import { TDOMParents } from '../../slider/interfaces/types';
+import FerSlider from '../../slider/View/FerSlider';
 import DemoPanel from './DemoPanel';
 
 /// <reference path="./utils/typings/globals/IJQueryPanel.d.ts" />

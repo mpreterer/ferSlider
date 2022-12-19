@@ -1,4 +1,4 @@
-import IModelSettings from '../../../../../src/range/interfaces/IModelSettings';
+import IModelSettings from '../../../../../slider/interfaces/IModelSettings';
 import DemoPanel from '../../../DemoPanel';
 
 declare global {

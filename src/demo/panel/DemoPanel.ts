@@ -1,8 +1,8 @@
 import { bind } from 'decko';
 
-import IValidSettings from '../../src/interfaces/IValidSettings';
-import { TDOMParents, UpdateValues } from '../../src/interfaces/types';
-import FerSlider from '../../src/View/FerSlider';
+import IValidSettings from '../../slider/interfaces/IValidSettings';
+import { TDOMParents, UpdateValues } from '../../slider/interfaces/types';
+import FerSlider from '../../slider/View/FerSlider';
 import IComponents from './utils/interfaces/IComponents';
 import tplPanel from './utils/tplPanel';
 
