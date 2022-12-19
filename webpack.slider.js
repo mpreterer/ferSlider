@@ -8,7 +8,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
   mode: 'development',
   devtool: false,
-  entry: './src/index.ts',
+  entry: './src/slider/index.ts',
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),

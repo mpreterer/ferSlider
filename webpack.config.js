@@ -12,7 +12,7 @@ const isProd = !isDev;
 
 module.exports = {
   mode: 'development',
-  entry: './demo/index.ts',
+  entry: './src/demo/index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'demo-build'),
