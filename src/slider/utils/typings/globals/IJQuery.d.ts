@@ -1,5 +1,5 @@
 import IModelSettings from '../../../interfaces/IModelSettings';
-import FerSlider from '../../../View/FerSlider';
+import FerSlider from '../../../FerSlider';
 
 declare global {
   interface JQuery {
