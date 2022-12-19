@@ -60,6 +60,7 @@ class DemoPanel {
     }
 
     this.components.maxValue.value = String(this.slider.settings.maxValue);
+    this.components.minValue.value = String(this.slider.settings.minValue);
   }
 
   private handleChangeMaxValue (element: Event) {

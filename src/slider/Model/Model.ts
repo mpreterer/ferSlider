@@ -156,11 +156,7 @@ class Model extends Observer {
     minValue: number,
     maxValue: number,
   ): { minValue: number; maxValue: number } {
-    let checkValue = minValue > maxValue ? maxValue : minValue;
-
-    if (minValue === maxValue) {
-      checkValue = minValue - 1;
-    }
+    const checkValue = minValue >= maxValue ? maxValue - 1 : minValue;
 
     return { minValue: checkValue, maxValue };
   }
