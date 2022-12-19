@@ -58,6 +58,8 @@ class DemoPanel {
         minValue: parseFloat(element.target.value),
       });
     }
+
+    this.components.maxValue.value = String(this.slider.settings.maxValue);
   }
 
   private handleChangeMaxValue (element: Event) {
@@ -66,6 +68,8 @@ class DemoPanel {
         maxValue: parseFloat(element.target.value),
       });
     }
+
+    this.components.minValue.value = String(this.slider.settings.minValue);
   }
 
   private handleChangeValueFrom(element: Event) {

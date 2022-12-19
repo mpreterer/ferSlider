@@ -125,9 +125,8 @@ class Model extends Observer {
     step: number,
   ): number {
     const maxStep = maxValue - minValue;
-
     if (step > maxValue) return maxStep;
-    if (step <= 0) return maxStep;
+    if (step <= 0) return 1;
 
     return step;
   }
@@ -149,6 +148,7 @@ class Model extends Observer {
 
   static getValueWithStep (value: number, minValue: number, step: number) {
     const valueWithStep = Math.round((value - minValue) / step) * step + minValue;
+
     return valueWithStep;
   }
 
@@ -156,7 +156,11 @@ class Model extends Observer {
     minValue: number,
     maxValue: number,
   ): { minValue: number; maxValue: number } {
-    const checkValue = minValue > maxValue ? maxValue : minValue;
+    let checkValue = minValue > maxValue ? maxValue : minValue;
+
+    if (minValue === maxValue) {
+      checkValue = minValue - 1;
+    }
 
     return { minValue: checkValue, maxValue };
   }
@@ -192,8 +196,14 @@ class Model extends Observer {
 
     this.modelSettings.minValue = validatedMiddle.minValue;
     this.modelSettings.maxValue = validatedMiddle.maxValue;
+
     this.getValidCurrentValue(valueFrom, valueTo);
-    this.modelSettings.step = Model.getValidStep(minValue, maxValue, step);
+
+    this.modelSettings.step = Model.getValidStep(
+      validatedMiddle.minValue,
+      validatedMiddle.maxValue,
+      step,
+    );
 
     if (hasSettings) {
       this.notify('updateSettings', this.modelSettings);
