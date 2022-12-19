@@ -1,6 +1,8 @@
-.container__wrapper {
-  width: 100%;
-  margin: 0 auto;
+.container {
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 .preview {

@@ -1,18 +1,20 @@
-.j-fer-slider__range {
-  position: absolute;
-  background: #00ffc8;
-  border-radius: 5px;
+.j-fer-slider {
+  &__range {
+    position: absolute;
+    background: #00ffc8;
+    border-radius: 5px;
 
-  &_horizontal {
-    right: 0%;
-    left: 0%;
-    height: 100%;
-  }
+    &_horizontal {
+      right: 0%;
+      left: 0%;
+      height: 100%;
+    }
 
-  &_vertical {
-    top: 0%;
-    bottom: 0%;
-    width: 100%;
-    height: auto;
+    &_vertical {
+      top: 0%;
+      bottom: 0%;
+      width: 100%;
+      height: auto;
+    }
   }
 }
