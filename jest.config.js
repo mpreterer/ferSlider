@@ -16,12 +16,13 @@ module.exports = {
     ],
     collectCoverageFrom: [
       "src/**/*.ts",
-      "!src/utils/typings/globals/IJQuery.d.ts",
-      "!src/index.ts",
-      "!src/interfaces/*.ts",
-      "!src/Model/defaultSettings.ts",
-      "!src/View/FerSlider.ts",
-      "!src/Controller/Controller.ts",
+      "!src/demo/**/*.ts",
+      "!src/slider/utils/typings/globals/IJQuery.d.ts",
+      "!src/slider/index.ts",
+      "!src/slider/interfaces/*.ts",
+      "!src/slider/Model/defaultSettings.ts",
+      "!src/slider/View/FerSlider.ts",
+      "!src/slider/Controller/Controller.ts",
     ],
     moduleNameMapper: {
       "\\.(css|scss|sass)$": "identity-obj-proxy"
