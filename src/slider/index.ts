@@ -1,9 +1,9 @@
 /// <reference path="./utils/typings/globals/IJQuery.d.ts" />
 import './styleRange.scss';
 
+import FerSlider from './FerSlider';
 import IModelSettings from './interfaces/IModelSettings';
 import { TDOMParents } from './interfaces/types';
-import FerSlider from './FerSlider';
 
 (function init ($) {
   const jquery = $;
