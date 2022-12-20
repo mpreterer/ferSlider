@@ -68,12 +68,9 @@ class View extends Observer {
       components.slider.getDom().appendChild(components.bar.getDom());
     }
 
-    if (isStep) {
-      components.steps.renderSteps();
-    }
-
     if (isRenderStep) {
       components.slider.getDom().appendChild(components.steps.getDom());
+      components.steps.renderSteps();
     }
 
     if (removeStep) {
