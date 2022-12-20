@@ -1,3 +1,5 @@
+import { bind } from 'decko';
+
 import IUnitComponents from '../interfaces/IUnitComponents';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
@@ -285,7 +287,7 @@ class View extends Observer {
     }
   }
 
-  // @bind
+  @bind
   private handlePointerDownBar (event: PointerEvent) {
     this.dragThumb = this.changePositionThumb(event);
 
@@ -297,7 +299,7 @@ class View extends Observer {
     }
   }
 
-  // @bind
+  @bind
   private handlePointerMoveWindow (event: PointerEvent) {
     if (this.dragThumb) {
       const coords = this.components.bar.getValidatedCoords(event);
@@ -307,7 +309,7 @@ class View extends Observer {
     }
   }
 
-  // @bind
+  @bind
   private handlePointerUpWindow () {
     if (this.dragThumb) {
       window.removeEventListener("pointermove", this.handlePointerMoveWindow);
@@ -317,7 +319,7 @@ class View extends Observer {
     }
   }
 
-  // @bind
+  @bind
   private initThumbsListeners () {
     window.removeEventListener("pointermove", this.handlePointerMoveWindow);
     window.removeEventListener("pointerup", this.handlePointerUpWindow);
@@ -327,7 +329,7 @@ class View extends Observer {
       .addEventListener("pointerdown", this.handlePointerDownSteps);
   }
 
-  // @bind
+  @bind
   private handlePointerDownSteps (event: PointerEvent) {
     this.components.steps.getItems().forEach((item) => {
       if (event.target === item) {

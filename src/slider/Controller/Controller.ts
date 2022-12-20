@@ -1,3 +1,5 @@
+import { bind } from 'decko';
+
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
 import { TDOMParents, TUpdateThumb } from '../interfaces/types';
@@ -41,16 +43,19 @@ class Controller extends Observer {
     return this.model.settings;
   }
 
+  @bind
   private handleModelUpdateOptions (settings: IValidSettings) {
     this.view.updateSettings(settings);
     this.notify('updateSettings', settings);
   }
 
+  @bind
   private handleModelUpdateValues (value: TUpdateThumb) {
     this.view.updateValues(value);
     this.notify('updateValues', value);
   }
 
+  @bind
   private handleViewSlide (value: TUpdateThumb) {
     this.model.updateValues(value);
   }
