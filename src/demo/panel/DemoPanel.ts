@@ -1,5 +1,3 @@
-import { bind } from 'decko';
-
 import IValidSettings from '../../slider/interfaces/IValidSettings';
 import { TDOMParents, UpdateValues } from '../../slider/interfaces/types';
 import FerSlider from '../../slider/FerSlider';
@@ -220,7 +218,7 @@ class DemoPanel {
     }
   }
 
-  @bind
+  // @bind
   private changeSettings(settings: IValidSettings): void {
     const {
       minValue,

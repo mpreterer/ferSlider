@@ -74,7 +74,6 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
-    "decko": "^1.2.0",
     "jquery": "^3.6.0"
   }
 }
