@@ -59,10 +59,10 @@ class View extends Observer {
     const isRenderRange = isBarRange && !hasRange;
     const isRenderTips = isTip && !hasTip;
 
-    const removeStep = !isStep && hasStep;
-    const removeToThumb = !isRange && hasToThumb;
-    const removeRange = !isBarRange && hasRange;
-    const removeTips = !isTip && hasTip;
+    const isRemoveStep = !isStep && hasStep;
+    const isRemoveToThumb = !isRange && hasToThumb;
+    const isRemoveRange = !isBarRange && hasRange;
+    const isRemoveTips = !isTip && hasTip;
 
     if (!hasBar) {
       components.slider.getDom().appendChild(components.bar.getDom());
@@ -73,7 +73,7 @@ class View extends Observer {
       components.steps.renderSteps();
     }
 
-    if (removeStep) {
+    if (isRemoveStep) {
       components.slider.getDom().removeChild(components.steps.getDom());
     }
 
@@ -87,7 +87,7 @@ class View extends Observer {
       components.bar.getDom().appendChild(components.valueFrom.thumb.getDom());
     }
 
-    if (removeToThumb) {
+    if (isRemoveToThumb) {
       components.bar.getDom().removeChild(components.valueTo.thumb.getDom());
     }
 
@@ -95,7 +95,7 @@ class View extends Observer {
       components.bar.getDom().appendChild(components.range.getDom());
     }
 
-    if (removeRange) {
+    if (isRemoveRange) {
       components.bar.getDom().removeChild(components.range.getDom());
     }
 
@@ -104,7 +104,7 @@ class View extends Observer {
       components.valueTo.thumb.getDom().appendChild(components.valueTo.tip.getDom());
     }
 
-    if (removeTips) {
+    if (isRemoveTips) {
       components.valueFrom.thumb.getDom().removeChild(components.valueFrom.tip.getDom());
       components.valueTo.thumb.getDom().removeChild(components.valueTo.tip.getDom());
     }
