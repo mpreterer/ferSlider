@@ -53,6 +53,7 @@ class DemoPanel {
   }
 
   private handleChangeMinValue (element: Event) {
+
     if (element.target instanceof HTMLInputElement) {
       this.slider.updateSettings({
         minValue: parseFloat(element.target.value),

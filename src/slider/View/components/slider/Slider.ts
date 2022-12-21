@@ -4,7 +4,7 @@ import styleClasses from '../../styleClasses';
 class Slider {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLDivElement {
@@ -27,7 +27,7 @@ class Slider {
     }
   }
 
-  private getHTML (): void {
+  private createDom (): void {
     const sliderHTML = document.createElement('div');
     sliderHTML.classList.add(`${styleClasses.SLIDER}`);
 

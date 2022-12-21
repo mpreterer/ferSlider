@@ -4,14 +4,14 @@ import styleClasses from '../../styleClasses';
 class Step {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLElement {
     return this.dom;
   }
 
-  public getHTML (): void {
+  public createDom (): void {
     const steps = document.createElement('ul');
     steps.classList.add(`${styleClasses.STEP}`);
 

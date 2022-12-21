@@ -4,14 +4,14 @@ import styleClasses from '../../styleClasses';
 class Bar {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLDivElement {
     return this.dom;
   }
 
-  public getHTML (): void {
+  public createDom (): void {
     const htmlBar = document.createElement('div');
     htmlBar.classList.add(`${styleClasses.BAR}`);
 

@@ -4,14 +4,14 @@ import styleClasses from '../../styleClasses';
 class Tip {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLDivElement {
     return this.dom;
   }
 
-  public getHTML (): void {
+  public createDom (): void {
     const tipHTML = document.createElement('div');
     tipHTML.classList.add(`${styleClasses.TIP}`);
 

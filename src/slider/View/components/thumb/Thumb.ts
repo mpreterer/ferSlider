@@ -4,7 +4,7 @@ import styleClasses from '../../styleClasses';
 class Thumb {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLDivElement {
@@ -36,7 +36,7 @@ class Thumb {
     }
   }
 
-  public getHTML (): void {
+  public createDom (): void {
     const thumbHTML = document.createElement('div');
     thumbHTML.classList.add(`${styleClasses.THUMB}`);
 

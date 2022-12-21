@@ -4,14 +4,14 @@ import styleClasses from '../../styleClasses';
 class Range {
   constructor (settings: IValidSettings) {
     this.settings = settings;
-    this.getHTML();
+    this.createDom();
   }
 
   public getDom (): HTMLDivElement {
     return this.dom;
   }
 
-  public getHTML (): void {
+  public createDom (): void {
     const htmlRange = document.createElement('div');
     htmlRange.classList.add(`${styleClasses.RANGE}`);
 
