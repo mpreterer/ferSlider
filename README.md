@@ -77,9 +77,9 @@
 import "./index.js";
 import $ from "jquery";
 ```
-2) С помощью jQuery выбрать нужный элемент-контейнер и вызвать на нем функцию ferSlider:
+2) С помощью jQuery выбрать нужный элемент-контейнер и вызвать на нем функцию FerSlider:
 ```
-$('.sliderContainer').ferSlider({settings});
+$('.sliderContainer').FerSlider({settings});
 ```
 В settings можно добавить нужные настройки
 
@@ -140,7 +140,7 @@ dataSlider.subscribe('updateSettings', (settings) => {
 
 * **Observer** Является наблюдаемым объектом. На него можно подписаться, отписаться, либо уведомить тех кто подписан об изменениях. С помощью Observer, Model уведомляет, что он изменился. Так же как и View уведомляет, что он изменился.
 
-* **ferSlider** Является JQuery обёрткой Controller'а. Необходим для подключения плагина.
+* **FerSlider** Является JQuery обёрткой Controller'а. Необходим для подключения плагина.
 
 * **Range, Bar, Step, Thumb, Tip** Это компоненты слайдера.
 
