@@ -1,8 +1,11 @@
 import '../slider';
 import '../slider/styleRange.scss';
-import './options.scss';
 import './panel';
 import './panel/panel.scss';
+import './panel/blocks/buttons/buttons.scss';
+import './panel/blocks/input-fields/input-fields.scss';
+import './panel/blocks/panel-options/panel-options.scss';
+
 
 const sliderContainer1 = {
   containerSlider: $(".js-container__slider-1"),

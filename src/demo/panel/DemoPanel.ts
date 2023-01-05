@@ -4,7 +4,6 @@ import FerSlider from '../../slider/FerSlider';
 import IValidSettings from '../../slider/interfaces/IValidSettings';
 import { TDOMParents, UpdateValues } from '../../slider/interfaces/types';
 import IComponents from './utils/interfaces/IComponents';
-import tplPanel from './utils/tplPanel';
 
 class DemoPanel {
   constructor(domParent: TDOMParents, slider: FerSlider) {
@@ -21,9 +20,7 @@ class DemoPanel {
   private modelSettings: IValidSettings;
 
   private render(): void {
-    const panel = document.createElement("div");
-    panel.classList.add("options");
-    panel.innerHTML = tplPanel;
+    const panel = this.domParent;
 
     this.components = {
       minValue: panel.querySelector(".js-panel__min-input")!,
@@ -40,7 +37,6 @@ class DemoPanel {
     };
 
     this.components.valueTo.disabled;
-    this.domParent.appendChild(panel);
     this.changeSettings(this.modelSettings);
 
     this.slider.subscribe('updateValues', ({ handle, value }:UpdateValues) => {

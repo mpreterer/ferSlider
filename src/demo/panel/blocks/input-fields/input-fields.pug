@@ -1,0 +1,17 @@
+mixin input-fields({}={})
+  .input-fields
+    .input-fields__section
+      span.input-fields__caption Minimum:
+      input.js-panel__min-input(type="number" name="min")
+    .input-fields__section
+      span.input-fields__caption Maximum:
+      input.js-panel__max-input(type="number" name="max")
+    .input-fields__section
+      span.input-fields__caption from: 
+      input.js-panel__from-input(type = "number" maxlength="5" size="6" name="from")
+    .input-fields__section
+      span.input-fields__caption to:
+      input.js-panel__to-input(type = "number" maxlength="5" size="6" name="to")
+    .input-fields__section
+      span.input-fields__caption step:
+      input.js-panel__step-input(type="number" class="valueSteps" name="step")

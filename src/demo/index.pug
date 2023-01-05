@@ -1,4 +1,6 @@
 extends head.pug
+include panel/blocks/panel-options/panel-options.pug
+
 
 block sliders
   .container__wrapper
@@ -6,11 +8,14 @@ block sliders
       p.preview__title Default mode:
       .preview__container-slider.js-container__slider-1
       .preview__container-panel.js-container__panel-1
+        +panel-options
     .preview.slider-3.js-slider-3
       p.preview__title Vertical mode:
       .preview__container-slider.js-container__slider-3
       .preview__container-panel.js-container__panel-3
+        +panel-options
     .preview.slider-2.js-slider-2
       p.preview__title Double Range mode:
       .preview__container-slider.js-container__slider-2
       .preview__container-panel.js-container__panel-2
+        +panel-options

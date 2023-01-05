@@ -1,0 +1,35 @@
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 7px auto;
+
+  &__caption {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 216px;
+    height: 70px;
+    margin-left: 3px;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000c;
+    border-radius: 4px;
+    box-shadow: 4px 4px 4px #00000040;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+.buttons {
+  flex-wrap: wrap;
+
+  &__section {
+    margin: 0 auto;
+  }
+ }
+}
