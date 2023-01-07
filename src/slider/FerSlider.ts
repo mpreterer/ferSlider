@@ -4,8 +4,8 @@ import IValidSettings from './interfaces/IValidSettings';
 import { SliderEvents, TDOMParents, TUpdateThumb } from './interfaces/types';
 
 class FerSlider {
-  constructor (domParent: TDOMParents, settings: IModelSettings) {
-    this.controller = new Controller(domParent, settings as IValidSettings);
+  constructor (domParent: TDOMParents, settings: IValidSettings) {
+    this.controller = new Controller(domParent, settings);
   }
 
   public updateValues (thumb: TUpdateThumb) {

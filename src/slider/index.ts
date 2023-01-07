@@ -2,12 +2,12 @@
 import './styleRange.scss';
 
 import FerSlider from './FerSlider';
-import IModelSettings from './interfaces/IModelSettings';
 import { TDOMParents } from './interfaces/types';
+import IValidSettings from './interfaces/IValidSettings';
 
 (function init ($) {
   const jquery = $;
-  jquery.fn.FerSlider = function createDOM (settings: IModelSettings) {
+  jquery.fn.FerSlider = function createDOM (settings: IValidSettings) {
     const domParent: TDOMParents = this[0];
     const range = new FerSlider(domParent, settings);
 
