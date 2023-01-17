@@ -30,10 +30,10 @@ class DemoPanel {
       step: panel.querySelector(".js-panel__step-input")!,
       horizontal: panel.querySelector(".js-panel__horizontal-input")!,
       vertical: panel.querySelector(".js-panel__vertical-input")!,
-      isRange: panel.querySelector(".js-panel__isRange-input")!,
-      isTip: panel.querySelector(".js-panel__isTip-input")!,
-      isStep: panel.querySelector(".js-panel__isStep-input")!,
-      isBarRange: panel.querySelector(".js-panel__isBarRange-input")!,
+      isRange: panel.querySelector(".js-panel__range")!,
+      isTip: panel.querySelector(".js-panel__tip")!,
+      isStep: panel.querySelector(".js-panel__step-input")!,
+      isBarRange: panel.querySelector(".js-panel__bar-range")!,
     };
 
     this.components.valueTo.disabled;

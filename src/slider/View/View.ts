@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { bind } from 'decko';
 
 import IUnitComponents from '../interfaces/IUnitComponents';
@@ -311,7 +312,7 @@ class View extends Observer {
     if (this.dragThumb) {
       window.removeEventListener("pointermove", this.handlePointerMoveWindow);
       window.removeEventListener("pointerup", this.handlePointerUpWindow);
-
+      console.log(this)
       this.dragThumb = null;
     }
   }
