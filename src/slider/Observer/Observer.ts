@@ -1,15 +1,15 @@
-import { IObservers, ObserverData } from './IObserver';
+import { FunctionSignature1, FunctionSignature2, IObservers } from './IObserver';
 
 class Observer {
   constructor () {
     this.observers = [];
   }
 
-  public subscribe (event: string, fun: Function): void {
+  public subscribe (event: string, fun: FunctionSignature1 | FunctionSignature2): void {
     this.observers.push({ event, fun });
   }
 
-  public unsubscribe (event: string, fun: Function): void {
+  public unsubscribe (event: string, fun: FunctionSignature1 | FunctionSignature2): void {
     this.observers = this.observers.filter((item) => {
       const current = item.fun === fun && item.event === event;
 
@@ -17,8 +17,9 @@ class Observer {
       return false;
     });
   }
-
-  public notify (event: string, data: ObserverData): void {
+  // тут было IValidSettings | UpdateValues Нужно заменить any
+  public notify (event: string, data: any): void {
+    console.log(data)
     this.observers.forEach((subscriber) => {
       if (subscriber.event === event) {
         subscriber.fun(data);
