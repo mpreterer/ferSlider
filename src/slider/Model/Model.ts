@@ -1,5 +1,5 @@
 import IValidSettings from '../interfaces/IValidSettings';
-import { TUpdateThumb } from '../interfaces/types';
+import { EventList, TUpdateThumb } from '../interfaces/types';
 import Observer from '../Observer/Observer';
 import defaultSettings from './defaultSettings';
 
@@ -67,12 +67,12 @@ class Model extends Observer {
       this.modelSettings.valueTo = valueTo;
       bodyThumb.value = val;
 
-      this.notify('updateValues',
+      this.notify(EventList.updateValues,
         {
           handle: 'valueFrom',
           value: val,
         });
-      this.notify('updateValues',
+      this.notify(EventList.updateValues,
         {
           handle: 'valueTo',
           value: valueTo,
@@ -89,12 +89,12 @@ class Model extends Observer {
       this.modelSettings.valueTo = val;
 
       bodyThumb.value = val;
-      this.notify('updateValues',
+      this.notify(EventList.updateValues,
         {
           handle: 'valueFrom',
           value: valueFrom,
         });
-      this.notify('updateValues',
+      this.notify(EventList.updateValues,
         {
           handle: 'valueTo',
           value: val,
@@ -105,7 +105,7 @@ class Model extends Observer {
       this.modelSettings.valueFrom = validValueWithStep;
       bodyThumb.value = validValueWithStep;
 
-      this.notify('updateValues',
+      this.notify(EventList.updateValues,
         {
           handle: 'valueFrom',
           value: validValueWithStep,
@@ -204,7 +204,7 @@ class Model extends Observer {
     );
 
     if (hasSettings) {
-      this.notify('updateSettings', this.modelSettings);
+      this.notify(EventList.updateSettings, this.modelSettings);
     }
   }
 

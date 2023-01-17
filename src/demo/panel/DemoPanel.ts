@@ -2,7 +2,7 @@ import { bind } from 'decko';
 
 import FerSlider from '../../slider/FerSlider';
 import IValidSettings from '../../slider/interfaces/IValidSettings';
-import { TDOMParents, UpdateValues } from '../../slider/interfaces/types';
+import { EventList, TDOMParents, UpdateValues } from '../../slider/interfaces/types';
 import IComponents from './utils/interfaces/IComponents';
 
 class DemoPanel {
@@ -39,7 +39,7 @@ class DemoPanel {
     this.components.valueTo.disabled;
     this.changeSettings(this.modelSettings);
 
-    this.slider.subscribe('updateValues', ({ handle, value }:UpdateValues) => {
+    this.slider.subscribe(EventList.updateValues, ({ handle, value }: UpdateValues) => {
       if (handle === 'valueFrom') {
         this.components.valueFrom.value = String(value);
       } else {

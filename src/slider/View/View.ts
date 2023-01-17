@@ -2,7 +2,7 @@ import { bind } from 'decko';
 
 import IUnitComponents from '../interfaces/IUnitComponents';
 import IValidSettings from '../interfaces/IValidSettings';
-import { TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
+import { EventList, TDOMParents, THandles, TUpdateThumb } from '../interfaces/types';
 import Observer from '../Observer/Observer';
 import Bar from './components/bar/Bar';
 import Range from './components/range/Range';
@@ -302,7 +302,7 @@ class View extends Observer {
       const coords = this.components.bar.getValidatedCoords(event);
       const value = this.convertCoordsToValue(coords);
 
-      this.notify('slide', { handle: this.dragThumb, value });
+      this.notify(EventList.slide, { handle: this.dragThumb, value });
     }
   }
 
@@ -333,7 +333,7 @@ class View extends Observer {
         const value = Number(item.getAttribute("data-val"));
         const thumb = this.changePositionThumb(event);
 
-        this.notify('slide', { handle: thumb, value });
+        this.notify(EventList.slide, { handle: thumb, value });
       }
     });
   }

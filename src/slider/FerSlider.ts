@@ -2,6 +2,7 @@ import Controller from './Controller/Controller';
 import IModelSettings from './interfaces/IModelSettings';
 import IValidSettings from './interfaces/IValidSettings';
 import { SliderEvents, TDOMParents, TUpdateThumb } from './interfaces/types';
+import { FunctionSignature1, FunctionSignature2 } from './Observer/IObserver';
 
 class FerSlider {
   constructor (domParent: TDOMParents, settings: IModelSettings) {
@@ -16,11 +17,11 @@ class FerSlider {
     this.controller.updateSettings(settings);
   }
 
-  public subscribe (event: SliderEvents, fun: Function): void {
+  public subscribe (event: SliderEvents, fun: FunctionSignature1 | FunctionSignature2): void {
     this.controller.subscribe(event, fun);
   }
 
-  public unsubscribe (event: SliderEvents, fun: Function): void {
+  public unsubscribe (event: SliderEvents, fun: FunctionSignature1 | FunctionSignature2): void {
     this.controller.unsubscribe(event, fun);
   }
 

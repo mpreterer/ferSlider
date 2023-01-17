@@ -2,7 +2,7 @@ import { bind } from 'decko';
 
 import IModelSettings from '../interfaces/IModelSettings';
 import IValidSettings from '../interfaces/IValidSettings';
-import { TDOMParents, TUpdateThumb } from '../interfaces/types';
+import { EventList, TDOMParents, TUpdateThumb } from '../interfaces/types';
 import Model from '../Model/Model';
 import Observer from '../Observer/Observer';
 import View from '../View/View';
@@ -34,9 +34,9 @@ class Controller extends Observer {
   private view: View;
 
   private init () {
-    this.model.subscribe('updateSettings', this.handleModelUpdateOptions);
-    this.model.subscribe('updateValues', this.handleModelUpdateValues);
-    this.view.subscribe('slide', this.handleViewSlide);
+    this.model.subscribe(EventList.updateSettings, this.handleModelUpdateOptions);
+    this.model.subscribe(EventList.updateValues, this.handleModelUpdateValues);
+    this.view.subscribe(EventList.slide, this.handleViewSlide);
   }
 
   get settings (): IValidSettings {
@@ -46,13 +46,13 @@ class Controller extends Observer {
   @bind
   private handleModelUpdateOptions (settings: IValidSettings) {
     this.view.updateSettings(settings);
-    this.notify('updateSettings', settings);
+    this.notify(EventList.updateSettings, settings);
   }
 
   @bind
   private handleModelUpdateValues (value: TUpdateThumb) {
     this.view.updateValues(value);
-    this.notify('updateValues', value);
+    this.notify(EventList.updateValues, value);
   }
 
   @bind

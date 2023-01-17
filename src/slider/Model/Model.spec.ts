@@ -1,5 +1,5 @@
 import IValidSettings from '../interfaces/IValidSettings';
-import { TUpdateThumb, UpdateValues } from '../interfaces/types';
+import { EventList, TUpdateThumb, UpdateValues } from '../interfaces/types';
 import defaultSettings from './defaultSettings';
 import Model from './Model';
 
@@ -123,7 +123,7 @@ describe("Model:", () => {
       event currentValueChanged 
       об обновлении thumb`, () => {
       const subscriber = jest.fn();
-      model.subscribe('updateValues', subscriber);
+      model.subscribe(EventList.updateValues, subscriber);
 
       const thumb: TUpdateThumb = { handle: "valueFrom", value: 65 };
       model.updateValues(thumb);
